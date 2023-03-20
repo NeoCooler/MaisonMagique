@@ -1,0 +1,2 @@
+# MaisonMagique
+Home Assistant
