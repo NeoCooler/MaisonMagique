@@ -6,9 +6,8 @@
 * [Technologies](#technologies)
 * [Screenshots](#screenshots)
 * [To do](#to-do)
-* [Usage](#usage)
-* [Status du Projet](#status-du-projet)
 * [Remerciements](#remerciements)
+* [Status du Projet](#status-du-projet)
 * [Contact](#contact)
 
 ## Informations
