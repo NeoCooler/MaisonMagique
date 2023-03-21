@@ -1,0 +1,291 @@
+    default:
+      - entity: weather.maison
+      - moon: sensor.moon
+
+    card:
+      type: custom:button-card
+      template:
+        - police
+      show_icon: false
+      show_name: false
+      show_state: false
+      show_label: false
+      show_entity_picture: false
+      card_mod:
+        style: |
+          ha-card {
+            background: none;
+            box-shadow: none;
+            border-color: none;
+            margin-bottom: -1em;
+          }
+      styles:
+        card:
+          - padding: 8px 5px 8px 5px
+          - font-size: 100%
+          - white-space: normal
+          - height: auto
+          - line-height: 125%
+          - font-size: 13px
+        grid:
+          - grid-template-areas: '"icon_meteo meteo vent" "icon_meteo alerte lune"'
+          - grid-template-columns: min-content auto
+          - grid-template-rows: min-content min-content
+          - gap: 0%
+          - overflow: hidden
+        custom_fields:
+          icon_meteo:
+            - padding: 0px 0px 0px 5px
+            - text-align: left
+          meteo:
+            - padding: 0px 0px 0px 0px
+            - font-weight: null
+            - font-size: 15px
+            - color: var(--text_on_sidebar)
+            - text-align: left
+            - white-space: normal
+          alerte:
+            - padding: 2px 5px 2px 5px
+            - font-weight: null
+            - font-size: 12px
+            - color: |
+                [[[
+                  if (states['sensor.weather_alerte_lvl'].state == "1; Green; Minor")
+                      return 'var(--custom-icon-color-green)'
+                  if (states['sensor.weather_alerte_lvl'].state == "2; yellow; Moderate")
+                    return 'var(--custom-icon-color-yellow)'
+                  if (states['sensor.weather_alerte_lvl'].state == "3; orange; Severe")
+                    return 'var(--custom-icon-color-orange)'
+                  if (states['sensor.weather_alerte_lvl'].state == "4; red; High")
+                    return 'var(--custom-icon-color-red)'
+                  return ''
+                ]]]
+            - text-align: left
+            - white-space: normal
+          
+          vent:
+            - padding: 0px 0px 0px 0px
+            - font-weight: null
+            - font-size: 12px
+            - color: var(--text_on_sidebar)
+            - text-align: right
+            - white-space: normal
+            
+          lune:
+            - padding: 0px 0px 0px 0px
+            - font-weight: null
+            - font-size: 12px
+            - color: var(--text_on_sidebar)
+            - text-align: right
+            - white-space: normal
+      custom_fields:
+      
+        icon_meteo:
+          card:
+            type: "custom:button-card"
+            show_icon: true
+            show_name: false
+            show_state: false
+            show_label: false
+            show_entity_picture: true
+            card_mod:
+              style: |
+                ha-card {
+                  background: none;
+                  box-shadow: none;
+                  font-family: Quicksand;
+                  margin-bottom: -0.9em;
+                }
+            styles:
+              img_cell:
+                - border-radius: 60%
+                - width: 80px
+                - height: 80px
+                - top: -10px
+                - left: 0%
+                - background-color: transparent
+                - color: transparent
+                - border-color: transparent
+                - box-shadow: transparent
+              entity_picture:
+                - width: 90%
+            entity_picture: >
+              [[[
+                var state = states['[[entity]]'].state;
+                var sun = (states['sun.sun'].state);
+                var icon = "/local/weather/icones animes/clear-day.svg";
+                if (state == "sunny" && sun == "above_horizon")
+                  icon = "/local/weather/icones animes/clear-day.svg"
+                else if (state == "lightning-rainy" && sun == "above_horizon")
+                  icon = "/local/weather/icones animes/thunderstorms-day-rain.svg"
+                else if (state == "fog" && sun == "above_horizon")
+                  icon = "/local/weather/icones animes/fog-day.svg"
+                else if (state == "partlycloudy" && sun == "above_horizon")
+                  icon = "/local/weather/icones animes/partly-cloudy-day.svg"
+                else if (state == "rainy" && sun == "above_horizon")
+                  icon = "/local/weather/icones animes/partly-cloudy-day-rain.svg"
+                else if (state == "lightning" && sun == "above_horizon")
+                  icon = "/local/weather/icones animes/thunderstorms-day.svg"
+                else if (state == "sunny" && sun == "below_horizon")
+                  icon = "/local/weather/icones animes/clear-night.svg"
+                else if (state == "lightning-rainy" && sun == "below_horizon")
+                  icon = "/local/weather/icones animes/thunderstorms-night-rain.svg"
+                else if (state == "fog" && sun == "below_horizon")
+                  icon = "/local/weather/icones animes/fog-night.svg"
+                else if (state == "partlycloudy" && sun == "below_horizon")
+                  icon = "/local/weather/icones animes/partly-cloudy-night.svg"
+                else if (state == "rainy" && sun == "below_horizon")
+                  icon = "/local/weather/icones animes/partly-cloudy-night-rain.svg"
+                else if (state == "lightning" && sun == "below_horizon")
+                  icon = "/local/weather/icones animes/thunderstorms-night.svg"
+                else if (state == "clear-night")
+                  icon = "/local/weather/icones animes/clear-night.svg"
+                else if (state == "sleet")
+                  icon = "/local/weather/icones animes/sleet.svg"
+                else if (state == "pouring")
+                  icon = "/local/weather/icones animes/umbrella.svg"
+                else if (state == "snowy-rainy")
+                  icon = "/local/weather/icones animes/sleet.svg"
+                else if (state == "snow")
+                  icon = "/local/weather/icones animes/snow.svg"
+                else if (state == "snowy")
+                  icon = "/local/weather/icones animes/snow.svg"
+                else if (state == "cloudy")
+                  icon = "/local/weather/icones animes/cloudy.svg"
+                else if (state == "wind")
+                  icon = "/local/weather/icones animes/wind.svg"
+                else if (state == "hail")
+                  icon = "/local/weather/icones animes/hail.svg"
+                return icon;
+              ]]]
+
+        
+        meteo: >
+          [[[ 
+            return states['sensor.weather_conditions'].state + " • " + states['sensor.weather_temperature'].state
+          ]]]
+        
+        vent:
+          card:
+            type: "custom:button-card"
+            show_icon: true
+            show_name: true
+            show_state: false
+            show_label: false
+            show_entity_picture: true
+            card_mod:
+              style: |
+                ha-card {
+                  background: none;
+                  box-shadow: none;
+                  margin-bottom: -0.9em;
+                }
+            styles:
+              grid:
+                - grid-template-areas: '"i n" "i s" "i l" '
+                - grid-template-columns: min-content auto
+                - grid-template-rows: min-content min-content min-content
+              img_cell:
+                - border-radius: 60%
+                - width: 40px
+                - height: 40px
+                - top: -10px
+                - left: 0%
+                - background-color: transparent
+                - color: transparent
+                - border-color: transparent
+                - box-shadow: transparent
+              entity_picture:
+                - width: 90%
+              name:
+                - color: rgba(232,233,242,1)
+                - align-self: end
+                - justify-self: start
+                - text-align: left
+                - font-weight: bold
+                - font-size: 12px
+                - margin-left: 9px
+
+            entity_picture: >
+              [[[
+                var icon = "/local/weather/icones animes/wind.svg";
+                return icon;
+              ]]]
+
+            name: >
+              [[[ return states['sensor.weather_vent'].state ]]]
+        
+        alerte: |
+          [[[
+            if (states['binary_sensor.meteoalarm'].state == "off" ) 
+              return ""
+            return "Vigilance "+states['sensor.weather_alarm_type_fr'].state
+          ]]]
+
+        lune:
+          card:
+            type: "custom:button-card"
+            show_icon: true
+            show_name: true
+            show_state: false
+            show_label: false
+            show_entity_picture: true
+            card_mod:
+              style: |
+                ha-card {
+                  background: none;
+                  box-shadow: none;
+                  margin-bottom: -0.9em;
+                }
+            styles:
+              grid:
+                - grid-template-areas: '"i n" "i s" "i l" '
+                - grid-template-columns: min-content auto
+                - grid-template-rows: min-content min-content min-content
+              img_cell:
+                - border-radius: 60%
+                - width: 40px
+                - height: 40px
+                - top: -10px
+                - right: 0%
+                - background-color: transparent
+                - color: transparent
+                - border-color: transparent
+                - box-shadow: transparent
+              entity_picture:
+                - width: 90%
+              name:
+                - color: rgba(232,233,242,1)
+                - align-self: end
+                - justify-self: start
+                - text-align: left
+                - font-weight: bold
+                - font-size: 12px
+                - margin-left: 9px
+            entity_picture: >
+              [[[
+                var state = states['[[moon]]'].state;
+                var icon = "/local/weather/icones animes/clear-day.svg";
+                if (state == "first_quarter")
+                  icon = "/local/weather/icones animes/moon-first-quarter.svg"
+                else if (state == "full_moon")
+                  icon = "/local/weather/icones animes/moon-full.svg"
+                else if (state == "last_quarter")
+                  icon = "/local/weather/icones animes/moon-last-quarter.svg"
+                else if (state == "new_moon")
+                  icon = "/local/weather/icones animes/moon-new.svg"
+                else if (state == "waning_crescent")
+                  icon = "/local/weather/icones animes/moon-waning-crescent.svg"
+                else if (state == "waning_gibbous")
+                  icon = "/local/weather/icones animes/moon-waning-gibbous.svg"
+                else if (state == "waxing_crescent")
+                  icon = "/local/weather/icones animes/moon-waxing-crescent.svg"
+                else if (state == "waxing_gibbous")
+                  icon = "/local/weather/icones animes/moon-waxing-gibbous.svg"
+                return icon;
+              ]]]
+            name: >
+              [[[ return states['sensor.weather_lune'].state ]]]
+      tap_action:
+        action: navigate
+        navigation_path: /lovelace/Meteo

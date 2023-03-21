@@ -1,0 +1,344 @@
+    default:
+      - entity: climate.salon
+
+    card:
+      type: custom:button-card
+      template:
+        - police
+        - style
+      show_icon: true
+      show_name: true
+      show_state: false
+      show_label: true
+      show_entity_picture: true
+      styles:
+        grid:
+          - grid-template-areas: '"i n" "i s" "i l" '
+          - grid-template-columns: min-content auto
+          - grid-template-rows: min-content min-content min-content
+        img_cell:
+          - background-color: var(--mm-darkblue)
+          - border-radius: 50%
+          - place-self: start
+          - text-align: start
+          - width: 35px
+          - height: 35px
+        icon:
+          - width: 55%
+          - transition: 1s ease
+          - color: >
+              [[[
+                var color = "var(--mm-grey)";
+                var state = (states['[[entity]]'].attributes.hvac_action);
+                if (state == "off")
+                  color = "var(--mm-grey)"
+                else if (state == "idle")
+                  color = "var(--mm-blue)"
+                else if (state == "heating")
+                  color = "var(--mm-orange)"
+                  
+                return color;
+              ]]]
+        name:
+          - color: var(--mm-silver)
+          - align-self: end
+          - justify-self: start
+          - text-align: left
+          - font-weight: bold
+          - font-size: 12px
+          - margin-left: 9px
+        label:
+          - white-space: normal
+          - color: var(--mm-lightgrey)
+          - justify-self: start
+          - align-self: start
+          - text-align: left
+          - font-weight: null
+          - font-size: 12px
+          - filter: opacity(90%)
+          - margin-left: 9px
+          - margin-bottom: 2px
+          - line-height: 110%
+        card:
+          - background-color: >
+              [[[
+                var color = "var(--mm-null)";
+                var state = (states['[[entity]]'].attributes.hvac_action);
+                if (state == "off")
+                  color = "var(--mm-null)"
+                else if (state == "idle")
+                  color = "var(--mm-blue)"
+                else if (state == "heating")
+                  color = "var(--mm-orange)"
+                  
+                return color;
+              ]]]
+          - animation: ball-scale 0.2s
+          - padding: 8px 5px 8px 5px
+          - font-size: 100%
+          - white-space: normal
+          - height: 120px
+          - box-shadow: >
+              [[[
+                var color = "-2px -2px 4px 0 var(--mm-darkblue),4px 4px 8px 0 rgba(0,0,0,.03)";
+                var state = (states['[[entity]]'].attributes.hvac_action);
+                if (state == "off")
+                  color = "-2px -2px 4px 0 var(--mm-darkblue),4px 4px 8px 0 rgba(0,0,0,.03)"
+                else if (state == "idle")
+                  color = "inset -4px -4px 8px 0 var(--mm-blue), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
+                else if (state == "heating")
+                  color = "inset -4px -4px 8px 0 var(--mm-orange), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
+                  
+                return color;
+              ]]]
+        custom_fields:
+          commandes:
+            - position: absolute
+            - top: 45%
+            - left: 50%
+            - width: calc(95% + 1px)
+            - transform: translate(-50%, calc(-50% + 10px))
+            - '--ha-card-border-width': 0px
+          bouton:
+            - position: absolute
+            - top: 75%
+            - left: 50%
+            - width: calc(90% + 1px)
+            - transform: translate(-50%, calc(-50% + 10px))
+            - '--ha-card-border-width': 0px
+      state:
+        - value: "unavailable"
+          styles:
+            card:
+              - border-color: var(--mm-red)
+              - opacity: 100%
+            icon:
+              - color: var(--mm-red)
+              - animation: blink 0.8s ease infinite
+              - transition: 1s ease
+            name:
+              - color: var(--mm-red)
+            label:
+              - color: var(--mm-red)
+            state:
+              - color: var(--mm-red)
+      name: |
+          [[[
+            return  (states['[[entity]]'].attributes.friendly_name)
+          ]]]
+      entity: '[[entity]]'
+      icon: >
+        [[[
+          var icon = "mdi:thermostat";
+          var state = entity.state;
+          if( state == "cool" )
+            icon = "mdi:snowflake"
+          else if( state == "heat" )
+            icon = "mdi:fire"
+          return icon;
+        ]]]
+      label: >
+        [[[
+          var temp = (states['[[entity]]'].attributes.current_temperature);
+          var preset = (states['[[entity]]'].attributes.preset_mode);
+          var state = (states['[[entity]]'].attributes.hvac_action);
+          if (preset == "home")
+            preset = "Présent"
+          else if (preset == "sleep")
+            preset = "Nuit"
+          else if (preset == "comfort")
+            preset = "Confort"
+          else if (preset == "away")
+            preset = "Absent"
+            
+          if (state == "off")
+            state = "Arrêt"
+          else if (state == "idle")
+            state = "Inactif"
+          else if (state == "heating")
+            state = "Chauffe"
+            
+          return temp + " • " + preset + " • " + state;
+        ]]]
+      custom_fields:
+        commandes:
+          card:
+            type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                icon: mdi:arrow-left
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - height: 27px
+                    - padding: 02px
+                    - line-height: 77%
+                    - background: var(--mm-null)
+                  icon:
+                    - color: var(--mm-silver)
+                tap_action:
+                  action: call-service
+                  service: climate.set_temperature
+                  service_data:
+                    entity_id: '[[entity]]'
+                    temperature: "[[[ return entity.attributes.temperature - entity.attributes.target_temp_step ]]]"
+
+              - type: custom:button-card
+                entity: '[[entity]]'
+                name: "[[[ return entity.attributes.temperature + '°' ]]]"
+                show_name: true
+                show_state: false
+                show_label: false
+                show_icon: false
+                color_type: card
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - height: 27px
+                    - padding: 02px
+                    - line-height: 77%
+                    - background: var(--mm-null)
+                  name:
+                    - color: >
+                        [[[
+                          var temp = (states['[[entity]]'].attributes.current_temperature);
+                          var color = "var(--mm-silver)";
+                          if (temp <= "18")
+                            color = "var(--mm-blue)"
+                          if (temp > "24")
+                            color = "var(--mm-orange)"
+                          return color;
+                        ]]]
+                    - padding-bottom: 0px
+                tap_action: "none"
+
+              - type: custom:button-card
+                icon: mdi:arrow-right
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - height: 27px
+                    - padding: 02px
+                    - line-height: 77%
+                    - background: var(--mm-null)
+                  icon:
+                    - color: var(--mm-silver)
+                tap_action:
+                  action: call-service
+                  service: climate.set_temperature
+                  service_data:
+                    entity_id: '[[entity]]'
+                    temperature: "[[[ return entity.attributes.temperature + entity.attributes.target_temp_step ]]]"
+                
+        bouton:
+          card:
+            type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                icon: mdi:fire
+                styles:
+                  icon:
+                    - color: >
+                        [[[
+                          var color = "var(--mm-grey)";
+                          var preset = (states['[[entity]]'].attributes.preset_mode);
+                          if (preset == "home")
+                            color = "var(--mm-green)"
+                          else if (preset == "sleep")
+                            color = "var(--mm-grey)"
+                          else if (preset == "comfort")
+                            color = "var(--mm-grey)"
+                          else if (preset == "away")
+                            color = "var(--mm-grey)"
+                            
+                          return color;
+                        ]]]
+                tap_action:
+                  action: call-service
+                  service: climate.set_preset_mode
+                  service_data:
+                    entity_id: '[[entity]]'
+                    preset_mode: home
+
+              - type: custom:button-card
+                icon: mdi:snowflake
+                styles:
+                  icon:
+                    - color: >
+                        [[[
+                          var color = "var(--mm-grey)";
+                          var preset = (states['[[entity]]'].attributes.preset_mode);
+                          if (preset == "home")
+                            color = "var(--mm-grey)"
+                          else if (preset == "sleep")
+                            color = "var(--mm-green)"
+                          else if (preset == "comfort")
+                            color = "var(--mm-grey)"
+                          else if (preset == "away")
+                            color = "var(--mm-grey)"
+                            
+                          return color;
+                        ]]]
+                tap_action:
+                  action: call-service
+                  service: climate.set_preset_mode
+                  service_data:
+                    entity_id: '[[entity]]'
+                    preset_mode: sleep
+
+              - type: custom:button-card
+                icon: mdi:sofa
+                styles:
+                  icon:
+                    - color: >
+                        [[[
+                          var color = "var(--mm-grey)";
+                          var preset = (states['[[entity]]'].attributes.preset_mode);
+                          if (preset == "home")
+                            color = "var(--mm-grey)"
+                          else if (preset == "sleep")
+                            color = "var(--mm-grey)"
+                          else if (preset == "comfort")
+                            color = "var(--mm-green)"
+                          else if (preset == "away")
+                            color = "var(--mm-grey)"
+                            
+                          return color;
+                        ]]]
+                tap_action:
+                  action: call-service
+                  service: climate.set_preset_mode
+                  service_data:
+                    entity_id: '[[entity]]'
+                    preset_mode: comfort
+
+              - type: custom:button-card
+                icon: mdi:exit-run
+                styles:
+                  icon:
+                    - color: >
+                        [[[
+                          var color = "var(--mm-grey)";
+                          var preset = (states['[[entity]]'].attributes.preset_mode);
+                          if (preset == "home")
+                            color = "var(--mm-grey)"
+                          else if (preset == "sleep")
+                            color = "var(--mm-grey)"
+                          else if (preset == "comfort")
+                            color = "var(--mm-grey)"
+                          else if (preset == "away")
+                            color = "var(--mm-green)"
+                            
+                          return color;
+                        ]]]
+                tap_action:
+                  action: call-service
+                  service: climate.set_preset_mode
+                  service_data:
+                    entity_id: '[[entity]]'
+                    preset_mode: away
+
+      tap_action:
+        action: toggle
+      double_tap_action:
+        action: more-info

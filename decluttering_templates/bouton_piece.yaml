@@ -1,0 +1,53 @@
+    # default:
+      # - entity: media_player.enceinte_cave
+      # - icon_on: speaker-play
+      # - icon_off: speaker-off
+      # - bouton_type: blank-card
+
+    card:
+      type: custom:button-card
+      entity: '[[entity]]'
+      color_type: '[[bouton_type]]'
+      icon: |
+        [[[
+            if (states['[[entity]]'].state == 'on' || states['[[entity]]'].state == 'playing' || states['[[entity]]'].state == 'home')
+            return 'mdi:[[icon_on]]';
+            return 'mdi:[[icon_off]]';
+        ]]]
+      show_name: false
+      show_state: false
+      show_label: false
+      show_icon: true
+      styles:
+        card:
+          - border-radius: 8px
+          - height: 27px
+          - padding: 02px
+          - line-height: 77%
+          - background: var(--mm-null)
+        icon:
+          - color: var(--mm-grey)
+          - width: 16px
+          - padding-bottom: 0px
+      state:
+        - value: 'on'
+          styles:
+            icon:
+              - color: var(--mm-lightgrey)
+        - value: home
+          styles:
+            icon:
+              - color: var(--mm-lightgrey)
+        - value: playing
+          styles:
+            icon:
+              - color: var(--mm-lightgrey)
+        - value: unavailable
+          styles:
+            icon:
+              - color: var(--mm-red)
+              - animation: blink 0.8s ease infinite
+      tap_action:
+        action: none
+      double_tap_action:
+        action: none

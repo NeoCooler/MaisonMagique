@@ -1,0 +1,81 @@
+    default:
+      - color_on: var(--mm-blue)
+      - back_on: var(--mm-blue)
+      - border_on: var(--mm-blue)
+      - color_off: var(--mm-grey)
+      - back_off: var(--mm-null)
+      - border_off: var(--mm-null)
+
+    card:
+      type: custom:button-card
+      template:
+        - police
+        - style
+      show_name: false
+      show_label: true
+      show_icon: true
+      styles:
+        grid:
+          - grid-template-areas: '"i l" '
+        card:
+          - border-color: |
+              [[[
+                if (states['[[entity]]'].state == 0)
+                  return "[[border_off]]" ;
+                return "[[border_on]]";
+              ]]]
+          - height: 32px
+          - width: 55px
+          - padding-right: 07px
+          - padding-left: 03px
+          - border-radius: 15px
+          - background-color: |
+              [[[
+                if (states['[[entity]]'].state == 0)
+                  return "[[back_off]]" ;
+                return "[[back_on]]";
+              ]]]
+          # - box-shadow: |
+              # [[[
+                # if (entity.state != '0')
+                  # return "inset -4px -4px 8px 0 var(--mm-blue), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
+                # return "-2px -2px 4px 0 var(--mm-blue),4px 4px 8px 0 rgba(0,0,0,.03)"
+              # ]]]
+        img_cell:
+          - background-color: transparent
+          - border-radius: 50%
+          - width: 25px
+          - height: 25px
+        icon:
+          - width: 18px
+          - color: |
+              [[[
+                if (states['[[entity]]'].state == 0)
+                  return "[[color_off]]" ;
+                return "[[color_on]]";
+              ]]]
+        entity_picture:
+          - width: 90%
+        label:
+          - font-size: 11px
+          - font-weight: bold
+          - margin-left: 1px
+          - padding-top: 03px
+      entity: '[[entity]]'
+      icon: |
+        [[[
+          if (states['[[entity]]'].state == 0)
+            return "[[icon_off]]" 
+          return "[[icon_on]]"
+        ]]]
+      label: |
+        [[[
+          return states['[[entity]]'].state
+        ]]]
+      tap_action:
+        action: navigate
+        navigation_path: /lovelace/[[nav_path]]
+      double_tap_action:
+        action: none
+        
+

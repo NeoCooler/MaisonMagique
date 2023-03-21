@@ -1,0 +1,818 @@
+    default:
+      - entity: weather.maison
+      - moon: sensor.moon
+      - temp_rdc: sensor.temp_moyenne_rdc
+      - temp_eta: sensor.temp_moyenne_etage
+      - air_aqi: sensor.air_quality_index
+
+    card:
+      type: custom:button-card
+      template:
+        - police
+        - style
+      show_icon: false
+      show_name: false
+      show_state: false
+      show_label: false
+      show_entity_picture: false
+      styles:
+        card:
+          - background-color: >
+              [[[
+                var color = "var(--custom-card-color-null)";
+                return color;
+              ]]]
+          - '-webkit-tap-highlight-color': rgba(0,0,0,0)
+          - padding: 8px 5px 8px 5px
+          - font-size: 100%
+          - white-space: normal
+          - height: auto
+          - box-shadow: >
+              [[[
+                var color = "none";
+                return color;
+              ]]]
+          - line-height: 125%
+          - font-size: 13px
+        grid:
+          - grid-template-areas: |
+              "meteo"
+              
+              "circle"
+              
+              "titre_maison"
+              "reveil_android"
+              "reveil_gh"
+              "mouvement"
+              "porte"
+              "lumiere"
+              "app_connectes"
+              
+              "titre_calendrier"
+              "anniv"
+              "calendrier_chris"
+              "calendrier_jess"
+              "calendrier_angel"
+              "calendrier_chris_travail"
+              "calendrier_ecole"
+              
+              "titre_poubelle"
+              "poubellescartons"
+              "poubellespmc"
+              "poubellesbioresi"
+              
+              "titre_savoir"
+              "savoir"
+              
+              "titre_avertissement"
+              "device_hs"
+              
+              "boutons"
+              "titre_maj"
+              "maj"
+          - grid-template-columns: 1fr
+          - grid-template-rows: >-
+              min-content min-content min-content min-content  min-content 
+              min-content  min-content  min-content  min-content  min-content 
+              min-content  min-content   min-content  min-content  min-content
+              min-content  min-content  min-content  min-content  min-content 
+              min-content 1fr
+          - gap: 0%
+          - overflow: hidden
+        custom_fields:
+
+          meteo:
+            - padding: 0px 0px 0px 0px
+            - align-self: middle
+            - width: 100%
+            - '--ha-card-border-width': 0px
+          circle:
+            - padding: 03px 0px 5px 0px
+            # - align-self: middle
+            # - width: 100%
+            # - '--ha-card-border-width': 0px
+          titre_maison:
+            - font-style: italic
+            - font-size: 12px
+            - padding: 0px 0px 03px 0px
+            - font-weight: bold
+            - justifiy-self: start
+            - text-align: left
+            - color: var(--text_on_sidebar)
+            - white-space: normal
+          reveil_android:
+            - border-left: 2px var(--mm-purple) solid
+            - white-space: normal
+            - text-align: left
+            - padding: 0px 0px 0px 08px
+            - justifiy-self: start
+            - color: |
+                [[[
+                  if (states['sensor.chris_reveil'].state == "unavailable" && states['sensor.jess_reveil'].state == "unavailable" && states['sensor.angel_reveil'].state == "unavailable")
+                    return 'red';
+                  return 'var(--text_on_info_sidebar)';
+                ]]]
+          reveil_gh:
+            - border-left: 2px var(--mm-purple) solid
+            - white-space: normal
+            - text-align: left
+            - padding: 0px 0px 0px 08px
+            - justifiy-self: start
+            - color: |
+                [[[
+                  if (states['sensor.ch_parents_reveil'].state == "unavailable" && states['sensor.ch_angel_reveil'].state == "unavailable")
+                    return 'red';
+                  return 'var(--text_on_info_sidebar)';
+                ]]]
+          mouvement:
+            - border-left: 2px var(--mm-purple) solid
+            - padding: 0px 0px 0px 08px
+            - justifiy-self: start
+            - text-align: left
+            - color: |
+                [[[
+                  if (states['binary_sensor.mouvements'].state == 'off')
+                    return 'var(--text_off_sidebar)';
+                  return 'var(--text_on_info_sidebar)';
+                ]]]
+            - white-space: normal
+          porte:
+            - border-left: 2px var(--mm-purple) solid
+            - padding: 0px 0px 0px 08px
+            - justifiy-self: start
+            - text-align: left
+            - color: |
+                [[[
+                  if (states['binary_sensor.portes'].state == 'off')
+                    return 'var(--text_off_sidebar)';
+                  return 'var(--text_on_info_sidebar)';
+                ]]]
+            - white-space: normal
+          lumiere:
+            - border-left: 2px var(--mm-purple) solid
+            - padding: 0px 0px 0px 08px
+            - justifiy-self: start
+            - color: |
+                [[[
+                  if (states['light.tout'].state == 'off')
+                    return 'var(--text_off_sidebar)';
+                  return 'var(--text_on_info_sidebar)';
+                ]]]
+            - white-space: normal
+            - text-align: left
+          app_connectes:
+            - border-left: 2px var(--mm-purple) solid
+            - padding: 0px 0px 0px 08px
+            - justifiy-self: start
+            - text-align: left
+            - color: var(--text_on_info_sidebar)
+            - white-space: normal
+          titre_calendrier:
+            - padding: |
+                [[[
+                  if (states['sensor.anniversaire'].state == 'Aucun' && states['sensor.calendar_chris'].state == "Aucun évènement" && states['sensor.calendar_jess'].state == "Aucun évènement" && states['sensor.calendar_angel'].state == "Aucun évènement" && states['sensor.calendar_travail_chris'].state == "Aucun évènement" && states['sensor.calendar_ecole'].state == "Aucun évènement")
+                    return "0px" ;
+                  return "15px 0px 01px 0px" 
+                ]]]
+            - font-weight: bold
+            - font-style: italic
+            - font-size: 12px
+            - justifiy-self: start
+            - text-align: left
+            - color: var(--text_on_sidebar)
+            - white-space: normal
+          anniv:
+            - border-left: 2px var(--mm-green) solid
+            - padding: 0px 0px 0px 0px
+            - padding-left: 8px
+            - justifiy-self: start
+            - text-align: left
+            - color: var(--text_on_info_sidebar)
+            - white-space: normal
+          calendrier_chris:
+            - border-left: 2px var(--mm-green) solid
+            - padding: 0px 0px 0px 0px
+            - padding-left: 8px
+            - color: |
+                [[[
+                  if (states['sensor.calendar_chris'].state == 'Aucun évènement')
+                    return 'var(--text_off_sidebar)';
+                  return 'var(--text_on_info_sidebar)';
+                ]]]
+            - justifiy-self: start
+            - text-align: left
+            - white-space: normal
+          calendrier_jess:
+            - border-left: 2px var(--mm-green) solid
+            - padding: 0px 0px 0px 0px
+            - padding-left: 8px
+            - color: |
+                [[[
+                  if (states['sensor.calendar_jess'].state == 'Aucun évènement')
+                    return 'var(--text_off_sidebar)';
+                  return 'var(--text_on_info_sidebar)';
+                ]]]
+            - justifiy-self: start
+            - text-align: left
+            - white-space: normal
+          calendrier_angel:
+            - border-left: 2px var(--mm-green) solid
+            - padding: 0px 0px 0px 0px
+            - padding-left: 8px
+            - color: |
+                [[[
+                  if (states['sensor.calendar_angel'].state == 'Aucun évènement')
+                    return 'var(--text_off_sidebar)';
+                  return 'var(--text_on_info_sidebar)';
+                ]]]
+            - justifiy-self: start
+            - text-align: left
+            - white-space: normal
+          calendrier_chris_travail:
+            - border-left: 2px var(--mm-green) solid
+            - padding: 0px 0px 0px 0px
+            - padding-left: 8px
+            - color: |
+                [[[
+                  if (states['sensor.calendar_travail_chris'].state == 'Aucun évènement')
+                    return 'var(--text_off_sidebar)';
+                  return 'var(--text_on_info_sidebar)';
+                ]]]
+            - justifiy-self: start
+            - text-align: left
+            - white-space: normal
+          calendrier_ecole:
+            - border-left: 2px var(--mm-green) solid
+            - padding: 0px 0px 0px 0px
+            - padding-left: 8px
+            - color: |
+                [[[
+                  if (states['sensor.calendar_ecole'].state == 'Aucun évènement')
+                    return 'var(--text_off_sidebar)';
+                  return 'var(--text_on_info_sidebar)';
+                ]]]
+            - justifiy-self: start
+            - text-align: left
+            - white-space: normal
+
+          titre_poubelle:
+            - padding: |
+                [[[
+                  if (states['sensor.poubelles_cartons'].state == "unavailable" && states['sensor.poubelles_cartons'].attributes.days == "None" && states['sensor.poubelles_cartons'].attributes.days != "2" && states['sensor.poubelles_cartons'].attributes.days != "1" &&
+                      states['sensor.poubelles_pmc'].state == "unavailable" && states['sensor.poubelles_pmc'].attributes.days == "None" && states['sensor.poubelles_pmc'].attributes.days != "2" && states['sensor.poubelles_pmc'].attributes.days != "1" &&
+                      states['sensor.poubelles_biodegradable'].state == "unavailable" && states['sensor.poubelles_biodegradable'].attributes.days == "None" && states['sensor.poubelles_biodegradable'].attributes.days != "2" && states['sensor.poubelles_biodegradable'].attributes.days != "1")
+                    return "0px" ;
+                  return "15px 0px 01px 0px" 
+                ]]]
+            - font-weight: bold
+            - font-style: italic
+            - font-size: 12px
+            - justifiy-self: start
+            - text-align: left
+            - color: var(--text_on_sidebar)
+            - white-space: normal
+          poubellescartons:
+            - border-left: 2px var(--mm-orange) solid
+            - padding: 0px 0px 0px 0px
+            - padding-left: 8px
+            - color: |
+                [[[
+                  if (states['sensor.poubelles_cartons'].attributes.days == "None")
+                    return 'var(--text_off_sidebar)';
+                  return 'var(--text_on_info_sidebar)';
+                ]]]
+            - justifiy-self: start
+            - text-align: left
+            - white-space: normal
+          poubellespmc:
+            - border-left: 2px var(--mm-orange) solid
+            - padding: 0px 0px 0px 0px
+            - padding-left: 8px
+            - color: |
+                [[[
+                  if (states['sensor.poubelles_pmc'].attributes.days == "None")
+                    return 'var(--text_off_sidebar)';
+                  return 'var(--text_on_info_sidebar)';
+                ]]]
+            - justifiy-self: start
+            - text-align: left
+            - white-space: normal
+          poubellesbioresi:
+            - border-left: 2px var(--mm-orange) solid
+            - padding: 0px 0px 0px 0px
+            - padding-left: 8px
+            - color: |
+                [[[
+                  if (states['sensor.poubelles_biodegradable'].attributes.days == "None")
+                    return 'var(--text_off_sidebar)';
+                  return 'var(--text_on_info_sidebar)';
+                ]]]
+            - justifiy-self: start
+            - text-align: left
+            - white-space: normal
+
+          titre_savoir:
+            - padding: |
+                [[[
+                  if (states['input_boolean.sidecar_show_info'].state == 'off')
+                    return "0px" ;
+                  return "15px 0px 01px 0px" 
+                ]]]
+            - font-weight: bold
+            - justifiy-self: start
+            - text-align: left
+            - color: var(--text_on_sidebar)
+            - white-space: normal
+          savoir:
+            - border-left: 2px var(--mm-grey) solid
+            - padding: 0px 0px 0px 08px
+            - justifiy-self: start
+            - text-align: left
+            - color: var(--text_on_info_sidebar)
+            - white-space: normal
+
+          titre_avertissement:
+            - font-style: italic
+            - font-size: 12px
+            - padding: |
+                [[[
+                  if (states['sensor.systeme_avertissement'].state == '' )
+                    return "0px 0px 0px 0px" ;
+                  return "15px 0px 03px 0px" ;
+                ]]]
+            - font-weight: bold
+            - justifiy-self: start
+            - text-align: left
+            - color: red
+            - white-space: normal
+          device_hs:
+            - border-left: 2px var(--mm-red) solid
+            - padding: |
+                [[[
+                  if (states['sensor.systeme_avertissement'].state == '')
+                    return "0px 0px 0px 0px" ;
+                  return "0px 0px 0px 08px" ;
+                ]]]
+            - justifiy-self: start
+            - color: red
+            - white-space: normal
+            - text-align: left
+
+          boutons:
+            - padding: 15px 0px 0px 0px
+            - align-self: middle
+            - white-space: normal
+            - width: calc(100% + 1px)
+            - '--ha-card-border-width': 0px
+          titre_maj:
+            - font-size: 12px
+            - padding: |
+                [[[
+                  if (states['input_boolean.sidecar_show_maj'].state == 'off')
+                    return "0px" ;
+                  return "15px 0px 03px 0px" 
+                ]]]
+            - font-weight: bold
+            - font-style: italic
+            - justifiy-self: start
+            - text-align: left
+            - color: var(--text_on_sidebar)
+            - white-space: normal
+          maj:
+            - border-left: 2px var(--mm-blue) solid
+            - padding: 0px 0px 0px 08px
+            - justifiy-self: start
+            - text-align: left
+            - color: |
+                [[[
+                  if (states['sensor.maj'].state == 'Aucune')
+                    return "var(--text_off)" ;
+                  return "var(--text_on_info_sidebar)" 
+                ]]]
+            - white-space: normal
+
+      entity: '[[entity]]'
+
+      custom_fields:
+
+        meteo:
+          card:
+            type: custom:decluttering-card
+            template: carte_meteo
+
+        circle:
+          card:
+            type: horizontal-stack
+            cards:
+
+              - type: custom:decluttering-card
+                template: info_temp
+                variables:
+                  - name: RDC
+                  - entity: sensor.temp_moyenne_rdc
+
+              - type: custom:button-card
+                color_type: blank-card
+
+              - type: custom:decluttering-card
+                template: info_temp
+                variables:
+                  - name: Etage
+                  - entity: sensor.temp_moyenne_etage
+
+              - type: custom:button-card
+                color_type: blank-card
+
+              - type: custom:button-card
+                color_type: blank-card
+
+              - type: custom:button-card
+                color_type: blank-card
+
+              # - type: custom:decluttering-card
+                # template: info_temp
+                # variables:
+                  # - name: Air
+                  # - entity: sensor.qualite_air_pourcentage
+
+        titre_maison: |
+          [[[ return "Maison" 
+          ]]]
+        reveil_android: |
+          [[[
+            if (states['sensor.reveil_android'].state == "" && states['input_boolean.sidecar_show_reveils'].state == 'off')
+              return ""
+            if (states['sensor.chris_reveil'].state == "Grasse mat !" && states['sensor.jess_reveil'].state == "Grasse mat !" && states['sensor.angel_reveil'].state == "Grasse mat !" && states['input_boolean.sidecar_show_reveils'].state == 'on')
+              return ""
+            if (states['sensor.reveil_android'].state != ""  &&  states['input_boolean.sidecar_show_reveils'].state == 'on')
+              return "⏰ " + states['sensor.reveil_android'].state
+          ]]]
+        reveil_gh: |
+          [[[
+            if (states['sensor.reveil_gh'].state == "" && states['input_boolean.sidecar_show_reveils'].state == 'off')
+              return ""
+            if (states['sensor.ch_angel_reveil'].state == "Pas d'alarme !" && states['sensor.ch_parents_reveil'].state == "Pas d'alarme !" &&  states['input_boolean.sidecar_show_reveils'].state == 'on')
+              return ""
+            if (states['sensor.reveil_gh'].state != ""  &&  states['input_boolean.sidecar_show_reveils'].state == 'on')
+              return "⏲️ " + states['sensor.reveil_gh'].state
+          ]]]
+        mouvement: |
+          [[[
+            if (states['sensor.mouv_on'].state == 'Aucun' || states['input_boolean.sidecar_show_mouvement'].state == 'off')
+              return ""
+            return "🏃 " + states['sensor.mouv_detecter'].state
+          ]]]
+        porte: |
+          [[[
+            if (states['sensor.porte_on'].state == 'Aucune'|| states['input_boolean.sidecar_show_porte'].state == 'off')
+              return ""
+            return "🚪 " + states[' portes_ouvertes'].state
+          ]]]
+        lumiere: |
+          [[[
+            if (states['sensor.lumiere_etat'].state == 'Aucune' || states['input_boolean.sidecar_show_lumiere'].state == 'off')
+              return ""
+            return "💡 " + states['sensor.lumiere_etat'].state
+          ]]]        
+        app_connectes: |
+          [[[
+            if (states['sensor.app_connectes'].state == 'Aucun' || states['input_boolean.sidecar_show_connecte'].state == 'off')
+              return ""
+            return "📶 " + states['sensor.app_connectes'].state
+          ]]]
+
+        titre_calendrier: |
+          [[[
+            if (states['sensor.anniversaire'].state == 'Aucun' && states['sensor.calendar_chris'].state == "Aucun évènement" && states['sensor.calendar_jess'].state == "Aucun évènement" && states['sensor.calendar_angel'].state == "Aucun évènement" && states['sensor.calendar_travail_chris'].state == "Aucun évènement" && states['sensor.calendar_ecole'].state == "Aucun évènement")
+              return ""
+            return "Calendriers"
+          ]]]
+        anniv: |
+         [[[
+            if (states['sensor.anniversaire'].state == 'Aucun')
+              return ""
+            return "🎉 " + states['sensor.anniversaire'].state
+          ]]]
+        calendrier_chris: |
+          [[[
+            if (states['sensor.calendar_chris'].state == "Aucun évènement")
+              return ""
+            if (states['sensor.calendar_chris'].state != "Aucun évènement")
+            return "👨‍🦱 " + states['sensor.calendar_chris'].state
+          ]]]
+        calendrier_jess: |
+          [[[
+            if (states['sensor.calendar_jess'].state == "Aucun évènement")
+              return ""
+            if (states['sensor.calendar_jess'].state != "Aucun évènement")
+            return "👩‍🦳‍ " + states['sensor.calendar_jess'].state
+          ]]]
+        calendrier_angel: |
+          [[[
+            if (states['sensor.calendar_angel'].state == "Aucun évènement")
+              return ""
+            if (states['sensor.calendar_angel'].state != "Aucun évènement")
+            return "🧒 " + states['sensor.calendar_angel'].state
+          ]]]
+        calendrier_chris_travail: |
+          [[[
+            if (states['sensor.calendar_travail_chris'].state == "Aucun évènement")
+              return ""
+            if (states['sensor.calendar_travail_chris'].state != "Aucun évènement")
+            return "👨‍💻 " + states['sensor.calendar_travail_chris'].state
+          ]]]
+        calendrier_ecole: |
+          [[[
+            if (states['sensor.calendar_ecole'].state == "Aucun évènement")
+              return ""
+            if (states['sensor.calendar_ecole'].state != "Aucun évènement")
+            return "🎒 " + states['sensor.calendar_ecole'].state
+          ]]]
+        
+        titre_poubelle: |
+          [[[ 
+            if (states['sensor.poubelles_cartons'].state == "unavailable" && states['sensor.poubelles_cartons'].attributes.days == "None" && states['sensor.poubelles_cartons'].attributes.days != "2" && states['sensor.poubelles_cartons'].attributes.days != "1" &&
+                states['sensor.poubelles_pmc'].state == "unavailable" && states['sensor.poubelles_pmc'].attributes.days == "None" && states['sensor.poubelles_pmc'].attributes.days != "2" && states['sensor.poubelles_pmc'].attributes.days != "1" &&
+                states['sensor.poubelles_biodegradable'].state == "unavailable" && states['sensor.poubelles_biodegradable'].attributes.days == "None" && states['sensor.poubelles_biodegradable'].attributes.days != "2" && states['sensor.poubelles_biodegradable'].attributes.days != "1")
+              return ""
+            return "Poubelles"
+          ]]]
+        poubellescartons: |
+          [[[
+            if (states['sensor.poubelles_cartons'].state == "unavailable" || states['sensor.poubelles_cartons'].attributes.days == "None")
+              return ""
+            if (states['sensor.poubelles_cartons'].attributes.days == "2")
+              return "📦  Demain: " + states['sensor.poubelles_cartons'].attributes.friendly_name
+            if (states['sensor.poubelles_cartons'].attributes.days == "1" && states['binary_sensor.soiree'].state == "on")
+              return "📦  Sortir: " + states['sensor.poubelles_cartons'].attributes.friendly_name
+            if (states['sensor.poubelles_cartons'].attributes.days == "1" && states['binary_sensor.soiree'].state == "off")
+              return "📦  Après 20h sortir: " + states['sensor.poubelles_cartons'].attributes.friendly_name
+            if (states['sensor.poubelles_cartons'].attributes.days == "0" && states['binary_sensor.matin'].state == "on")
+              return "📦  Ce matin sortir: " + states['sensor.poubelles_cartons'].attributes.friendly_name
+            if (states['sensor.poubelles_cartons'].attributes.days == "0" && states['binary_sensor.matin'].state == "off")
+              return ""
+          ]]]
+        poubellespmc: |
+          [[[
+            if (states['sensor.poubelles_pmc'].state == "unavailable" || states['sensor.poubelles_pmc'].attributes.days == "None")
+              return ""
+            if (states['sensor.poubelles_pmc'].attributes.days == "2")
+              return "♻️  Demain: " + states['sensor.poubelles_pmc'].attributes.friendly_name
+            if (states['sensor.poubelles_pmc'].attributes.days == "1" && states['binary_sensor.soiree'].state == "on")
+              return "♻️  Sortir: " + states['sensor.poubelles_pmc'].attributes.friendly_name
+            if (states['sensor.poubelles_pmc'].attributes.days == "1" && states['binary_sensor.soiree'].state == "off")
+              return "♻️  Après 20h sortir: " + states['sensor.poubelles_pmc'].attributes.friendly_name
+            if (states['sensor.poubelles_pmc'].attributes.days == "0" && states['binary_sensor.matin'].state == "on")
+              return "♻️  Ce matin sortir: " + states['sensor.poubelles_pmc'].attributes.friendly_name
+            if (states['sensor.poubelles_pmc'].attributes.days == "0" && states['binary_sensor.matin'].state == "off")
+              return ""
+          ]]]
+        poubellesbioresi: |
+          [[[
+            if (states['sensor.poubelles_biodegradable'].state == "unavailable" || states['sensor.poubelles_biodegradable'].attributes.days == "None")
+              return ""
+            if (states['sensor.poubelles_biodegradable'].attributes.days == "2")
+              return "♻️  Demain: " + states['sensor.poubelles_biodegradable'].attributes.friendly_name + " & " + states['sensor.poubelles_residuelle'].attributes.friendly_name
+            if (states['sensor.poubelles_biodegradable'].attributes.days == "1" && states['binary_sensor.soiree'].state == "on")
+              return "♻️  Sortir: " + states['sensor.poubelles_biodegradable'].attributes.friendly_name + " & " + states['sensor.poubelles_residuelle'].attributes.friendly_name
+            if (states['sensor.poubelles_biodegradable'].attributes.days == "1" && states['binary_sensor.soiree'].state == "off")
+              return "♻️  Après 20h sortir: " + states['sensor.poubelles_biodegradable'].attributes.friendly_name + " & " + states['sensor.poubelles_residuelle'].attributes.friendly_name
+            if (states['sensor.poubelles_biodegradable'].attributes.days == "0" && states['binary_sensor.matin'].state == "on")
+              return "♻️  Ce matin sortir: " + states['sensor.poubelles_biodegradable'].attributes.friendly_name + " & " + states['sensor.poubelles_residuelle'].attributes.friendly_name
+            if (states['sensor.poubelles_biodegradable'].attributes.days == "0" && states['binary_sensor.matin'].state == "off")
+             return ""
+          ]]]
+        
+        titre_savoir: |
+          [[[  
+            if (states['input_boolean.sidecar_show_info'].state == 'on')
+              return "Savoir Inutile" 
+            return ""
+          ]]]
+        savoir: |
+          [[[ if (states['input_boolean.sidecar_show_info'].state == 'on')
+                return "📌 " + states['sensor.savoir_scrape'].state 
+              return ""
+          ]]]
+        
+        titre_avertissement: |
+          [[[
+            if (states['sensor.systeme_avertissement'].state == '')
+              return "" 
+            return "Avertissement" 
+          ]]]
+        device_hs: |
+          [[[
+            if (states['sensor.systeme_avertissement'].state == '')
+              return "" 
+            return states['sensor.systeme_avertissement'].state ;
+          ]]]        
+        
+        boutons:
+          card:
+            type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template:
+                  - state
+                show_name: true
+                show_state: false
+                show_label: true
+                show_icon: false
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - height: 27px
+                    - padding: 02px
+                    - line-height: 77%
+                    - background-color: |
+                        [[[
+                          if (states['update.home_assistant_core_update'].state == "on")
+                            return 'var(--custom-img-cell-color-orange)'
+                          return 'rgba(43,53,66,0.6)'
+                        ]]]
+                  icon:
+                    - color: grey
+                    - width: 16px
+                    - padding-bottom: 0px
+                  name:
+                    - font-size: 9px
+                  label:
+                    - font-size: 11px
+                  state:
+                    - font-size: 11px
+                name: Core
+                entity: update.home_assistant_core_update
+                icon: mdi:update
+                label: |
+                  [[[
+                    if (states['update.home_assistant_core_update'].state == "on")
+                      return states['update.home_assistant_core_update'].attributes.latest_version
+                    return states['update.home_assistant_core_update'].attributes.installed_version
+                  ]]]
+                double_tap_action:
+                  action: more-info
+                tap_action:
+                  action: call-service
+                  service: input_boolean.toggle
+                  service_data:
+                    entity_id: input_boolean.sidecar_show_maj
+              - type: custom:button-card
+                template:
+                  - state
+                show_name: true
+                show_state: false
+                show_label: true
+                show_icon: false
+                styles:
+                  card:
+                    - background-color: |
+                        [[[
+                          if (states['update.home_assistant_supervisor_update'].state == "on")
+                            return 'var(--custom-img-cell-color-orange)'
+                          return 'rgba(43,53,66,0.6)'
+                        ]]]
+                    - border-radius: 8px
+                    - height: 27px
+                    - padding: 02px
+                    - line-height: 77%
+                    - background: var(--background-button-in-card)
+                  icon:
+                    - color: grey
+                    - width: 16px
+                    - padding-bottom: 0px
+                  name:
+                    - font-size: 9px
+                  label:
+                    - font-size: 11px
+                  state:
+                    - font-size: 11px
+                entity: update.home_assistant_supervisor_update
+                icon: mdi:update
+                name: Supervisor
+                label: |
+                  [[[
+                    if (states['update.home_assistant_supervisor_update'].state == "on")
+                      return states['update.home_assistant_supervisor_update'].attributes.latest_version
+                    return states['update.home_assistant_supervisor_update'].attributes.installed_version
+                  ]]]
+                double_tap_action:
+                  action: more-info
+                tap_action:
+                  action: call-service
+                  service: input_boolean.toggle
+                  service_data:
+                    entity_id: input_boolean.sidecar_show_maj
+              - type: custom:button-card
+                template:
+                  - state
+                show_name: true
+                show_state: false
+                show_label: true
+                show_icon: false
+                styles:
+                  card:
+                    - background-color: |
+                        [[[
+                          if (states['update.home_assistant_operating_system_update'].state == "on")
+                            return 'var(--custom-img-cell-color-orange)'
+                          return 'rgba(43,53,66,0.6)'
+                        ]]]
+                    - border-radius: 8px
+                    - height: 27px
+                    - padding: 02px
+                    - line-height: 77%
+                    - background: var(--background-button-in-card)
+                  icon:
+                    - color: grey
+                    - width: 16px
+                    - padding-bottom: 0px
+                  name:
+                    - font-size: 9px
+                  label:
+                    - font-size: 11px
+                  state:
+                    - font-size: 11px
+                entity: update.home_assistant_operating_system_update
+                icon: mdi:update
+                name: HassOS
+                label: |
+                  [[[
+                    if (states['update.home_assistant_operating_system_update'].state == "on")
+                      return states['update.home_assistant_operating_system_update'].attributes.latest_version
+                    return states['update.home_assistant_operating_system_update'].attributes.installed_version
+                  ]]]
+                double_tap_action:
+                  action: more-info
+                tap_action:
+                  action: call-service
+                  service: input_boolean.toggle
+                  service_data:
+                    entity_id: input_boolean.sidecar_show_maj
+              - type: custom:button-card
+                template:
+                  - state
+                show_name: true
+                show_state: false
+                show_label: true
+                show_icon: false
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - height: 27px
+                    - padding: 02px
+                    - line-height: 77%
+                    - background-color: |
+                        [[[
+                          if (states['sensor.hacs'].state > 1)
+                            return 'var(--custom-img-cell-color-orange)'
+                          return 'rgba(43,53,66,0.7)'
+                        ]]]
+                  icon:
+                    - color: grey
+                    - width: 16px
+                    - padding-bottom: 0px
+                  name:
+                    - font-size: 9px
+                  state:
+                    - font-size: 11px
+                  label:
+                    - font-size: 11px
+                    - font-weight: |
+                        [[[
+                          if (states['sensor.hacs'].state > 1)
+                            return 'bold'
+                          return ''
+                        ]]]
+                entity: sensor.hacs
+                name: HACS
+                label: |
+                  [[[
+                    if (states['sensor.hacs'].state > 1)
+                      return states['sensor.hacs'].state
+                    return '0'
+                  ]]]
+                double_tap_action:
+                  action: more-info
+                tap_action:
+                  action: call-service
+                  service: input_boolean.toggle
+                  service_data:
+                    entity_id: input_boolean.sidecar_show_maj
+        
+        titre_maj: |
+          [[[ 
+            if (states['input_boolean.sidecar_show_maj'].state == 'off')
+              return "" 
+            return "Système"
+          ]]]
+        maj: |
+          [[[ 
+            if (states['input_boolean.sidecar_show_maj'].state == 'off')
+              return "" 
+            return "Démarrage il y a "+states['sensor.uptime_ha'].state+"<br>"+states['sensor.maj'].state
+           ]]]
+
+      tap_action:
+        action: navigate
+        navigation_path: /calendar

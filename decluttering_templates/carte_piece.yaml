@@ -1,0 +1,261 @@
+    default:
+      # - name: Cave
+      # - entity: light.lumieres_cave
+      # - icon: light-recessed
+      # - compteur: sensor.compteur_cave
+      # - state: light.lumieres_cave
+      # - entity_1: media_player.enceinte_cave
+      # - icon_1_on: speaker-play
+      # - icon_1_off: speaker-off
+      - bouton_type_1: blank-card
+      # - entity_2: binary_sensor.capteur_pir_cave_1_occupancy
+      # - icon_2_on: motion-sensor
+      # - icon_2_off: motion-sensor-off
+      - bouton_type_2: blank-card
+      # - entity_3: binary_sensor.capteur_pir_cave_2_occupancy
+      # - icon_3_on: motion-sensor
+      # - icon_3_off: motion-sensor-off
+      - bouton_type_3: blank-card
+      # - entity_4: binary_sensor.capteur_porte_cave_contact
+      # - icon_4_on: door-open
+      # - icon_4_off: door-closed
+      - bouton_type_4: blank-card
+
+
+    card:
+      type: custom:button-card
+      template:
+        - police
+        - style
+      show_icon: true
+      show_name: true
+      show_state: false
+      show_label: true
+      styles:
+        grid:
+          - grid-template-areas: '"i n" "i s" "i l" '
+          - grid-template-columns: min-content auto
+          - grid-template-rows: min-content min-content min-content
+        img_cell:
+          - background-color: var(--mm-darkblue)
+          - border-radius: 50%
+          - place-self: start
+          - text-align: start
+          - width: 35px
+          - height: 35px
+        icon:
+          - width: 55%
+          - color: var(--mm-grey)
+        name:
+          - color: var(--mm-silver)
+          - align-self: end
+          - justify-self: start
+          - text-align: left
+          - font-weight: bold
+          - font-size: 12px
+          - margin-left: 9px
+        state:
+          - white-space: normal
+          - color: var(--mm-lightgrey)
+          - justify-self: start
+          - align-self: end
+          - font-weight: null
+          - text-align: left
+          - font-size: 12px
+          - filter: opacity(90%)
+          - margin-left: 9px
+          - line-height: 110%
+          - margin-top: 0px
+        label:
+          - white-space: normal
+          - color: var(--mm-lightgrey)
+          - justify-self: start
+          - align-self: start
+          - text-align: left
+          - font-weight: null
+          - font-size: 12px
+          - filter: opacity(90%)
+          - margin-left: 9px
+          - margin-bottom: 2px
+          - line-height: 110%
+          - color: |
+              [[[
+                 if( states['[[state]]'].state =="unavailable")
+                  return "var(--mm-red)"
+                 if( states['[[state]]'].state < 18)
+                  return "var(--mm-blue)"
+                 if( states['[[state]]'].state > 25)
+                  return "var(--mm-orange)"
+                return "var(--mm-grey)"
+              ]]]
+        card:
+          - padding: 8px 5px 8px 5px
+          - font-size: 100%
+          - white-space: normal
+          - height: 95px
+          - box-shadow: |
+              [[[
+                if (entity.state == 'on')
+                  return "inset -4px -4px 8px 0 var(--button-card-light-color), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
+                return "-2px -2px 4px 0 var(--mm-darkblue),4px 4px 8px 0 rgba(0,0,0,.03)"
+              ]]]
+        custom_fields:
+          notification:
+            - border-radius: 50%
+            - position: absolute
+            - left: 18%
+            - top: 6%
+            - height: 15px
+            - width: 15px
+            - font-size: 85%
+            - line-height: 17px
+            - font-weight: null
+            - background-color: var(--mm-null)
+            - color: |
+                [[[
+                  if (entity.state == "off")
+                    return 'var(--mm-null)';
+                 return 'var(--mm-lightgrey)';
+                ]]]
+          lum:
+            - position: absolute
+            - top: 46%
+            - left: 50%
+            - width: calc(90% + 0px)
+            - transform: translate(-50%, calc(-50% + 10px))
+            - z-index: 8
+            - '--paper-card-background-color': var(--mm-null)
+            - '--ha-card-background': var(--mm-null)
+            - '--ha-card-box-shadow': none
+            - '--ha-card-border-width': 0px
+          bouton:
+            - position: absolute
+            - top: 70%
+            - left: 50%
+            - width: calc(90% + 1px)
+            - transform: translate(-50%, calc(-50% + 10px))
+            - '--ha-card-border-width': 0px
+      state:
+        - value: 'on'
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+              - background-color: |-
+                  [[[ 
+                    var color = '255,215,0'; // Default Color
+                    if( states[entity.entity_id].attributes.rgb_color != undefined)
+                      color = states[entity.entity_id].attributes.rgb_color; 
+                    return 'rgb(' + color + ',0.5)';
+                  ]]]
+            img_cell:
+              - background-color: |-
+                  [[[ 
+                    var color = '255,215,0'; // Default Color
+                    if( states[entity.entity_id].attributes.rgb_color != undefined)
+                      color = states[entity.entity_id].attributes.rgb_color; 
+                    return 'rgb(' + color + ',0.3)';
+                  ]]]
+            icon:
+              - color: |-
+                  [[[ 
+                    var color = '255,215,0'; // Default Color
+                    if( states[entity.entity_id].attributes.rgb_color != undefined)
+                      color = states[entity.entity_id].attributes.rgb_color; 
+                    return 'rgb(' + color + ',1)';
+                  ]]]
+              - transition: 1s ease
+        - value: 'off'
+          color: var(--mm-grey)
+          styles:
+            card:
+              - animation: ball-scale2 0.2s
+            icon:
+              - color: var(--icon_off)
+              - transition: 1s ease
+        - value: "unavailable"
+          styles:
+            card:
+              - border-color: rgba(255, 0, 0, 0.8)
+              - opacity: 100%
+            icon:
+              - color: var(--mm-red)
+              - animation: blink 0.8s ease infinite
+              - transition: 1s ease
+            name:
+              - color: var(--mm-red)
+            label:
+              - color: var(--mm-red)
+            state:
+              - color: var(--mm-red)
+      name: '[[name]]'
+      entity: '[[entity]]'
+      icon: 'mdi:[[icon]]'
+      label: |
+          [[[
+            if (states['[[state]]'].state == 'on')
+             return "Allumé"
+            if (states['[[state]]'].state == 'off' )
+             return "Éteint"
+           return (states['[[state]]'].state) + "°"
+          ]]]
+      custom_fields:
+        notification: "[[[ return (states['[[compteur]]'].state) ]]]"
+        lum:
+          card:
+            type: conditional
+            conditions:
+              - entity: '[[entity]]'
+                state: 'on'
+            card:
+              type: custom:my-slider
+              entity: '[[entity]]'
+              radius: 10px
+              height: 10px
+              width: 100%
+              mainSliderColor: var(--button-card-light-color-no-temperature)
+              secondarySliderColor: var(--mm-darkblue)
+              thumbHorizontalPadding: 0px
+              thumbVerticalPadding: 0px
+              minSet: 1
+              thumbWidth: 1px
+              thumbColor: var(--mm-black)
+        bouton:
+          card:
+            type: horizontal-stack
+            cards:
+              - type: custom:decluttering-card
+                template: bouton_piece
+                variables:
+                  - entity: '[[entity_1]]'
+                  - icon_on: '[[icon_1_on]]'
+                  - icon_off: '[[icon_1_off]]'
+                  - bouton_type: '[[bouton_type_1]]'
+
+              - type: custom:decluttering-card
+                template: bouton_piece
+                variables:
+                  - entity: '[[entity_2]]'
+                  - icon_on: '[[icon_2_on]]'
+                  - icon_off: '[[icon_2_off]]'
+                  - bouton_type: '[[bouton_type_2]]'
+
+              - type: custom:decluttering-card
+                template: bouton_piece
+                variables:
+                  - entity: '[[entity_3]]'
+                  - icon_on: '[[icon_3_on]]'
+                  - icon_off: '[[icon_3_off]]'
+                  - bouton_type: '[[bouton_type_3]]'
+
+              - type: custom:decluttering-card
+                template: bouton_piece
+                variables:
+                  - entity: '[[entity_4]]'
+                  - icon_on: '[[icon_4_on]]'
+                  - icon_off: '[[icon_4_off]]'
+                  - bouton_type: '[[bouton_type_4]]'
+                  
+      tap_action:
+        action: more-info
+      double_tap_action:
+        action: toggle

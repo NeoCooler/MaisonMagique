@@ -1,0 +1,326 @@
+    # default:
+      # - name: Raspberry Pi
+      # - info0: device_tracker.miwifi_homeassistant
+      # - info1: sensor.processor_use
+      # - info2: sensor.memory_use_percent
+      # - info3: sensor.cpu_temperature
+
+    card:
+      type: custom:button-card
+      template:
+        - police
+        - style
+      styles:
+        card:
+          - padding: "0px"
+          - height: 120px
+          - box-shadow: |
+              [[[
+                if (states['[[info0]]'].state == "home")
+                  return "inset -4px -4px 8px 0 var(--custom-badge-color-blue), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
+                return "-2px -2px 4px 0 var(--custom-badge-color-blue),4px 4px 8px 0 rgba(0,0,0,.03)"
+              ]]]
+        grid:
+          - grid-template-areas: "'graph overlay' 'infos infos'"
+          - grid-template-columns: "1fr 0"
+          - grid-template-rows: "50px min-content"
+        custom_fields:
+          overlay:
+            - height: 120px
+            - background: |
+                  [[[
+                    if (states['[[info0]]'].state == "home")
+                      return 'linear-gradient(180deg, var(--custom-card-color-blue-null) 45%, var(--custom-badge-color-blue) 100%)'
+                    if (states['[[info0]]'].state == "not_home")
+                      return 'linear-gradient(180deg, var(--custom-badge-color-blue) 45%, var(--custom-badge-color-blue) 100%)'
+                    return ""
+                  ]]] 
+            - opacity: 1
+            - padding: 0
+      custom_fields:
+        graph:
+          card:
+            type: custom:mini-graph-card
+            entities:
+              - color: rgba(100,100,100,0.5)
+                entity: '[[info3]]'
+            height: 50
+            line_width: 4
+            lower_bound: 18
+            points_per_hour: 1
+            hours_to_show: 24
+            show:
+              fill: fade
+              icon: false
+              name: false
+              state: false
+              legend: false
+              points: false
+              labels: false
+        overlay: <div></div>
+        infos: 
+          card:
+            type: custom:button-card
+            name: |
+              [[[
+                if (('[[name]]' == 'PC Chris') && (states['sensor.discord_neocooler'].state == 'online'))
+                  return states['sensor.chris_gaming_username'].state
+                  
+                if (('[[name]]' == 'PC Angel') && (states['sensor.discord_pika_craft'].state == 'online'))
+                  return states['sensor.angel_gaming_username'].state
+                  
+                return '[[name]]'
+              ]]]
+            label: |
+              [[[
+                if (('[[name]]' == 'PC Chris') && (states['sensor.chris_gaming_game'].state == 'Rocket League'))
+                  return 'Rocket League'
+                if (('[[name]]' == 'PC Chris') && (states['sensor.chris_gaming_game'].state == 'C​a​l​l​ ​o​f​ ​D​u​t​y​®​ ​H​Q'))
+                  return 'C​a​l​l​ ​o​f​ ​D​u​t​y​®'
+                if (('[[name]]' == 'PC Chris') && (states['sensor.chris_gaming_game'].state == 'Roblox'))
+                  return 'Roblox'
+                  
+                if (('[[name]]' == 'PC Angel') && (states['sensor.angel_gaming_game'].state == 'Roblox'))
+                  return 'Roblox'
+                  
+                if (states['[[info0]]'].state == 'home')
+                 return "Allumé"
+                if (states['[[info0]]'].state == 'not_home' )
+                 return "Éteint"
+                return ""
+              ]]]
+            show_name: true
+            show_label: true
+            styles:
+              card:
+                - height: 79px
+                - padding: 4%
+                - border-radius: 0px
+                - box-shadow: "none"
+              grid:
+                - grid-template-areas: "'n info1 . info2 . info3 . info4' 'l info1 . info2 . info3 . info4'"
+                - grid-template-columns: "1fr 45px 5px 45px 5px 45px 5px 45px"
+                - grid-template-rows: "min-content min-content"
+              name:
+                - font-weight: "bold"
+                - font-size: "18px"
+                - place-self: end left
+              label:
+                - font-size: "14px"
+                - place-self: start
+                - color: |
+                    [[[
+                      if (('[[name]]' == 'Raspberry Pi') && (states['[[info0]]'].state == 'home'))
+                        return 'lime'
+                        
+                      if (('[[name]]' == 'PC Chris') && (states['sensor.discord_neocooler'].state == 'online'))
+                        return 'lime'
+                      if (('[[name]]' == 'PC Chris') && (states['sensor.discord_neocooler'].state == 'offline'))
+                        return 'orange'
+                      if (('[[name]]' == 'PC Chris') && (states['sensor.discord_neocooler'].state == 'inconnu'))
+                        return 'tomato'
+                      if (('[[name]]' == 'PC Chris') && (states['[[info0]]'].state == 'home'))
+                        return 'lime'
+                        
+                      if (('[[name]]' == 'PC Jess') && (states['[[info0]]'].state == 'home'))
+                        return 'lime'
+                        
+                      if (('[[name]]' == 'PC Angel') && (states['sensor.discord_pika_craft'].state == 'online'))
+                        return 'lime'
+                      if (('[[name]]' == 'PC Angel') && (states['sensor.discord_pika_craft'].state == 'offline'))
+                        return 'orange'
+                      if (('[[name]]' == 'PC Angel') && (states['sensor.discord_pika_craft'].state == 'inconnu'))
+                        return 'tomato'
+                      if (('[[name]]' == 'PC Angel') && (states['[[info0]]'].state == 'home'))
+                        return 'lime'
+                        
+                      return 'tomato'
+                    ]]]
+
+            custom_fields:
+              info1:
+                card:
+                  type: conditional
+                  conditions:
+                    - entity: '[[info0]]'
+                      state: 'home'
+                  card:
+                    type: custom:button-card
+                    name: CPU
+                    label: |
+                      [[[ 
+                        return (states['[[info1]]'].state + " %")
+                      ]]]
+                    show_name: true
+                    show_label: true
+                    aspect_ratio: 1/1
+                    styles:
+                      card:
+                        - padding: "0px"
+                        - box-shadow: none
+                        - background-color: var(--primary-background-color)
+                        - background-image: |
+                                          [[[
+                                            if (states['[[info1]]'].state < 50) return "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 1440 1440'><path fill='%238fce00' fill-opacity='1' d='m 0,566 48,26.7 C 96,619 192,673 288,699.3 384,726 480,726 576,710 c 96,-16 192,-48 288,-42.7 96,5.7 192,47.7 288,58.7 96,11 192,-11 240,-21.3 l 48,-10.7 v 754 H 1392 1152 864 576 288 48 0 Z'></path></svg>\")";
+                                            if (states['[[info1]]'].state >= 50 && states['[[info1]]'].state < 60) return "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 1440 1440'><path fill='%23ce7e00' fill-opacity='1' d='m 0,566 48,26.7 C 96,619 192,673 288,699.3 384,726 480,726 576,710 c 96,-16 192,-48 288,-42.7 96,5.7 192,47.7 288,58.7 96,11 192,-11 240,-21.3 l 48,-10.7 v 754 H 1392 1152 864 576 288 48 0 Z'></path></svg>\")";
+                                            else return "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 1440 1440'><path fill='%23f44336' fill-opacity='1' d='m 0,566 48,26.7 C 96,619 192,673 288,699.3 384,726 480,726 576,710 c 96,-16 192,-48 288,-42.7 96,5.7 192,47.7 288,58.7 96,11 192,-11 240,-21.3 l 48,-10.7 v 754 H 1392 1152 864 576 288 48 0 Z'></path></svg>\")";
+                                          ]]]
+                        - background-size: 100%
+                      grid:
+                        - grid-template-areas: "'n' 'l'"
+                        - grid-template-columns: "1fr"
+                        - grid-template-rows: "auto auto"
+                      name:
+                        - font-size: "10px"
+                        - place-self: center
+                      label:
+                        - font-size: "10px"
+                        - place-self: center
+                        - font-weight: "bold"
+                        - color: var(--text_black)
+              info2:
+                card:
+                  type: conditional
+                  conditions:
+                    - entity: '[[info0]]'
+                      state: 'home'
+                  card:
+                    type: custom:button-card
+                    name: RAM
+                    label: |
+                      [[[ return states['[[info2]]'].state + " %" ]]]
+                    show_name: true
+                    show_label: true
+                    aspect_ratio: 1/1
+                    styles:
+                      card:
+                        - padding: "0px"
+                        - box-shadow: none
+                        - background-color: var(--primary-background-color)
+                        - background-image: |
+                                          [[[
+                                            if (states['[[info2]]'].state < 65) return "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 1440 1440'><path fill='%238fce00' fill-opacity='1' d='m 0,566 48,26.7 C 96,619 192,673 288,699.3 384,726 480,726 576,710 c 96,-16 192,-48 288,-42.7 96,5.7 192,47.7 288,58.7 96,11 192,-11 240,-21.3 l 48,-10.7 v 754 H 1392 1152 864 576 288 48 0 Z'></path></svg>\")";
+                                            if (states['[[info2]]'].state >= 65 && states['[[info2]]'].state < 85) return "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 1440 1440'><path fill='%23ce7e00' fill-opacity='1' d='m 0,566 48,26.7 C 96,619 192,673 288,699.3 384,726 480,726 576,710 c 96,-16 192,-48 288,-42.7 96,5.7 192,47.7 288,58.7 96,11 192,-11 240,-21.3 l 48,-10.7 v 754 H 1392 1152 864 576 288 48 0 Z'></path></svg>\")";
+                                            else return "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 1440 1440'><path fill='%23f44336' fill-opacity='1' d='m 0,566 48,26.7 C 96,619 192,673 288,699.3 384,726 480,726 576,710 c 96,-16 192,-48 288,-42.7 96,5.7 192,47.7 288,58.7 96,11 192,-11 240,-21.3 l 48,-10.7 v 754 H 1392 1152 864 576 288 48 0 Z'></path></svg>\")";
+                                          ]]]
+                        - background-size: 100%
+                      grid:
+                        - grid-template-areas: "'n' 'l'"
+                        - grid-template-columns: "1fr"
+                        - grid-template-rows: "auto auto"
+                      name:
+                        - font-size: "10px"
+                        - place-self: center
+                      label:
+                        - font-size: "10px"
+                        - place-self: center
+                        - font-weight: "bold"
+                        - color: var(--text_black)
+              info3:
+                card:
+                  type: conditional
+                  conditions:
+                    - entity: '[[info0]]'
+                      state: 'home'
+                  card:
+                    type: custom:button-card
+                    name: |
+                        [[[
+                          if ('[[name]]' == 'PC Angel')
+                            return 'BAT'
+                          return 'T°'
+                        ]]]
+                    label: |
+                        [[[
+                          if ('[[name]]' == 'PC Angel')
+                            return states['[[info3]]'].state + " %"
+                          return states['[[info3]]'].state + "°"
+                        ]]]
+                    show_name: true
+                    show_label: true
+                    aspect_ratio: 1/1
+                    styles:
+                      card:
+                        - padding: "0px"
+                        - box-shadow: none
+                        - background-color: var(--primary-background-color)
+                        - background-image: |
+                                          [[[
+                                            if (('[[name]]' == 'PC Angel') && (states['[[info3]]'].state < 30))
+                                              return "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 1440 1440'><path fill='%23f44336' fill-opacity='1' d='m 0,566 48,26.7 C 96,619 192,673 288,699.3 384,726 480,726 576,710 c 96,-16 192,-48 288,-42.7 96,5.7 192,47.7 288,58.7 96,11 192,-11 240,-21.3 l 48,-10.7 v 754 H 1392 1152 864 576 288 48 0 Z'></path></svg>\")";
+                                            if (('[[name]]' == 'PC Angel') && (states['[[info3]]'].state >= 30 && states['[[info3]]'].state < 70))
+                                              return "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 1440 1440'><path fill='%23ce7e00' fill-opacity='1' d='m 0,566 48,26.7 C 96,619 192,673 288,699.3 384,726 480,726 576,710 c 96,-16 192,-48 288,-42.7 96,5.7 192,47.7 288,58.7 96,11 192,-11 240,-21.3 l 48,-10.7 v 754 H 1392 1152 864 576 288 48 0 Z'></path></svg>\")";
+                                            if ('[[name]]' == 'PC Angel')
+                                              return "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 1440 1440'><path fill='%238fce00' fill-opacity='1' d='m 0,566 48,26.7 C 96,619 192,673 288,699.3 384,726 480,726 576,710 c 96,-16 192,-48 288,-42.7 96,5.7 192,47.7 288,58.7 96,11 192,-11 240,-21.3 l 48,-10.7 v 754 H 1392 1152 864 576 288 48 0 Z'></path></svg>\")";
+                                            if (states['[[info3]]'].state < 50)
+                                              return "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 1440 1440'><path fill='%238fce00' fill-opacity='1' d='m 0,566 48,26.7 C 96,619 192,673 288,699.3 384,726 480,726 576,710 c 96,-16 192,-48 288,-42.7 96,5.7 192,47.7 288,58.7 96,11 192,-11 240,-21.3 l 48,-10.7 v 754 H 1392 1152 864 576 288 48 0 Z'></path></svg>\")";
+                                            if (states['[[info3]]'].state >= 50 && states['[[info3]]'].state < 65)
+                                              return "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 1440 1440'><path fill='%23ce7e00' fill-opacity='1' d='m 0,566 48,26.7 C 96,619 192,673 288,699.3 384,726 480,726 576,710 c 96,-16 192,-48 288,-42.7 96,5.7 192,47.7 288,58.7 96,11 192,-11 240,-21.3 l 48,-10.7 v 754 H 1392 1152 864 576 288 48 0 Z'></path></svg>\")";
+                                            else 
+                                              return "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 1440 1440'><path fill='%23f44336' fill-opacity='1' d='m 0,566 48,26.7 C 96,619 192,673 288,699.3 384,726 480,726 576,710 c 96,-16 192,-48 288,-42.7 96,5.7 192,47.7 288,58.7 96,11 192,-11 240,-21.3 l 48,-10.7 v 754 H 1392 1152 864 576 288 48 0 Z'></path></svg>\")";
+                                          ]]]
+                        - background-size: 100%
+                      grid:
+                        - grid-template-areas: "'n' 'l'"
+                        - grid-template-columns: "1fr"
+                        - grid-template-rows: "auto auto"
+                      name:
+                        - font-size: "10px"
+                        - place-self: center
+                      label:
+                        - font-size: "10px"
+                        - place-self: center
+                        - font-weight: "bold"
+                        - color: var(--text_black)
+              info4:
+                card:
+                  type: conditional
+                  conditions:
+                    - entity: '[[info0]]'
+                      state: 'home'
+                  card:
+                    type: custom:button-card
+                    entity_picture: |
+                                  [[[
+                                    if ('[[name]]' == 'Raspberry Pi')
+                                      return '/local/Images/activities/raspberry-pi.svg'
+                                      
+                                    if (('[[name]]' == 'PC Chris') && (states['sensor.chris_gaming_game'].state == 'Rocket League'))
+                                      return '/local/Images/game/rocket-league.svg'
+                                    if (('[[name]]' == 'PC Chris') && (states['sensor.chris_gaming_game'].state == 'C​a​l​l​ ​o​f​ ​D​u​t​y​®​ ​H​Q'))
+                                      return '/local/Images/game/call-of-duty.svg'
+                                    if (('[[name]]' == 'PC Chris') && (states['sensor.chris_gaming_game'].state == 'Roblox'))
+                                      return '/local/Images/game/roblox.svg'
+                                    if ('[[name]]' == 'PC Chris')
+                                      return '/local/Images/activities/windows.svg'
+                                      
+                                    if ('[[name]]' == 'PC Jess')
+                                      return '/local/Images/activities/windows.svg'
+                                      
+                                    if (('[[name]]' == 'PC Angel') && (states['sensor.angel_gaming_game'].state == 'Roblox'))
+                                      return '/local/Images/game/roblox.svg'
+                                    if ('[[name]]' == 'PC Angel')
+                                      return '/local/Images/activities/windows.svg'
+                                  ]]]
+                      
+                    show_name: false
+                    show_entity_picture: true
+                    aspect_ratio: 1/1
+                    styles:
+                      card:
+                        - padding: "0px"
+                        - box-shadow: none
+                        - background-size: 100%
+                      img_cell:
+                        - border-radius: 25%
+                        - width: 45px
+                        - height: 45px
+                        - position: absolute
+                        - top: 0%
+                        - left: 0%
+                        - background-color: transparent
+                        - color: transparent
+                        - border-color: transparent
+                        - box-shadow: transparent
+                      entity_picture:
+                        - width: 100%

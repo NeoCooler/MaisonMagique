@@ -1,0 +1,73 @@
+    # default:
+      # - name: RDC
+      # - entity: sensor.temp_moyenne_rdc
+
+    card:
+      type: custom:button-card
+      template:
+        - police
+      entity: '[[entity]]'
+      show_name: true
+      show_icon: true
+      show_label: true
+      card_mod:
+        style: |
+          ha-card {
+            background: none;
+            box-shadow: none;
+            margin-bottom: 0em;
+          }
+      styles:
+        grid:
+          - grid-template-areas: "'i n' 'i l'"
+        card:
+          - height: 32px
+          - width: 55px
+          - padding-right: 07px
+          - padding-left: 03px
+          - border-radius: 15px
+        icon:
+          - width: 20px
+          - color: >
+              [[[
+                var color = "var(--mm-grey)";
+                var state = entity.state;
+                if( state <= "18" )
+                  color = "var(--mm-blue)"
+                else if( state > "24" )
+                  color = "var(--mm-orange)"
+                return color;
+              ]]]
+        entity_picture:
+          - width: 100%
+        name:
+          - font-size: 11px
+        label:
+          - font-size: 11px
+          - color: >
+              [[[
+                var color = "var(--mm-grey)";
+                var state = entity.state;
+                if( state <= "18" )
+                  color = "var(--mm-blue)"
+                else if( state > "24" )
+                  color = "var(--mm-orange)"
+                return color;
+              ]]]
+      name: '[[name]]'
+      icon: >
+        [[[
+          var icon = "mdi:thermometer";
+          var state = entity.state;
+          if( state <= "18" )
+            icon = "mdi:thermometer-low"
+          else if( state > "24" )
+            icon = "mdi:thermometer-high"
+          return icon;
+        ]]]
+      label: |
+        [[[
+          if (states['[[entity]]'].state == 'unavailable')
+            return " - "
+          return states['[[entity]]'].state
+        ]]]

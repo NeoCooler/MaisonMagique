@@ -1,0 +1,105 @@
+    default:
+      - name: Salon
+      - entity: binary_sensor.tv_salon_state
+
+    card:
+      type: 'custom:button-card'  
+      color: auto
+      size: 50%
+      show_icon: false
+      entity: '[[entity]]'
+      show_last_changed: true
+      aspect_ratio: 1/1
+      show_state: true
+      name: '[[name]]'
+      show_label: true
+      tap_action:
+        action: toggle
+        haptic: light
+      hold_action:
+        action: call-service
+        service: browser_mod.more_info
+        data:
+          entity_id: media_player.samsung_tv_remote
+
+      # double_tap_action: !include popup_card/television.yaml 
+      card_mod:
+        style: |
+          ha-card {
+            box-shadow: 
+              {% if is_state('sun.sun', 'above_horizon') and is_state('[[entity]]', 'on') %}
+                inset -4px -4px 8px 0 rgba(255,255,255,.5), inset 4px 4px 8px 0 rgba(0,0,0,.03);
+              {% elif is_state('sun.sun', 'above_horizon') and is_state('[[entity]]', 'playing') %}
+                inset -4px -4px 8px 0 rgba(255,255,255,.5), inset 4px 4px 8px 0 rgba(0,0,0,.03); 
+              {% elif is_state('sun.sun', 'above_horizon') and is_state('[[entity]]', 'paused') %}
+                inset -4px -4px 8px 0 rgba(255,255,255,.5), inset 4px 4px 8px 0 rgba(0,0,0,.03);                            
+              {% elif is_state('sun.sun', 'above_horizon') and is_state('[[entity]]', 'off') %}                      
+                -5px -5px 8px 0 rgba(255,255,255,.5),5px 5px 8px 0 rgba(0,0,0,.03);
+              {% elif is_state('sun.sun', 'below_horizon') and is_state('[[entity]]', 'on') %}                      
+                inset -4px -4px 10px 0 rgba(50, 50, 50,.5), inset 4px 4px 12px 0 rgba(0,0,0,.3); 
+              {% elif is_state('sun.sun', 'below_horizon') and is_state('[[entity]]', 'playing') %}                      
+                inset -4px -4px 10px 0 rgba(50, 50, 50,.5), inset 4px 4px 12px 0 rgba(0,0,0,.3);
+              {% elif is_state('sun.sun', 'below_horizon') and is_state('[[entity]]', 'paused') %}                      
+                inset -4px -4px 10px 0 rgba(50, 50, 50,.5), inset 4px 4px 12px 0 rgba(0,0,0,.3);                              
+              {% elif is_state('sun.sun', 'below_horizon') and is_state('[[entity]]', 'off') %}   
+                -5px -5px 8px 0 rgba(50, 50, 50,.5),5px 5px 8px 0 rgba(0,0,0,.15);
+              {% endif %}     
+          }
+      custom_fields:
+        icon_tv: &icon_tv >
+          [[[
+          const style = '<style>@keyframes animate_on{from{transform: scaleY(0);}to{transform: scaleY(1);}}.animate_on{animation: animate_on 1s; transform-origin: -100% 46%; animation-fill-mode: forwards;}@keyframes animate_off{from{transform: scaleY(1);}to{transform: scaleY(0);}}.animate_off{animation: animate_off 1s; transform-origin: -100% 46%; animation-fill-mode: forwards;}</style>';
+          const path = '<path d="M46 9.2v27.5H4.1V9.2H46m2.4-2.4H1.6v32.3h46.7c.1 0 .1-32.3.1-32.3zM11.9 43.2h26.3c.6 0 1.1-.4 1.1-1v-.3c0-.6-.4-1.1-1-1.1H11.9c-.6 0-1.1.4-1.1 1v.3a1.11 1.11 0 0 0 1.1 1.1z"/>';
+          const gradient = '<linearGradient id="A" gradientUnits="userSpaceOnUse" x1="5.401" y1="34.714" x2="43.817" y2="11.74"><stop offset="0" stop-color="#64acb7"/><stop offset="1" stop-color="#7fdbe9"/></linearGradient>';
+          if (entity.state === 'off') { return `<svg viewBox="0 0 50 50"> ${style} ${gradient} <path class="animate_off" d="M2.9,8h44.3v29.9H2.9V8z" fill="url(#A)"/> ${path} </svg>`; }
+          if (entity.state === 'on') { return `<svg viewBox="0 0 50 50"> ${style} ${gradient} <path d="M2.9,8h44.3v29.9H2.9V8z" fill="#20262890"/><path class="animate_on" d="M2.9,8h44.3v29.9H2.9V8z" fill="url(#A)"/> ${path} </svg>`; }
+          if (entity.state === 'on') { return `<svg viewBox="0 0 50 50"> ${gradient} <path d="M2.9,8h44.3v29.9H2.9V8z" fill="url(#A)"/> ${path} </svg>`; }
+          else if (entity.state === 'off') { return `<svg viewBox="0 0 50 50"> ${path} </svg>`; } ]]]
+      styles:  &icon_tv_styles
+        custom_fields:
+          icon_tv:
+            [fill: "[[[ return entity.state === 'on' ? '#616161' : '#bac0c6'; ]]]", 
+            top: 7%, left: 10.7%, width: 50%, height: 50%, position: absolute]
+        card:
+          - color: 'var(--text-color)'
+          - background-color: var(--primary-background-color)      
+          - padding-left: 10px
+          - border-radius: 20px
+        name:
+          - justify-self: start
+          - padding: 0px 10px          
+          - font-weight: bold
+          - font-size: 13px
+        label:
+          - color: 'var(--text-medium-color)'
+          - font-size: 10px
+          - font-family: Helvetica
+          - padding: 0px 10px
+          - justify-self: start
+        state:
+          - font-size: 10px
+          - font-family: Helvetica
+          - padding: 1px 10px
+          - justify-self: start
+          - text-transform: capitalize
+          - font-weight: bold
+        grid:
+          - grid-template-areas: '"i" "n" "s" "l"'
+          - grid-template-columns: 1fr
+          - grid-template-rows: 1fr min-content min-content
+        img_cell:
+          - justify-content: start
+          - align-items: start
+      state:
+        - value: 'on'
+          styles:
+            card:
+              - box-shadow: 0px 0px 3px 2px var         
+            state:
+              - color: lime  
+        - value: 'off'
+          styles:
+            card:
+              - box-shadow: 0px 0px 3px 2px var
+            state:
+              - color: 'red'

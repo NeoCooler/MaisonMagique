@@ -1,0 +1,45 @@
+    card:
+      type: custom:button-card
+      template:
+        - police
+      show_icon: false
+      show_name: true
+      show_state: false
+      show_label: false
+      style:
+        .: |
+          ha-card {
+              --ha-card-background: none !important;
+              box-shadow: none !important;
+              border-width: 0px
+      styles:
+        card:
+          - height: 25px
+          - padding: 01%
+          - border-radius: 0px
+          - line-height: 100%
+          - '--ha-card-border-width': 0px
+        name:
+          - font-size: 16px
+          - font-weight: bold
+          - color: var(--mm-silver)
+          - justify-self: start
+        grid:
+          - grid-template-areas: '"n l" "divider"'
+          - grid-template-columns: min-content
+          - grid-template-rows: min-content min-content
+        custom_fields:
+          divider:
+            - position: absolute
+            - top: -15%
+      name: '[[name]]'
+      entity: '[[entity]]'
+      custom_fields:
+        divider:
+          card:
+            type: picture
+            image: /local/Images/divider/divider2.png
+      tap_action:
+        action: toggle
+      double-tap_action:
+        action: none

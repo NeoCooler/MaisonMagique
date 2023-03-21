@@ -1,0 +1,188 @@
+    card:
+      template:
+        - police
+        - style
+      show_icon: true
+      show_name: true
+      show_state: false
+      show_label: true
+      styles:
+        grid:
+          - grid-template-areas: '"i n" "i s" "i l" '
+          - grid-template-columns: min-content auto
+          - grid-template-rows: min-content min-content min-content
+        img_cell:
+          - background-color: var(--pastille_off)
+          - border-radius: 50%
+          - place-self: start
+          - text-align: start
+          - width: 35px
+          - height: 35px
+        icon:
+          - width: 55%
+          - color: var(--icon_off)
+        name:
+          - color: rgba(232,233,242,1)
+          - align-self: end
+          - justify-self: start
+          - text-align: left
+          - font-weight: null
+          - font-size: 13px
+          - margin-left: 9px
+        state:
+          - white-space: normal
+          - color: lightgrey
+          - justify-self: start
+          - align-self: end
+          - font-weight: bold
+          - text-align: left
+          - font-size: 12px
+          - filter: opacity(90%)
+          - margin-left: 9px
+          - line-height: 110%
+          - margin-top: 0px
+        label:
+          - white-space: normal
+          - color: lightgrey
+          - justify-self: start
+          - align-self: start
+          - text-align: left
+          - font-weight: bold
+          - font-size: 12px
+          - filter: opacity(90%)
+          - margin-left: 9px
+          - margin-bottom: 2px
+          - line-height: 110%
+        card:
+          - padding: 8px 5px 8px 5px
+          - font-size: 100%
+          - white-space: normal
+          - height: 95px
+        custom_fields:
+          bouton:
+            - position: absolute
+            - top: 70%
+            - left: 50%
+            - width: calc(90% + 1px)
+            - transform: translate(-50%, calc(-50% + 10px))
+            - '--ha-card-border-width': 0px
+          jauge-cercle:
+            - top: '-03%'
+            - left: 75%
+            - width: 25%
+            - position: absolute
+            - z-index: 2
+            - '--paper-card-background-color': rgba(0, 0, 0, 0.0)
+            - '--ha-card-background': rgba(0, 0, 0, 0.0)"
+            - '--ha-card-box-shadow': none
+            - '--ha-card-border-width': 0px
+          jauge-horizontal:
+            - opacity: 90%
+            - position: absolute
+            - top: 65%
+            - left: 0%
+            - width: calc(100% + 0px)
+            - transform: translate(-50%, calc(-50% + 10px))
+            - z-index: 1
+            - '--paper-card-background-color': rgba(0, 0, 0, 0.0)
+            - '--ha-card-background': rgba(0, 0, 0, 0.0)"
+            - '--ha-card-box-shadow': none
+            - '--ha-card-border-width': 0px
+          graph_temp:
+            - position: absolute
+            - top: 80%
+            - left: 50%
+            - width: calc(100% + 15px)
+            - transform: translate(-50%, calc(-50% + 10px))
+            - '--paper-card-background-color': rgba(0, 0, 0, 0.0)
+            - '--ha-card-background': rgba(0, 0, 0, 0.0)"
+            - '--ha-card-box-shadow': none
+            - '--ha-card-border-width': 0px
+          temp:
+            - position: absolute
+            - left: 8%
+            - top: 60px
+            - font-size: 20px
+            - font-weight: bold
+          hum:
+            - position: absolute
+            - left: 60%
+            - top: 60px
+            - font-size: 20px
+            - font-weight: bold
+      state:
+        - value: 'active'
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+              - background-color: var(--custom-card-color-blue)
+            img_cell:
+              - background-color: var(--custom-img-cell-color-blue)
+            icon:
+              - color: var(--custom-icon-color-blue)
+              - transition: 1s ease
+        - value: paused
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+              - background-color: var(--custom-card-color-blue)
+            img_cell:
+              - background-color: var(--custom-img-cell-color-blue)
+            icon:
+              - color: var(--custom-icon-color-blue)
+              - transition: 1s ease
+        - value: waiting
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+              - background-color: var(--custom-card-color-blue)
+            img_cell:
+              - background-color: var(--custom-img-cell-color-blue)
+            icon:
+              - color: var(--custom-icon-color-blue)
+              - transition: 1s ease
+        - value: 'idle'
+          color: var(--text_off)
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+            img_cell:
+              - background-color: var(--pastille_off)
+            icon:
+              - color: var(--icon_off)
+              - transition: 1s ease
+        - value: unavailable
+          styles:
+            card:
+              - border-color: rgba(255, 0, 0, 0.8)
+              - opacity: 100%
+            img_cell:
+              - background-color: black
+            icon:
+              - color: var(--custom-icon-color-red)
+              - animation: blink 0.8s ease infinite
+              - transition: 1s ease
+            name:
+              - color: red
+            label:
+              - color: red
+            state:
+              - color: red
+      type: custom:button-card
+      name: Linge
+      icon: mdi:tshirt-crew
+      label: |
+        [[[
+          if (states['sensor.cave_timer_state'].state == "idle")
+            return "Minuteur eteint."
+          if (states['sensor.cave_timer_check'].state == "true")
+            return "Machine terminée !!"
+          if (states['sensor.cave_timer_state'].state == "active")
+            return "Fini à : "+ states['sensor.cave_timer'].state
+        ]]]
+      tap_action:
+        action: more-info
+      double_tap_action:
+        action: toggle
+
+    

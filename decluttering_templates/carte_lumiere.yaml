@@ -1,0 +1,154 @@
+    # default:
+      # - name: Plafond
+      # - entity: light.lampe_cave_1
+
+    card:
+      type: custom:button-card
+      template:
+        - police
+        - style
+      show_icon: true
+      show_name: true
+      show_state: false
+      show_label: true
+      show_last_changed: false
+      styles:
+        img_cell:
+          - border-radius: 50%
+          - width: 30px
+          - height: 30px
+          - background-color: var(--pastille_off)
+          - color: var(--text_systeme_info)
+          - margin-top: 2px
+        icon:
+          - width: 60%
+          - color: var(--icon_off)
+        label:
+          - font-weight: bold
+          - font-size: 11px
+          - color: var(--text_on)
+          - padding-bottom: 15px
+        state:
+          - font-weight: bold
+          - font-size: 11px
+          - color: var(--text_on)
+        name:
+          - font-weight: null
+          - font-size: 11px
+          - padding-top: 5%
+          - color: rgba(232,233,242,1)
+        card:
+          - height: auto
+          - padding-left: 3px
+          - padding-right: 3px
+          - box-shadow: |
+              [[[
+                if (entity.state == 'on')
+                  return "inset -4px -4px 8px 0 var(--button-card-light-color), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
+                return "-2px -2px 4px 0 var(--custom-badge-color-blue),4px 4px 8px 0 rgba(0,0,0,.03)"
+              ]]]
+        custom_fields:
+          lum:
+            - position: absolute
+            - top: 78%
+            - left: 51%
+            - width: calc(90% + 1px)
+            - transform: translate(-50%, calc(-50% + 10px))
+            - z-index: 1
+            - '--paper-card-background-color': rgba(0, 0, 0, 0.0)
+            - '--ha-card-background': rgba(0, 0, 0, 0.0)"
+            - '--ha-card-box-shadow': none
+            - '--ha-card-border-width': 0px
+      state:
+        - value: 'on'
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+              - background-color: |-
+                  [[[ 
+                    var color = '255,215,0'; // Default Color
+                    if( states[entity.entity_id].attributes.rgb_color != undefined)
+                      color = states[entity.entity_id].attributes.rgb_color; 
+                    return 'rgb(' + color + ',0.5)';
+                  ]]]
+            img_cell:
+              - background-color: |-
+                  [[[ 
+                    var color = '255,215,0'; // Default Color
+                    if( states[entity.entity_id].attributes.rgb_color != undefined)
+                      color = states[entity.entity_id].attributes.rgb_color; 
+                    return 'rgb(' + color + ',0.3)';
+                  ]]]
+            icon:
+              - color: |-
+                  [[[ 
+                    var color = '255,215,0'; // Default Color
+                    if( states[entity.entity_id].attributes.rgb_color != undefined)
+                      color = states[entity.entity_id].attributes.rgb_color; 
+                    return 'rgb(' + color + ',1)';
+                  ]]]
+              - transition: 1s ease
+        - value: 'off'
+          color: grey
+          styles:
+            card:
+              - animation: ball-scale2 0.2s
+            img_cell:
+              - background-color: var(--pastille_off)
+            icon:
+              - color: var(--icon_off)
+              - transition: 1s ease
+            label:
+              - color: var(--text_off)
+            state:
+              - color: var(--text_off)
+
+      custom_fields:
+        lum:
+          card:
+            type: custom:my-slider
+            entity: '[[entity]]'
+            radius: 6px
+            height: 10px
+            mainSliderColor: var(--button-card-light-color-no-temperature)
+            thumbHorizontalPadding: 0px
+            thumbVerticalPadding: 0px
+            thumbWidth: 2px
+            minSet: 1
+      entity: '[[entity]]'
+      name: '[[name]]'
+      label: |
+        [[[
+          var last_changed = states[entity.entity_id].last_changed;
+          
+          var now = new Date();
+          var date = new Date(last_changed);
+          date.toLocaleString();
+          
+          var diff = (now - date) / 1000;
+          var days = Math.floor(diff / 86400);
+          diff = diff % 86400;
+          var hours = Math.floor(diff / 3600);
+          diff = diff % 3600;
+          var minutes = Math.floor(diff / 60);
+          var seconds = Math.floor(diff % 60);
+          
+          
+          if (days > 0) {
+             return days + "j " + hours + "h ";
+          }else{
+             if (hours > 0) {
+                return hours + "h " + "et " + minutes + "min";
+             } else {
+                if (minutes > 0) {
+                   return minutes + "min et " + seconds + "s";
+                } else {
+                   return seconds + "s";
+                }
+             }
+          }
+        ]]]
+      double_tap_action:
+        action: toggle
+      tap_action:
+        action: more-info

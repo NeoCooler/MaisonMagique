@@ -1,0 +1,395 @@
+    default:
+      - name: TV Salon
+      - entity: media_player.android_tv
+      - source: sensor.tv_salon_source
+      - state: binary_sensor.tv_salon_state
+      - volume: sensor.tv_salon_vol
+      - sc_down: script.atv_down
+      - sc_up: script.atv_up
+      - sc_voldown: script.atv_voldown
+      - sc_volup: script.atv_voldown
+      - sc_mute: script.atv_voldown
+      - sc_power: script.atv_power
+
+    card:
+      type: custom:button-card
+      template:
+        - police
+        - style
+      show_icon: true
+      show_name: true
+      show_state: false
+      show_label: true
+      styles:
+        grid:
+          - grid-template-areas: '"i n" "i s" "i l" '
+          - grid-template-columns: min-content auto
+          - grid-template-rows: min-content min-content min-content
+        img_cell:
+          - background-color: var(--pastille_off)
+          - border-radius: 50%
+          - place-self: start
+          - text-align: start
+          - width: 35px
+          - height: 35px
+        icon:
+          - width: 55%
+          - color: var(--icon_off)
+        name:
+          - color: rgba(232,233,242,1)
+          - align-self: end
+          - justify-self: start
+          - text-align: left
+          - font-weight: bold
+          - font-size: 12px
+          - margin-left: 9px
+        label:
+          - white-space: normal
+          - color: lightgrey
+          - justify-self: start
+          - align-self: start
+          - text-align: left
+          - font-weight: null
+          - font-size: 12px
+          - filter: opacity(90%)
+          - margin-left: 9px
+          - margin-bottom: 2px
+          - line-height: 110%
+        card:
+          - padding: 8px 5px 8px 5px
+          - font-size: 100%
+          - white-space: normal
+          - height: 132px
+        custom_fields:
+          bouton:
+            - position: absolute
+            - top: 79%
+            - left: 50%
+            - width: calc(90% + 1px)
+            - transform: translate(-50%, calc(-50% + 10px))
+            - '--ha-card-border-width': 0px
+          jauge-cercle:
+            - top: '-03%'
+            - left: 80%
+            - width: 15%
+            - position: absolute
+            - z-index: 2
+            - '--paper-card-background-color': rgba(0, 0, 0, 0.0)
+            - '--ha-card-background': rgba(0, 0, 0, 0.0)"
+            - '--ha-card-box-shadow': none
+            - '--ha-card-border-width': 0px
+          bouton2:
+            - position: absolute
+            - top: 54%
+            - left: 50%
+            - width: calc(90% + 0px)
+            - transform: translate(-50%, calc(-50% + 10px))
+            - '--ha-card-border-width': 0px
+          barre_volume:
+            - position: absolute
+            - opacity: 100%
+            - top: 40%
+            - left: '-06%'
+            - width: calc(100% + 020px)
+            - transform: translate(-50%, calc(-50% + 10px))
+            - z-index: 1
+            - '--ha-card-border-width': 0px
+      state:
+        - value: 'on'
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+              - background-color: var(--custom-card-color-blue)
+            img_cell:
+              - background-color: var(--custom-img-cell-color-blue)
+            icon:
+              - color: var(--custom-icon-color-blue)
+              - transition: 1s ease
+        - value: home
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+              - background-color: var(--custom-card-color-blue)
+            img_cell:
+              - background-color: var(--custom-img-cell-color-blue)
+            icon:
+              - color: var(--custom-icon-color-blue)
+              - transition: 1s ease
+        - value: 'off'
+          color: var(--text_off)
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+            img_cell:
+              - background-color: var(--pastille_off)
+            icon:
+              - color: var(--icon_off)
+              - transition: 1s ease
+        - value: "unavailable"
+          styles:
+            card:
+              - border-color: rgba(255, 0, 0, 0.8)
+              - opacity: 100%
+            img_cell:
+              - background-color: black
+            icon:
+              - color: var(--custom-icon-color-red)
+              - animation: blink 0.8s ease infinite
+              - transition: 1s ease
+            name:
+              - color: red
+            label:
+              - color: red
+            state:
+              - color: red
+      name: '[[name]]'
+      entity: '[[entity]]'
+      icon: |
+        [[[
+          if (states['[[source]]'].state == "Netflix")
+            return "phu:netflix";
+          if (states['[[source]]'].state == "YouTube")
+            return "mdi:youtube";
+          if (states['[[source]]'].state == "Prime Video")
+            return "phu:prime-video";
+          return "mdi:television";
+        ]]]
+      label: |
+        [[[
+          if (states['[[state]]'].state == "on")
+            return states['[[source]]'].state
+          return "Éteint"
+        ]]]
+      custom_fields:
+        jauge-cercle:
+          card:
+            type: conditional
+            conditions:
+              - entity: '[[state]]'
+                state: 'on'
+            card:
+              type: custom:hatc-gauge-card
+              entity: '[[volume]]'
+              title:
+                name: false
+                icon: false
+                text-align: center
+                text-color: red
+                font-size: 28px
+              gauge:
+                icon: false
+                font-size: 11px
+                text-color: severity
+                max_value: 100
+                friendly_name: false
+                unit_of_measurement: false
+                severity:
+                  - color: darkgrey
+                  - color: rgb(180, 70, 70)
+                    from: 30
+                    to: 100
+        bouton2:
+          card:
+            type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                show_name: false
+                show_state: false
+                show_label: false
+                show_icon: true
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - height: 27px
+                    - padding: 02px
+                    - line-height: 77%
+                    - background: var(--background-button-in-card)
+                  icon:
+                    - color: grey
+                    - width: 16px
+                    - padding-bottom: 0px
+                    - color: |
+                        [[[
+                          if (states['[[entity]]'].state == "on")
+                            return 'lightgrey';
+                          return "grey"
+                        ]]]
+                  name:
+                    - font-size: 9px
+                  label:
+                    - font-size: 11px
+                  state:
+                    - font-size: 11px
+
+                icon: mdi:television
+                tap_action:
+                  action: toggle
+                double_tap_action:
+                  action: more-info
+              - type: custom:button-card
+                entity: '[[sc_down]]'
+                icon: mdi:arrow-down
+                show_name: false
+                show_state: false
+                show_label: false
+                show_icon: true
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - height: 27px
+                    - padding: 02px
+                    - line-height: 77%
+                    - background: var(--background-button-in-card)
+                  icon:
+                    - color: grey
+                    - width: 16px
+                    - padding-bottom: 0px
+                    - color: |
+                        [[[
+                          if (states['[[entity]]'].state == "on")
+                            return 'lightgrey';
+                          return "grey"
+                        ]]]
+                  name:
+                    - font-size: 9px
+                  label:
+                    - font-size: 11px
+                  state:
+                    - font-size: 11px
+              - type: custom:button-card
+                entity: '[[sc_up]]'
+                icon: mdi:arrow-up
+                show_name: false
+                show_state: false
+                show_label: false
+                show_icon: true
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - height: 27px
+                    - padding: 02px
+                    - line-height: 77%
+                    - background: var(--background-button-in-card)
+                  icon:
+                    - color: grey
+                    - width: 16px
+                    - padding-bottom: 0px
+                    - color: |
+                        [[[
+                          if (states['[[entity]]'].state == "on")
+                            return 'lightgrey';
+                          return "grey"
+                        ]]]
+                  name:
+                    - font-size: 9px
+                  label:
+                    - font-size: 11px
+                  state:
+                    - font-size: 11px
+        bouton:
+          card:
+            type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                entity: '[[sc_voldown]]'
+                icon: mdi:volume-mute
+                show_name: false
+                show_state: false
+                show_label: false
+                show_icon: true
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - height: 27px
+                    - padding: 02px
+                    - line-height: 77%
+                    - background: |
+                        [[[
+                          if (states['[[state]]'].state == "on")
+                            return 'rgba(74,82,96,0.7)'
+                          return 'rgba(43,53,66,0.7)'
+                        ]]]
+                  icon:
+                    - color: |
+                        [[[
+                          if (states['[[entity]]'].attributes.is_volume_muted == true)
+                            return 'red';
+                          return "var(--icon_off)"
+                        ]]]
+                    - width: 16px
+                    - padding-bottom: 0px
+                  name:
+                    - font-size: 9px
+                  label:
+                    - font-size: 11px
+                  state:
+                    - font-size: 11px
+                double_tap_action:
+                  action: more-info
+                tap_action:
+                  action: toggle
+              - type: custom:button-card
+                entity: '[[sc_voldown]]'
+                icon: mdi:volume-minus
+                show_name: false
+                show_state: false
+                show_label: false
+                show_icon: true
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - height: 27px
+                    - padding: 02px
+                    - line-height: 77%
+                    - background: var(--background-button-in-card)
+                  icon:
+                    - color: grey
+                    - width: 16px
+                    - padding-bottom: 0px
+                    - color: |
+                        [[[
+                          if (states['[[entity]]'].state == "on")
+                            return 'lightgrey';
+                          return "grey"
+                        ]]]
+                  name:
+                    - font-size: 9px
+                  label:
+                    - font-size: 11px
+                  state:
+                    - font-size: 11px
+              - type: custom:button-card
+                entity: '[[sc_volup]]'
+                icon: mdi:volume-plus
+                show_name: false
+                show_state: false
+                show_label: false
+                show_icon: true
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - height: 27px
+                    - padding: 02px
+                    - line-height: 77%
+                    - background: var(--background-button-in-card)
+                  icon:
+                    - color: grey
+                    - width: 16px
+                    - padding-bottom: 0px
+                    - color: |
+                        [[[
+                          if (states['[[entity]]'].state == "on")
+                            return 'lightgrey';
+                          return "grey"
+                        ]]]
+                  name:
+                    - font-size: 9px
+                  label:
+                    - font-size: 11px
+                  state:
+                    - font-size: 11px
+      tap_action:
+        action: more-info
+      double_tap_action:
+        action: call-service
+        service: '[[sc_power]]'

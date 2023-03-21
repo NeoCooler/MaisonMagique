@@ -1,0 +1,97 @@
+    default:
+      - name: Salon
+      - entity: binary_sensor.tv_salon_state
+
+    card:
+      type: 'custom:button-card'  
+      color: auto
+      size: 50%
+      entity: '[[entity]]'
+      show_last_changed: true
+      aspect_ratio: 1/1
+      show_state: true
+      name: '[[name]]'
+      show_label: true
+      show_icon: false
+      tap_action:
+        action: toggle
+        haptic: light
+      hold_action:
+        action: more-info
+        haptic: success
+      double_tap_action: '[[double_tap_action]]'        
+      card_mod:
+        style: |
+          ha-card {
+            box-shadow: 
+              {% if is_state('sun.sun', 'above_horizon') and is_state('[[entity]]', 'on') %}
+                inset -4px -4px 8px 0 rgba(255,255,255,.5), inset 4px 4px 8px 0 rgba(0,0,0,.03);
+              {% elif is_state('sun.sun', 'above_horizon') and is_state('[[entity]]', 'playing') %}
+                inset -4px -4px 8px 0 rgba(255,255,255,.5), inset 4px 4px 8px 0 rgba(0,0,0,.03); 
+              {% elif is_state('sun.sun', 'above_horizon') and is_state('[[entity]]', 'paused') %}
+                inset -4px -4px 8px 0 rgba(255,255,255,.5), inset 4px 4px 8px 0 rgba(0,0,0,.03);                            
+              {% elif is_state('sun.sun', 'above_horizon') and is_state('[[entity]]', 'off') %}                      
+                -5px -5px 8px 0 rgba(255,255,255,.5),5px 5px 8px 0 rgba(0,0,0,.03);
+              {% elif is_state('sun.sun', 'below_horizon') and is_state('[[entity]]', 'on') %}                      
+                inset -4px -4px 10px 0 rgba(50, 50, 50,.5), inset 4px 4px 12px 0 rgba(0,0,0,.3); 
+              {% elif is_state('sun.sun', 'below_horizon') and is_state('[[entity]]', 'playing') %}                      
+                inset -4px -4px 10px 0 rgba(50, 50, 50,.5), inset 4px 4px 12px 0 rgba(0,0,0,.3);
+              {% elif is_state('sun.sun', 'below_horizon') and is_state('[[entity]]', 'paused') %}                      
+                inset -4px -4px 10px 0 rgba(50, 50, 50,.5), inset 4px 4px 12px 0 rgba(0,0,0,.3);                              
+              {% elif is_state('sun.sun', 'below_horizon') and is_state('[[entity]]', 'off') %}   
+                -5px -5px 8px 0 rgba(50, 50, 50,.5),5px 5px 8px 0 rgba(0,0,0,.15);
+              {% endif %}     
+          }
+      custom_fields:
+           
+        icon_switch: >
+          [[[ if (entity.state === 'on') {
+          return '<svg viewBox="0 0 24 24" shape-rendering="geometricPrecision" text-rendering="geometricPrecision"><style><![CDATA[#ei8xkwsh90dn2_ts {animation: ei8xkwsh90dn2_ts__ts 3000ms linear 1 normal forwards}@keyframes ei8xkwsh90dn2_ts__ts { 0% {transform: translate(11.515668px,12.495664px) scale(1,1)} 20% {transform: translate(11.515668px,12.495664px) scale(0.700000,0.700000)} 40% {transform: translate(11.515668px,12.495664px) scale(1,1)} 43.333333% {transform: translate(11.515668px,12.495664px) scale(0.900000,0.900000)} 46.666667% {transform: translate(11.515668px,12.495664px) scale(1,1)} 100% {transform: translate(11.515668px,12.495664px) scale(1,1)} }#ei8xkwsh90dn3 {animation: ei8xkwsh90dn3_c_o 3000ms linear 1 normal forwards}@keyframes ei8xkwsh90dn3_c_o { 0% {opacity: 0} 6.666667% {opacity: 1} 100% {opacity: 1} }#ei8xkwsh90dn4 {animation: ei8xkwsh90dn4_c_o 3000ms linear 1 normal forwards}@keyframes ei8xkwsh90dn4_c_o { 0% {opacity: 0} 3.333333% {opacity: 0} 10% {opacity: 1} 100% {opacity: 1} }#ei8xkwsh90dn5 {animation: ei8xkwsh90dn5_c_o 3000ms linear 1 normal forwards}@keyframes ei8xkwsh90dn5_c_o { 0% {opacity: 0} 6.666667% {opacity: 0} 13.333333% {opacity: 1} 100% {opacity: 1} }#ei8xkwsh90dn6 {animation: ei8xkwsh90dn6_c_o 3000ms linear 1 normal forwards}@keyframes ei8xkwsh90dn6_c_o { 0% {opacity: 0} 10% {opacity: 0} 16.666667% {opacity: 1} 100% {opacity: 1} }]]></style><g id="ei8xkwsh90dn2_ts" transform="translate(11.515668,12.495664) scale(1,1)"><g id="ei8xkwsh90dn2" transform="translate(-11.515668,-12.495664)"><path id="ei8xkwsh90dn3" d="M3.031363,9.372881L3.031390,6.763699L3.112107,6.744862C3.549301,6.642832,8.916546,5.470852,8.946610,5.470852C8.975645,5.470852,8.986547,6.346176,8.986547,8.677471L8.986547,11.884091L7.829596,11.908461C7.193273,11.921871,5.853351,11.943911,4.851991,11.957451L3.031336,11.982061Z" opacity="0" fill="rgb(8,113,196)" stroke="none" stroke-width="0.035874"/><path id="ei8xkwsh90dn4" d="M10.026906,8.560019L10.026906,5.227509L10.107626,5.207668C10.199916,5.184982,19.750882,3.073708,19.901348,3.042731L20,3.022422L20,7.385650L20,11.748879L19.408775,11.748879C18.717806,11.748879,12.213670,11.843689,10.914798,11.872700L10.026906,11.892530Z" opacity="0" fill="rgb(8,113,196)" stroke="none" stroke-width="0.035874"/><path id="ei8xkwsh90dn5" d="M6.690583,19.441579C5.536323,19.218000,4.240807,18.967569,3.811659,18.885064L3.031390,18.735057L3.031390,15.866623L3.031390,12.998190L3.452915,13.018750C3.684753,13.030060,4.689686,13.047790,5.686099,13.058160C6.682511,13.068530,7.832735,13.087120,8.242152,13.099470L8.986547,13.121920L8.986547,16.489213L8.986547,19.856505L8.887892,19.852305C8.833632,19.849980,7.844843,19.665157,6.690583,19.441579Z" opacity="0" fill="rgb(8,113,196)" stroke="none" stroke-width="0.035874"/><path id="ei8xkwsh90dn6" d="M14.959641,21.019759C12.256502,20.500085,10.040807,20.074189,10.035874,20.073323C10.030974,20.072457,10.026874,18.504626,10.026874,16.589253L10.026874,13.106757L11.112076,13.129307C12.612629,13.160487,18.943360,13.255492,19.524632,13.255555L20,13.255605L20,17.614350C20,21.743233,19.996700,21.972871,19.937220,21.968857C19.902690,21.966557,17.662780,21.539433,14.959641,21.019759Z" opacity="0" fill="rgb(8,113,196)" stroke="none" stroke-width="0.035874"/></g></g></svg>'; }
+          else { return '<svg viewBox="0 0 24 24"><path fill="#bac0c6" d="M3,12V6.75L9,5.43V11.91L3,12M20,3V11.75L10,11.9V5.21L20,3M3,13L9,13.09V19.9L3,18.75V13M20,13.25V22L10,20.09V13.1L20,13.25Z" /></svg>'; } ]]]        
+      styles: 
+        custom_fields:       
+          icon_switch:
+            [top: 5%, left: 10%, width: 55%, height: 55%, position: absolute]          
+        card:
+          - color: 'var(--text-color)'
+          - background-color: var(--primary-background-color)      
+          - padding-left: 10px
+          - border-radius: 20px
+        name:
+          - justify-self: start
+          - padding: 0px 10px          
+          - font-weight: bold
+          - font-size: 13px
+        label:
+          - color: 'var(--text-medium-color)'
+          - font-size: 10px
+          - font-family: Helvetica
+          - padding: 0px 10px
+          - justify-self: start
+        state:
+          - font-size: 10px
+          - font-family: Helvetica
+          - padding: 1px 10px
+          - justify-self: start
+          - text-transform: capitalize
+          - font-weight: bold
+        grid:
+          - grid-template-areas: '"i" "n" "s" "l"'
+          - grid-template-columns: 1fr
+          - grid-template-rows: 1fr min-content min-content
+        img_cell:
+          - justify-content: start
+          - align-items: start
+      state:
+        - value: 'on'
+          styles:
+            card:
+              - box-shadow: 0px 0px 3px 2px var       
+            state:
+              - color: lime      
+        - value: 'off'
+          styles:
+            card:
+              - box-shadow: 0px 0px 3px 2px var
+            state:
+              - color: 'red'

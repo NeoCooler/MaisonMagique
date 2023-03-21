@@ -1,0 +1,16 @@
+    default:
+      - name: Salon
+      - entity: media_player.android_tv
+      # - icon: mdi:light-recessed
+      # - sensor: sensor.compteur_cave
+
+    card:
+      type: custom:mini-media-player     
+      icon: mdi:google-home
+      entity: '[[entity]]'
+      name: '[[name]]'
+      artwork: cover
+      power_color: true
+      hide_volume: false
+      show_progress: true
+      group: true

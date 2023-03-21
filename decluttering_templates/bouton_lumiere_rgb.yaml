@@ -1,0 +1,56 @@
+    # default:
+      # - entity: light.lampe_ambiance_salon
+
+
+    card:
+      type: custom:rgb-light-card
+      entity: '[[entity]]'
+      hide_when_off: true
+      justify: center 
+      size: 10
+      colors:
+        - color_temp: 285
+          brightness: 50
+          # icon_color: '#FFFFFF'
+        - rgb_color:
+            - 57
+            - 255
+            - 254
+          brightness: 255
+          # icon_color: '#33cccc'
+        - rgb_color:
+            - 63
+            - 57
+            - 255
+          brightness: 255
+          # icon_color: '#3366CC'
+        - rgb_color:
+            - 129
+            - 16
+            - 255
+          brightness: 255
+          # icon_color: '#a133cc' 
+        - rgb_color:
+            - 255
+            - 43
+            - 0
+          brightness: 255
+          # icon_color: '#cc3333'
+        - rgb_color:
+            - 255
+            - 127
+            - 26
+          brightness: 255
+          # icon_color: '#f09629'
+        - rgb_color:
+            - 254
+            - 255
+            - 63
+          brightness: 255
+          # icon_color: '#ecf029'
+        - rgb_color:
+            - 51
+            - 204
+            - 51
+          brightness: 255
+          # icon_color: '#33CC33'

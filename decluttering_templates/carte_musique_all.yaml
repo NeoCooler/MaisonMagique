@@ -1,0 +1,122 @@
+    default:
+      - name: Enceintes
+      - entity: media_player.partout
+      - entity_1: media_player.enceinte_cave
+      - entity_2: media_player.enceinte_cuisine
+      - entity_3: media_player.enceinte_salon
+      - entity_4: media_player.enceinte_chambre_angel
+      - entity_5: media_player.ecran_chambre_parents
+      - entity_6: media_player.enceinte_salle_de_bain
+
+    card:
+      type: custom:swipe-card
+      card_width: 370px
+      start_card: 3
+      parameters:
+        fadeEffect:
+          crossFade: true
+        autoplay:
+          delay: 3000
+        speed: 2000
+      cards:
+        - type: conditional
+          conditions:
+            - entity: '[[entity_1]]'
+              state_not: playing
+            - entity: '[[entity_2]]'
+              state_not: playing
+            - entity: '[[entity_3]]'
+              state_not: playing
+            - entity: '[[entity_4]]'
+              state_not: playing
+            - entity: '[[entity_5]]'
+              state_not: playing
+            - entity: '[[entity_6]]'
+              state_not: playing
+          card:
+            type: custom:decluttering-card
+            template: carte_musique
+            variables:
+              - name: '[[name]]'
+              - entity: '[[entity]]'
+
+        - type: conditional
+          conditions:
+            - entity: '[[entity]]'
+              state: playing
+            - entity: '[[entity]]'
+              state_not: playing
+          card:
+            type: custom:decluttering-card
+            template: carte_musique
+            variables:
+              - name: Cave
+              - entity: '[[entity_1]]'
+
+        - type: conditional
+          conditions:
+            - entity: '[[entity_2]]'
+              state: playing
+            - entity: '[[entity]]'
+              state_not: playing
+          card:
+            type: custom:decluttering-card
+            template: carte_musique
+            variables:
+              - name: Cuisine
+              - entity: '[[entity_2]]'
+
+        - type: conditional
+          conditions:
+            - entity: '[[entity_3]]'
+              state: playing
+            - entity: '[[entity]]'
+              state_not: playing
+          card:
+            type: custom:decluttering-card
+            template: carte_musique
+            variables:
+              - name: Salon
+              - entity: '[[entity_3]]'
+
+        - type: conditional
+          conditions:
+            - entity: '[[entity_4]]'
+              state: playing
+            - entity: '[[entity]]'
+              state_not: playing
+          card:
+            type: custom:decluttering-card
+            template: carte_musique
+            variables:
+              - name: Ch. Angel
+              - entity: '[[entity_4]]'
+
+        - type: conditional
+          conditions:
+            - entity: '[[entity_5]]'
+              state: playing
+            - entity: '[[entity]]'
+              state_not: playing
+          card:
+            type: custom:decluttering-card
+            template: carte_musique
+            variables:
+              - name: Ch. Parents
+              - entity: '[[entity_5]]'
+
+        - type: conditional
+          conditions:
+            - entity: '[[entity_6]]'
+              state: playing
+            - entity: '[[entity]]'
+              state_not: playing
+          card:
+            type: custom:decluttering-card
+            template: carte_musique
+            variables:
+              - name: Salle de Bain
+              - entity: '[[entity_6]]'
+
+      tap_action:
+        action: more-info

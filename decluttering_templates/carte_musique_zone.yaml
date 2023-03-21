@@ -1,0 +1,156 @@
+    # default:
+      # - name: Rez-de-chaussée
+      # - entity: media_player.en_bas
+      # - entity_1: media_player.enceinte_cave
+      # - entity_2: media_player.enceinte_cuisine
+      # - entity_3: media_player.enceinte_salon
+
+    card:
+      type: custom:button-card
+      template:
+        - police
+        - style
+      show_icon: true
+      show_name: true
+      show_state: false
+      show_label: true
+      aspect_ratio: 1/1
+      show_entity_picture: true
+      styles:
+        entity_picture:
+          - width: 100%
+        grid:
+          - grid-template-areas: '"i n" "i s" "i l" '
+          - grid-template-columns: min-content auto
+          - grid-template-rows: min-content min-content min-content
+        img_cell:
+          - background-color: var(--pastille_off)
+          - border-radius: 50%
+          - place-self: start
+          - text-align: start
+          - width: 35px
+          - height: 35px
+        icon:
+          - width: 55%
+          - color: var(--icon_off)
+        name:
+          - color: rgba(232,233,242,1)
+          - align-self: end
+          - justify-self: start
+          - text-align: left
+          - font-weight: bold
+          - font-size: 12px
+          - margin-left: 9px
+        card:
+          - padding: 8px 5px 8px 5px
+          - font-size: 100%
+          - white-space: normal
+        custom_fields:
+          cartes:
+            - position: absolute
+            - border-radius: 50%
+            - top: 44.5%
+            - left: 50%
+            - width: calc(100% + 03px)
+            - transform: translate(-50%, calc(-50% + 10px))
+      state:
+        - value: 'on'
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+              - background-color: var(--custom-card-color-blue)
+            img_cell:
+              - background-color: var(--custom-img-cell-color-blue)
+            icon:
+              - color: var(--custom-icon-color-blue)
+              - transition: 1s ease
+        - value: playing
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+              - background-color: var(--custom-card-color-blue)
+            img_cell:
+              - background-color: var(--custom-img-cell-color-blue)
+            icon:
+              - color: var(--custom-icon-color-blue)
+              - transition: 1s ease
+        - value: 'off'
+          color: var(--text_off)
+          styles:
+            img_cell:
+              - background-color: var(--pastille_off)
+            icon:
+              - color: var(--icon_off)
+              - transition: 1s ease
+      name: '[[name]]'
+      entity: '[[entity]]'
+      icon: |-
+        [[[
+          if (entity.state == 'playing' )
+            return "mdi:speaker-play"
+          if (entity.state != 'playing' )
+            return "mdi:speaker-off"
+        ]]]
+      custom_fields:
+        cartes:
+          card:
+            type: custom:swipe-card
+            parameters:
+              fadeEffect:
+                crossFade: true
+              autoplay:
+                delay: 3000
+              speed: 2000
+            cards:
+              - type: conditional
+                conditions:
+                  - entity: '[[entity_1]]'
+                    state: playing
+                card:
+                  info: scroll
+                  artwork: full-cover-fit
+                  hide:
+                    volume: true
+                    source: true
+                    power: true
+                    name: false
+                    icon: true
+                    controls: true
+                  type: custom:mini-media-player
+                  entity: '[[entity_1]]'
+              - type: conditional
+                conditions:
+                  - entity: '[[entity_2]]'
+                    state: playing
+                card:
+                  info: scroll
+                  artwork: full-cover-fit
+                  hide:
+                    volume: true
+                    source: true
+                    power: true
+                    name: false
+                    icon: true
+                    controls: true
+                  type: custom:mini-media-player
+                  entity: '[[entity_2]]'
+              - type: conditional
+                conditions:
+                  - entity: '[[entity_3]]'
+                    state: playing
+                card:
+                  info: scroll
+                  artwork: full-cover-fit
+                  hide:
+                    volume: true
+                    source: true
+                    power: true
+                    name: false
+                    icon: true
+                    controls: true
+                  type: custom:mini-media-player
+                  entity: '[[entity_3]]'
+      tap_action:
+        action: more-info
+      double_tap_action:
+        action: toggle

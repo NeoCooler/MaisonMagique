@@ -1,0 +1,236 @@
+    default:
+      - name: Alarme
+      - entity: alarm_control_panel.ha_alarm
+      - nav_path: Alarme
+
+    card:
+      type: custom:button-card
+      template:
+        - police
+        - style
+      show_icon: true
+      show_name: true
+      show_state: false
+      show_label: true
+      styles:
+        card:
+          - padding: 8px 5px 8px 5px
+          - font-size: 100%
+          - white-space: normal
+          - height: 95px
+        name:
+          - color: var(--mm-silver)
+          - align-self: end
+          - justify-self: start
+          - text-align: left
+          - font-weight: bold
+          - font-size: 14px
+          - margin-left: 9px
+        icon:
+          - width: 55%
+          - color: var(--mm-grey)
+        label:
+          - white-space: normal
+          - color: var(--mm-lightgrey)
+          - justify-self: start
+          - align-self: start
+          - text-align: left
+          - font-weight: null
+          - font-size: 12px
+          - filter: opacity(90%)
+          - margin-left: 9px
+          - margin-bottom: 2px
+          - line-height: 110%
+        grid:
+          - grid-template-areas: '"i n" "i s" "i l"'
+          - grid-template-columns: min-content auto
+          - grid-template-rows: min-content min-content min-content
+        img_cell:
+          - background-color: var(--mm-darkblue)
+          - border-radius: 50%
+          - place-self: start
+          - text-align: start
+          - width: 35px
+          - height: 35px
+        custom_fields:
+          time:
+            - position: absolute
+            - opacity: 80%
+            - top: 10%
+            - left: '70%'
+            - font-size: 12px
+            - width: calc(100% + 020px)
+            - transform: translate(-50%, calc(-50% + 10px))
+            - z-index: 1
+            - '--ha-card-border-width': 0px
+          raison:
+            - position: absolute
+            - opacity: 80%
+            - top: 30%
+            - left: '70%'
+            - font-size: 12px
+            - width: calc(100% + 020px)
+            - transform: translate(-50%, calc(-50% + 10px))
+            - z-index: 1
+            - '--ha-card-border-width': 0px
+            - color: var(--mm-red)
+          bouton:
+            - position: absolute
+            - top: 70%
+            - left: 50%
+            - width: calc(90% + 1px)
+            - transform: translate(-50%, calc(-50% + 10px))
+            - '--ha-card-border-width': 0px
+      name: '[[name]]'
+      entity: '[[entity]]'
+      icon: |
+        [[[
+          if (entity.state == "disarmed" )
+            return "mdi:shield-off";
+          if (entity.state == "armed_away" )
+            return "mdi:shield-lock";
+          if (entity.state == "armed_home" )
+            return "mdi:shield-home";
+          if (entity.state == "armed_night" )
+            return "mdi:shield-moon";
+          if (entity.state == "arming" )
+            return "mdi:shield-half-full";
+          if (entity.state == "triggered" )
+            return "mdi:shield-alert";
+          return "mdi:shield-sync";
+        ]]]
+      label: |-
+        [[[ 
+           if( states[entity.entity_id].state == "disarmed" )
+            return "Désarmée"
+           if( states[entity.entity_id].state == "armed_away" )
+            return "Absent"
+           if( states[entity.entity_id].state == "armed_night" )
+            return "Nuit"
+           if( states[entity.entity_id].state == "armed_home" )
+            return "Présent"
+           if( states[entity.entity_id].state == "arming" )
+            return "Armement"
+           if( states[entity.entity_id].state == "triggered" )
+            return "Déclenchée"
+           return "Inconnu"
+        ]]]
+      custom_fields:
+        time: |
+          [[[ return "Changer le " + states['sensor.alarme_heure'].state ]]]
+        raison: |
+          [[[
+            if (states[entity.entity_id].state != "triggered")
+              return ""
+            return states['sensor.alarme_cause'].state
+          ]]]
+        bouton:
+          card:
+            type: horizontal-stack
+            cards:
+              - type: custom:decluttering-card
+                template: bouton_alarme
+                variables:
+                  - script: script.alarme_disarmed
+
+              - type: custom:decluttering-card
+                template: bouton_alarme
+                variables:
+                  - script: script.alarme_armed_home
+
+              - type: custom:decluttering-card
+                template: bouton_alarme
+                variables:
+                  - script: script.alarme_armed_night
+              
+              - type: custom:decluttering-card
+                template: bouton_alarme
+                variables:
+                  - script: script.alarme_armed_away
+      state:
+        - value: "unavailable"
+          styles:
+            card:
+              - border-color: var(--mm-red)
+              - opacity: 100%
+            icon:
+              - color: var(--mm-red)
+              - animation: blink 0.8s ease infinite
+              - transition: 1s ease
+            name:
+              - color: var(--mm-red)
+            label:
+              - color: var(--mm-red)
+            state:
+              - color: var(--mm-red)
+        - value: disarmed
+          color: var(--mm-grey)
+          styles:
+            icon:
+              - color: var(--mm-grey)
+              - transition: 1s ease
+        - value: 'off'
+          color: var(--mm-grey)
+          styles:
+            icon:
+              - color: var(--mm-grey)
+              - transition: 1s ease
+        - value: armed_away
+          color: var(--mm-green)
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+              - background-color: var(--mm-green)
+            icon:
+              - color: var(--custom-icon-color-green)
+              - transition: 1s ease
+        - value: armed_night
+          color: var(--mm-green)
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+              - background-color: var(--mm-green)
+            icon:
+              - color: var(--custom-icon-color-green)
+              - transition: 1s ease
+        - value: armed_home
+          color: var(--mm-green)
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+              - background-color: var(--mm-green)
+            icon:
+              - color: var(--custom-icon-color-green)
+              - transition: 1s ease
+        - value: arming
+          color: var(--mm-orange)
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+              - background-color: var(--mm-orange)
+            icon:
+              - color: var(--mm-orange)
+              - transition: 1s ease
+        - value: pending
+          color: var(--mm-orange)
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+              - background-color: var(--mm-orange)
+            icon:
+              - color: var(--mm-orange)
+              - animation: blink 1s ease infinite
+              - transition: 1s ease
+        - value: triggered
+          color: var(--mm-red)
+          styles:
+            card:
+              - animation: ball-scale 0.2s
+              - background-color: var(--mm-red)
+            icon:
+              - color: var(--mm-red)
+              - animation: blink 1s ease infinite
+              - transition: 1s ease
+      tap_action:
+        action: navigate
+        navigation_path: /lovelace/[[nav_path]]

@@ -1,0 +1,341 @@
+    default:
+      - name: PC Chris
+      - entity: media_player.pc_chris
+
+    card:
+      type: custom:button-card
+      template:
+        - police
+        - style
+      show_icon: false
+      show_name: true
+      show_state: false
+      show_label: true
+      show_entity_picture: true
+      aspect_ratio: 2/1
+      triggers_update: all
+
+      styles:
+        grid:
+          - grid-template-areas: '"i n l infos"'
+          - grid-template-rows: 1fr
+          - grid-template-columns: 50% min-content
+          - margin: 0
+          - padding: 0
+        card:
+          - padding: 8px 5px 8px 5px
+          - font-size: 100%
+          - white-space: normal
+          - height: 190px
+          - box-shadow: |
+              [[[
+                if (entity.state == 'playing')
+                  return "inset -4px -4px 8px 0 var(--custom-badge-color-blue), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
+                return "-2px -2px 4px 0 var(--custom-badge-color-blue),4px 4px 8px 0 rgba(0,0,0,.03)"
+              ]]]
+        img_cell:
+          - grid-column: i / l
+          - padding: 0
+          - margin: 0
+        icon:
+          - z-index: 3
+          - width: 168px
+          - height: 95px
+          - position: absolute
+          - left: 10%
+          - top: 7%
+        name:
+          - padding: 0
+          - margin: 0
+          - width: 190px
+          - height: 165px
+          - background: center center / cover no-repeat
+          - background-image: url("/local/Images/card/screen.png")
+          - z-index: 1
+          - grid-column: i / l
+        label:
+          - z-index: 4
+          - width: 20%
+          - height: 65%
+          - position: absolute
+          - left: 36.5%
+          - top: 32.5%
+          - clip-path: circle(2.5% at 50% 50%)
+          - padding: 0
+          - margin: 0
+          - background: center center / cover no-repeat
+        custom_fields:
+          bg:
+            - background: center center/cover no-repeat
+            - height: 80%
+            - width: 80%
+            - position: absolute
+            - z-index: 0
+            - margin: 0
+            - padding: 0
+      state:
+        - value: idle
+          entity_picture:  |
+                    [[[
+                      return ` `
+                    ]]]
+          styles:
+            icon:
+              - animation-delay: 30s
+              - animation: animate_off 2s normal
+            label:
+              - background-image: url("/local/Images/card/rouge75.png")
+        - value: paused
+          entity_picture: |
+                    [[[
+                      return `url("${states['[[entity]]'].attributes.entity_picture}")`
+                    ]]]
+          styles:
+            icon:
+              - animation-delay: 30s
+              - animation: animate_off 2s normal
+            label:
+              - background-image: url("/local/Images/card/jaune75.png")
+            custom_fields:
+              bg:
+                - filter: blur(30px) brightness(0.75)
+                - background-image: |
+                    [[[
+                      return `url("${states['[[entity]]'].attributes.entity_picture}")`
+                    ]]]
+        - value: playing
+          entity_picture: |
+                    [[[
+                      return (states['[[entity]]'].attributes.entity_picture)
+                    ]]]
+          styles:
+            icon:
+              - animation-delay: 30s
+              - animation: animate_on 2s normal
+            label:
+              - background-image: url("/local/Images/card/vert75.png")
+            custom_fields:
+              bg:
+                - filter: blur(30px) brightness(0.75)
+                - background-image: |
+                    [[[
+                      return `url("${states['[[entity]]'].attributes.entity_picture}")`
+                    ]]]
+      entity: '[[entity]]'
+      name: " "
+      label: " "
+      extra_styles: |
+        @keyframes animate_on {
+          from{transform: scaleY(0); }
+          to{transform: scaleY(1); }
+        }.animate_on {
+          animation: animate_on 1s;
+          transform-origin: -100% 46%;
+          animation-fill-mode:
+          forwards;
+        }
+        @keyframes animate_off {
+          from{transform: scaleY(1); }
+          to{transform: scaleY(0); }
+        }.animate_off {
+          animation: animate_off 1s;
+          transform-origin: -100% 46%;
+          animation-fill-mode: forwards;
+        }
+      custom_fields:
+        bg: |
+          [[[
+            return " "
+          ]]]
+        infos:
+          card:
+            type: custom:button-card
+            entity: '[[entity]]'
+            template:
+              - police
+              - style
+            show_icon: true
+            show_name: true
+            show_state: true
+            show_label: true
+            show_entity_picture: false
+            styles:
+              grid:
+                - grid-template-areas: '"i n" "i s" "i l" '
+                - grid-template-columns: min-content auto
+                - grid-template-rows: min-content min-content min-content
+              img_cell:
+                - background-color: var(--pastille_off)
+                - border-radius: 50%
+                - place-self: start
+                - text-align: start
+                - width: 35px
+                - height: 35px
+              icon:
+                - width: 55%
+                - color: var(--icon_off)
+              name:
+                - color: rgba(232,233,242,1)
+                - align-self: start
+                - justify-self: start
+                - text-align: left
+                - font-weight: bold
+                - font-size: 15px
+                - margin-left: 9px
+              state:
+                - color: rgba(232,233,242,0.8)
+                - align-self: end
+                - justify-self: start
+                - text-align: left
+                - font-weight: medium
+                - font-size: 13px
+                - margin-top: 8px
+                - margin-left: 9px
+                - line-height: 110%
+              label:
+                - white-space: normal
+                - color: rgba(232,233,242,0.6)
+                - justify-self: start
+                - align-self: start
+                - text-align: left
+                - font-weight: null
+                - font-size: 12px
+                - margin-top: 5px
+                - margin-left: -25px
+                - line-height: 110%
+              card:
+                - padding: 8px 5px 8px 5px
+                - font-size: 100%
+                - white-space: normal
+                - height: 145px
+                - width: 175px
+                - box-shadow: |
+                    [[[
+                      if (entity.state == 'playing')
+                        return "inset -4px -4px 8px 0 var(--custom-badge-color-blue), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
+                      return "-2px -2px 4px 0 var(--custom-badge-color-blue),4px 4px 8px 0 rgba(0,0,0,.03)"
+                    ]]]
+              custom_fields:
+                bouton:
+                  - position: absolute
+                  - top: 70%
+                  - left: 50%
+                  - width: calc(90% + 1px)
+                  - transform: translate(-50%, calc(-50% + 10px))
+                  - '--ha-card-border-width': 0px
+            name: '[[name]]'
+            icon: |-
+              [[[
+                if (entity.state == 'playing' )
+                  return "mdi:speaker-play"
+                if (entity.state == 'paused' )
+                  return "mdi:speaker-pause"
+                if (entity.state == 'off' )
+                  return "mdi:speaker"
+                else return "mdi:speaker-off"
+              ]]]
+            state_display: |
+              [[[
+                var active_speaker_media_artist = (states['[[entity]]'].attributes.media_artist);
+                if (((states['[[entity]]'].state) == 'playing') && (active_speaker_media_artist != '')) return active_speaker_media_artist;
+                else if (((states['[[entity]]'].state) == 'paused') && (active_speaker_media_artist != '')) return active_speaker_media_artist;
+                else if ((states['[[entity]]'].state) == 'off') return "Eteint";
+                else return "Indisponible";
+              ]]]
+            label: |
+              [[[
+                var active_speaker_media_title = (states['[[entity]]'].attributes.media_title);
+                if (((states['[[entity]]'].state) == 'playing') && (active_speaker_media_title != '')) return active_speaker_media_title;
+                else if (((states['[[entity]]'].state) == 'paused') && (active_speaker_media_title != '')) return active_speaker_media_title;
+              ]]]
+            custom_fields:
+              bouton:
+                card:
+                  type: vertical-stack
+                  cards:
+                  - type: horizontal-stack
+                    cards:
+                    - type: custom:my-slider
+                      entity: '[[entity]]'
+                      radius: 6px
+                      height: 10px
+                      rotate: 0
+                      mainSliderColor: var(--pastille_off)
+                      secondarySliderColor: darkslategrey
+                      thumbHorizontalPadding: 0px
+                      thumbVerticalPadding: 0px
+                      thumbWidth: 1px
+                      thumbColor: black
+                      minSet: 0
+                      maxSet: 100
+                  
+                  - type: horizontal-stack
+                    cards:
+
+                    - type: custom:button-card
+                      icon: mdi:skip-previous
+                      styles:
+                        card:
+                          - border-radius: 8px
+                          - height: 27px
+                          - padding: 02px
+                          - line-height: 77%
+                          - background: var(--background-button-in-card)
+                        icon:
+                          - color: var(--pastille_off)
+                          - width: 20px
+                          - padding-bottom: 0px
+                      tap_action:
+                        action: call-service
+                        service: media_player.media_previous_track
+                        service_data:
+                          entity_id: '[[entity]]'
+
+                    - type: custom:button-card
+                      icon: |
+                        [[[ 
+                            if ((states['[[entity]]'].state) == "playing") return "mdi:pause"
+                            else return "mdi:play"
+                        ]]]
+                      styles:
+                        card:
+                          - border-radius: 8px
+                          - height: 27px
+                          - padding: 02px
+                          - line-height: 77%
+                          - background: var(--background-button-in-card)
+                        icon:
+                          - color: var(--pastille_off)
+                          - width: 20px
+                          - padding-bottom: 0px
+                      tap_action:
+                        action: call-service
+                        service: media_player.media_play_pause
+                        service_data:
+                          entity_id: '[[entity]]'
+
+                    - type: custom:button-card
+                      show_name: false
+                      show_state: false
+                      show_label: false
+                      show_icon: true
+                      icon: mdi:skip-next
+                      styles:
+                        card:
+                          - border-radius: 8px
+                          - height: 27px
+                          - padding: 02px
+                          - line-height: 77%
+                          - background: var(--background-button-in-card)
+                        icon:
+                          - color: var(--pastille_off)
+                          - width: 20px
+                          - padding-bottom: 0px
+                      tap_action:
+                        action: call-service
+                        service: media_player.media_next_track
+                        service_data:
+                          entity_id: '[[entity]]'
+
+      tap_action:
+        action: more-info

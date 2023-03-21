@@ -1,0 +1,164 @@
+    default:
+      - name: Raspberry Pi
+      - entity: sensor.cpu_temperature
+
+    card:
+      type: custom:button-card
+      template:
+        - police
+        - style
+      name: '[[name]]'
+      entity: '[[entity]]'
+      show_icon: true
+      show_name: true
+      show_state: false
+      show_label: true
+      label: |
+        [[[return states["sensor.cpu_temperature"].state +"°"]]]
+      styles:
+        grid:
+          - grid-template-areas: '"i n" "i s" "i l" '
+          - grid-template-columns: min-content auto
+          - grid-template-rows: min-content min-content min-content
+        img_cell:
+          - border-radius: 50%
+          - place-self: start
+          - text-align: start
+          - width: 35px
+          - height: 35px
+          - background-color: var(--mm-darkblue)
+        icon:
+          - width: 55%
+          - animation: |
+              [[[
+                if (entity.state > "50" )
+                  return "blink 1s ease infinite";
+               return "";
+              ]]]
+          - color: |
+              [[[
+                if (entity.state < 50) return 'var(--mm-grey)';
+                if (entity.state >= 50 && entity.state < 60) return 'var(--mm-orange)';
+                else return 'var(--mm-red)';
+              ]]]
+        name:
+          - color: var(--mm-silver)
+          - align-self: end
+          - justify-self: start
+          - text-align: left
+          - font-weight: bold
+          - font-size: 12px
+          - margin-left: 9px
+        label:
+          - white-space: normal
+          - color: var(--mm-lightgrey)
+          - justify-self: start
+          - align-self: start
+          - text-align: left
+          - font-weight: null
+          - font-size: 12px
+          - filter: opacity(90%)
+          - margin-left: 9px
+          - margin-bottom: 2px
+          - line-height: 110%
+        card:
+          - padding: 8px 5px 8px 5px
+          - font-size: 100%
+          - white-space: normal
+          - height: 120px
+        custom_fields:
+          graph:
+            - position: absolute
+            - top: 60%
+            - left: 50%
+            - width: calc(100% + 15px)
+            - transform: translate(-50%, calc(-50% + 10px))
+            - '--paper-card-background-color': var(--mm-null)
+            - '--ha-card-background': var(--mm-null)
+            - '--ha-card-box-shadow': none
+            - '--ha-card-border-width': 0px
+          info2:
+            - color: var(--mm-grey)
+            - position: absolute
+            - top: 50px
+            - left: 10px
+            - font-size: 90%
+            - font-weight: null
+            - text-align: left
+            - padding-bottom: 1%
+            - '--text-color-sensor': >-
+                [[[ if
+                (states["sensor.processor_use"].state >
+                50) return "var(--mm-red)";  else return
+                "var(--mm-lightgrey)"; ]]]
+          info3:
+            - color: var(--mm-grey)
+            - position: absolute
+            - top: 70px
+            - left: 10px
+            - font-size: 90%
+            - font-weight: null
+            - text-align: left
+            - padding-bottom: 1%
+            - '--text-color-sensor': >-
+                [[[ if (states["sensor.memory_use_percent"].state
+                > 60) return  "var(--mm-red)";  else return
+                "var(--mm-lightgrey)"; ]]]
+          info4:
+            - color: var(--mm-grey)
+            - position: absolute
+            - top: 90px
+            - left: 10px
+            - font-size: 90%
+            - font-weight: null
+            - text-align: left
+            - padding-bottom: 1%
+            - '--text-color-sensor': >-
+                [[[ if
+                (states["sensor.disk_use_percent_home"].state >
+                70) return "var(--mm-red)";  else return
+                "var(--mm-lightgrey)"; ]]]
+      custom_fields:
+        graph:
+          card:
+            type: custom:mini-graph-card
+            entities:
+              - color: var(--mm-gold)
+                entity: sensor.cpu_temperature
+            height: 300
+            line_width: 4
+            lower_bound: 18
+            points_per_hour: 1
+            hours_to_show: 24
+            show:
+              fill: fade
+              icon: false
+              name: false
+              state: false
+              legend: false
+              points: false
+              labels: false
+        info2: |
+          [[[
+            return `<ha-icon
+              icon="mdi:server"
+              style="width: 12px; height: 12px; color: var(--mm-grey);">
+              </ha-icon><span> CPU : <span style="color: var(--text-color-sensor);">${states['sensor.processor_use'].state}%</span></span>`
+          ]]]
+        info3: |
+          [[[
+            return `<ha-icon
+              icon="mdi:memory"
+              style="width: 12px; height: 12px; color: var(--mm-grey);">
+              </ha-icon><span> RAM : <span style="color: var(--text-color-sensor);">${states['sensor.memory_use_percent'].state}%</span></span>`
+          ]]]
+        info4: |
+          [[[
+            return `<ha-icon
+              icon="mdi:harddisk"
+              style="width: 12px; height: 12px; color: var(--mm-grey);">
+              </ha-icon><span> SSD : <span style="color: var(--text-color-sensor);">${states['sensor.disk_use_percent_home'].state}%</span></span>`
+          ]]]
+      tap_action:
+        action: navigate
+        navigation_path: /lovelace/Ordinateurs
