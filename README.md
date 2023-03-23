@@ -42,7 +42,7 @@
 - Ce projet a été inspiré par [herveaurel](https://github.com/herveaurel/HomeAssistant).
 - Ce projet a été inspiré par [romquenin](https://github.com/romquenin/home-assistant-config-fr).
 - Ce projet a été inspiré par [frenck](https://github.com/frenck/home-assistant-config).
-- Un grand merci à toute la communauté HA ;-)
+> Un grand merci à toute la communauté HA ;-)
 
 
 ## Status du Projet
