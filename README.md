@@ -11,8 +11,9 @@
 * [Contact](#contact)
 
 ## Informations
-- Partage de mes [_decluttering template_](https://github.com/custom-cards/decluttering-card).
-- Partage de mes [_buton_card template_](https://github.com/custom-cards/button-card).
+- Mon Theme HA.
+- Mes [_decluttering template_](https://github.com/custom-cards/decluttering-card).
+- Mes [_buton_card template_](https://github.com/custom-cards/button-card).
 - Plus a venir ;-)
 - ...
 - ...
