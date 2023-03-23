@@ -1,0 +1,278 @@
+maison_magique:
+  name: Maison Magique
+  # Wallpaper - Fond d'écran 
+  lovelace-background: 'center / cover no-repeat url("/local/wallpaper/dark.png") fixed'
+  # Fonts
+  primary-font-family: "Roboto Serif" 
+  secondary-font-family: "Roboto Serif"
+  paper-font-common-base_-_font-family: "var(--secondary-font-family)"
+  paper-font-common-code_-_font-family: "var(--secondary-font-family)"
+  paper-font-body1_-_font-family: "var(--secondary-font-family)"
+  paper-font-subhead_-_font-family: "var(--secondary-font-family)"
+  paper-font-headline_-_font-family: "var(--primary-font-family)"
+  paper-font-caption_-_font-family: "var(--secondary-font-family)"
+  paper-font-title_-_font-family: "var(--primary-font-family)"
+  ha-card-header-font-family: "var(--primary-font-family)"
+  # Header:
+  app-header-background-color: var(--mm-blue-grey-darken)
+  app-header-text-color: var(--mm-silver)
+  app-header-selection-bar-color: var(--mm-teal-accent)
+  app-header-edit-background-color: rgb(136, 136, 136)
+  # Main Interface Colors
+  primary-color: rgb(138, 180, 248)
+  primary-background-color: rgb(23, 23, 23)
+  secondary-background-color: rgb(32, 33, 36)
+  divider-color: var(--primary-background-color)
+  accent-color: var(--primary-color)
+  # Text
+  primary-text-color: var(--mm-silver)
+  secondary-text-color: rgb(166, 166, 166)
+  text-primary-color: var(--primary-text-color)
+  disabled-text-color: rgba(184, 190, 199, 0.4)
+  # Sidebar Menu
+  sidebar-icon-color: var(--mm-grey)
+  sidebar-text-color: var(--mm-grey)
+  sidebar-background-color: var(--mm-blue-grey-darken)
+  sidebar-selected-icon-color: var(--mm-teal-accent)
+  sidebar-selected-text-color: var(--mm-teal-accent)
+  # Buttons
+  paper-item-icon-color: rgb(169, 177, 188)
+  paper-item-icon-active-color: rgb(138, 180, 248)
+  # States and Badges
+  state-icon-color: var(--paper-item-icon-color)
+  state-icon-active-color: var(--paper-item-icon-active-color)
+  state-icon-unavailable-color: var(--disabled-text-color)
+  # Sliders
+  paper-slider-knob-color: rgb(138, 180, 248)
+  paper-slider-knob-start-color: var(--paper-slider-knob-color)
+  paper-slider-pin-color: var(--paper-slider-knob-color)
+  paper-slider-active-color: var(--paper-slider-knob-color)
+  paper-slider-secondary-color: var(--light-primary-color)
+  # Labels
+  label-badge-background-color: var(--secondary-background-color)
+  label-badge-text-color: var(--primary-text-color)
+  label-badge-red: rgb(208, 101, 104)
+  label-badge-green: rgb(128, 200, 132)
+  label-badge-blue: rgb(138, 180, 248)
+  label-badge-yellow: rgb(223, 194, 113)
+  label-badge-gray: rgb(95, 98, 103)
+  # Cards
+  card-background-color: rgb(32, 33, 36)
+  ha-card-border-width: "0px"
+  ha-card-border-radius: 13px
+  bar-card-border-radius: 13px
+  ha-card-background: radial-gradient(farthest-corner at 40px 40px, rgba(26, 40, 55,0.2) 0%, var(--mm-blue-grey-darken) 100%)
+  bar-card-disabled-color: var(--mm-red)
+  ha-card-border-color: rgb(42, 43, 46)
+  paper-dialog-background-color: var(--card-background-color)
+  paper-listbox-background-color: var(--card-background-color)
+  paper-card-background-color: var(--card-background-color)
+  # Switches
+  switch-checked-button-color: rgb(138, 180, 248)
+  switch-checked-track-color: rgb(138, 180, 248)
+  switch-unchecked-button-color: rgb(172, 176, 185)
+  switch-unchecked-track-color: rgb(154, 160, 166)
+  # Toggles
+  paper-toggle-button-checked-button-color: var(--switch-checked-button-color)
+  paper-toggle-button-checked-bar-color: var(--switch-checked-track-color)
+  paper-toggle-button-unchecked-button-color: var(--switch-unchecked-button-color)
+  paper-toggle-button-unchecked-bar-color: var(--switch-unchecked-track-color)
+  # Table
+  table-row-background-color: var(--primary-background-color)
+  table-row-alternative-background-color: var(--secondary-background-color)
+  data-table-background-color: var(--primary-background-color)
+  # Dropdowns
+  material-background-color: var(--table-row-background-color)
+  material-secondary-background-color: var(--table-row-alternative-background-color)
+  # Pre/Code
+  markdown-code-background-color: rgb(23, 23, 23)
+  code-editor-background-color: rgb(23, 23, 23)
+  # Input
+  input-fill-color: var(--secondary-background-color)
+  input-dropdown-icon-color: var(--secondary-text-color)
+  input-ink-color: var(--primary-text-color)
+  input-label-ink-color: var(--secondary-text-color)
+  input-idle-line-color: var(--primary-text-color)
+  input-hover-line-color: var(--accent-color)
+  #RGB
+  rgb-primary-text-color: 169, 177, 188
+  rgb-primary-color: 169, 177, 188
+  rgb-accent-color: 138, 180, 248
+  rgb-state-switch-color: var(--rgb-accent-color)
+  rgb-state-light-color: var(--rgb-accent-color)
+  rgb-state-fan-color: var(--rgb-accent-color)
+  rgb-state-script-color: var(--rgb-accent-color)
+  rgb-state-vacuum-color: var(--rgb-accent-color)
+  rgb-state-remote-color: var(--rgb-accent-color)
+  rgb-state-input-boolean-color: var(--rgb-accent-color)
+  rgb-state-humidifier-color: var(--rgb-accent-color)
+  rgb-state-cover-color: var(--rgb-accent-color)
+
+
+
+  # Custom
+  mm-null: rgba(0, 0, 0, 0)
+  mm-lightgrey: '#d4d7da'
+  mm-darkgrey: '#A9A9A9'
+  mm-darkblue: '#0C2340'
+
+  #
+  # Red
+
+  mm-red-lighten: '#ef9a9a'
+  mm-red: '#f44336'
+  mm-red-darken: '#b71c1c'
+  mm-red-accent: '#d50000'
+
+  #
+  # Pink
+
+  mm-pink-lighten: '#f48fb1'
+  mm-pink: '#e91e63'
+  mm-pink-darken: '#880e4f'
+  mm-pink-accent: '#c51162'
+
+  #
+  # Purple
+
+  mm-purple-lighten: '#ce93d8'
+  mm-purple: '#9c27b0'
+  mm-purple-darken: '#4a148c'
+  mm-purple-accent: '#aa00ff'
+
+  #
+  # Deep Purple
+
+  mm-deep-purple-lighten: '#b39ddb'
+  mm-deep-purple: '#673ab7'
+  mm-deep-purple-darken: '#311b92'
+  mm-deep-purple-accent: '#6200ea'
+
+  #
+  # Indigo
+
+  mm-indigo-lighten: '#9fa8da'
+  mm-indigo: '#3f51b5'
+  mm-indigo-darken: '#1a237e'
+  mm-indigo-accent: '#304ffe'
+
+  #
+  # Blue 
+
+  mm-blue-lighten: '#90caf9'
+  mm-blue: '#2196f3'
+  mm-blue-darken: '#0d47a1'
+  mm-blue-accent: '#2962ff'
+
+  #
+  # Light Blue
+
+  mm-light-blue-lighten: '#81d4fa'
+  mm-light-blue: '#03a9f4'
+  mm-light-blue-darken: '#01579b'
+  mm-light-blue-accent: '#0091ea'
+
+  #
+  # Cyan
+
+  mm-cyan-lighten: '#80deea'
+  mm-cyan: '#00bcd4'
+  mm-cyan-darken: '#006064'
+  mm-cyan-accent: '#00b8d4'
+
+  #
+  # Teal
+
+  mm-teal-lighten: '#80cbc4'
+  mm-teal: '#009688'
+  mm-teal-darken: '#004d40'
+  mm-teal-accent: '#00bfa5'
+
+  #
+  # Green
+
+  mm-green-lighten: '#a5d6a7'
+  mm-green: '#4caf50'
+  mm-green-darken: '#1b5e20'
+  mm-green-accent: '#00c853'
+
+  #
+  # Light Green
+
+  mm-light-green-lighten: '#c5e1a5'
+  mm-light-green: '#8bc34a'
+  mm-light-green-darken: '#33691e'
+  mm-light-green-accent: '#64dd17'
+
+  #
+  # Lime
+
+  mm-lime-lighten: '#e6ee9c'
+  mm-lime: '#cddc39'
+  mm-lime-darken: '#827717'
+  mm-lime-accent: '#aeea00'
+
+  #
+  # Yellow
+
+  mm-yellow-lighten: '#fff59d'
+  mm-yellow: '#ffeb3b'
+  mm-yellow-darken: '#f57f17'
+  mm-yellow-accent: '#ffd600'
+
+  #
+  # Amber
+
+  mm-amber-lighten: '#ffe082'
+  mm-amber: '#ffc107'
+  mm-amber-darken: '#ff6f00'
+  mm-amber-accent: '#ffab00'
+
+  #
+  # Orange
+
+  mm-orange-lighten: '#ffcc80'
+  mm-orange: '#ff9800'
+  mm-orange-darken: '#e65100'
+  mm-orange-accent: '#ff6500'
+
+  #
+  # Deep Orange
+
+  mm-deep-orange-lighten: '#ffab91'
+  mm-deep-orange: '#ff5722'
+  mm-deep-orange-darken: '#bf360c'
+  mm-deep-orange-accent: '#ff3d00'
+
+  #
+  # Brown
+
+  mm-brown-lighten: '#bcaaa4'
+  mm-brown: '#795548'
+  mm-brown-darken: '#3e2723'
+
+  #
+  # Grey
+
+  mm-grey-lighten: '#eeeeee'
+  mm-grey: '#9e9e9e'
+  mm-grey-darken: '#424242'
+
+  #
+  # Blue Grey
+
+  mm-blue-grey-lighten: '#b0bec5'
+  mm-blue-grey: '#607d8b'
+  mm-blue-grey-darken: '#263238'
+
+  #
+  # Basic colors black and white
+
+  mm-black: #000000
+  mm-white: #FFFFFF
+  mm-transparent: rgba(0, 0, 0, 0)
+
+  #
+  # Special color
+  mm-gold: '#B4944A'
+  mm-silver: '#D1D3D4'
