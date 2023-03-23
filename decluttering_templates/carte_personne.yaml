@@ -29,7 +29,7 @@
           - grid-template-columns: min-content auto
           - grid-template-rows: min-content min-content min-content
         img_cell:
-          - background-color: var(--mm-darkblue)
+          - background-color: var(--mm-blue-grey-darken)
           - border-radius: 50%
           - place-self: start
           - text-align: start
@@ -37,7 +37,7 @@
           - height: 35px
         icon:
           - width: 55%
-          - color: var(--mm-grey)
+          - color: var(--mm-blue-grey)
         name:
           - color: var(--mm-silver)
           - align-self: end
@@ -48,7 +48,7 @@
           - margin-left: 9px
         label:
           - white-space: normal
-          - color: var(--mm-lightgrey)
+          - color: var(--mm-silver)
           - justify-self: start
           - align-self: start
           - text-align: left
@@ -67,10 +67,10 @@
           - box-shadow: |
               [[[
                 if (entity.state == 'home')
-                  return "inset -4px -4px 8px 0 var(--mm-green), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
+                  return "inset -4px -4px 8px 0 var(--mm-green-accent), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
                 if (entity.state == 'Ecole')
-                  return "inset -4px -4px 8px 0 var(--mm-orange), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
-                return "-2px -2px 4px 0 var(--mm-darkblue),4px 4px 8px 0 rgba(0,0,0,.03)"
+                  return "inset -4px -4px 8px 0 var(--mm-orange-accent), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
+                return "-2px -2px 4px 0 var(--mm-blue-grey-darken),4px 4px 8px 0 rgba(0,0,0,.03)"
               ]]]
         custom_fields:
           bouton:
@@ -86,24 +86,24 @@
             - width: 27%
             - position: absolute
             - z-index: 2
-            - '--paper-card-background-color': var(--mm-null)
-            - '--ha-card-background': var(--mm-null)
+            - '--paper-card-background-color': var(--mm-transparent)
+            - '--ha-card-background': var(--mm-transparent)
             - '--ha-card-box-shadow': none
             - '--ha-card-border-width': 0px
       state:
         - value: Ecole
           styles:
             label:
-              - color: var(--mm-orange)
+              - color: var(--mm-orange-accent)
             state:
-              - color: var(--mm-orange)
+              - color: var(--mm-orange-accent)
         - value: home
           operator: '!='
           styles:
             label:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
             state:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
 
       custom_fields:
         jauge-cercle:
@@ -123,14 +123,14 @@
               friendly_name: false
               unit_of_measurement: false
               severity:
-                - color: var(--mm-grey)
-                - color: var(--mm-yellow)
+                - color: var(--mm-blue-grey)
+                - color: var(--mm-yellow-accent)
                   from: 100
                   to: 100
-                - color: var(--mm-orange)
+                - color: var(--mm-orange-accent)
                   from: 31
                   to: 50
-                - color: var(--mm-red)
+                - color: var(--mm-red-accent)
                   from: 0
                   to: 30
                   
@@ -151,7 +151,7 @@
                     - width: 50px
                     - padding: 02px
                     - line-height: 77%
-                    - background: var(--mm-null)
+                    - background: var(--mm-transparent)
                   state:
                     - font-size: 10px
                     - color: var(--mm-silver)
@@ -180,10 +180,11 @@
                     - width: 50px
                     - padding: 02px
                     - line-height: 77%
-                    - background: var(--mm-null)
+                    - background: var(--mm-transparent)
                   icon:
                     - width: 16px
                     - padding-bottom: 0px
+                    - color: var(--mm-blue-grey)
                   label:
                     - font-size: 10px
                     - color: var(--mm-silver)
@@ -191,16 +192,16 @@
                   - value: "on"
                     styles:
                       icon:
-                        - color: var(--mm-orange)
+                        - color: var(--mm-orange-accent)
                         - animation: blink 0.8s ease infinite
                   - value: "off"
                     styles:
                       icon:
-                        - color: var(--mm-grey)
+                        - color: var(--mm-blue-grey)
                   - value: "unavailable"
                     styles:
                       icon:
-                        - color: var(--mm-red)
+                        - color: var(--mm-red-accent)
                         - animation: blink 0.8s ease infinite
                 tap_action:
                   action: more-info

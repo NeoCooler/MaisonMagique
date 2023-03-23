@@ -17,7 +17,7 @@
           - grid-template-columns: min-content auto
           - grid-template-rows: min-content min-content min-content
         img_cell:
-          - background-color: var(--mm-darkblue)
+          - background-color: var(--mm-blue-grey-darken)
           - border-radius: 50%
           - place-self: start
           - text-align: start
@@ -28,14 +28,12 @@
           - transition: 1s ease
           - color: >
               [[[
-                var color = "var(--mm-grey)";
+                var color = "var(--mm-blue-grey)";
                 var state = (states['[[entity]]'].attributes.hvac_action);
-                if (state == "off")
-                  color = "var(--mm-grey)"
-                else if (state == "idle")
-                  color = "var(--mm-blue)"
+                if (state == "idle")
+                  color = "var(--mm-blue-darken)"
                 else if (state == "heating")
-                  color = "var(--mm-orange)"
+                  color = "var(--mm-orange-accent)"
                   
                 return color;
               ]]]
@@ -49,7 +47,7 @@
           - margin-left: 9px
         label:
           - white-space: normal
-          - color: var(--mm-lightgrey)
+          - color: var(--mm-silver)
           - justify-self: start
           - align-self: start
           - text-align: left
@@ -62,14 +60,12 @@
         card:
           - background-color: >
               [[[
-                var color = "var(--mm-null)";
+                var color = "var(--mm-transparent)";
                 var state = (states['[[entity]]'].attributes.hvac_action);
-                if (state == "off")
-                  color = "var(--mm-null)"
-                else if (state == "idle")
-                  color = "var(--mm-blue)"
+                if (state == "idle")
+                  color = "var(--mm-blue-darken)"
                 else if (state == "heating")
-                  color = "var(--mm-orange)"
+                  color = "var(--mm-orange-accent)"
                   
                 return color;
               ]]]
@@ -80,14 +76,12 @@
           - height: 120px
           - box-shadow: >
               [[[
-                var color = "-2px -2px 4px 0 var(--mm-darkblue),4px 4px 8px 0 rgba(0,0,0,.03)";
+                var color = "-2px -2px 4px 0 var(--mm-blue-grey-darken),4px 4px 8px 0 rgba(0,0,0,.03)";
                 var state = (states['[[entity]]'].attributes.hvac_action);
-                if (state == "off")
-                  color = "-2px -2px 4px 0 var(--mm-darkblue),4px 4px 8px 0 rgba(0,0,0,.03)"
-                else if (state == "idle")
-                  color = "inset -4px -4px 8px 0 var(--mm-blue), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
+                if (state == "idle")
+                  color = "inset -4px -4px 8px 0 var(--mm-blue-darken), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
                 else if (state == "heating")
-                  color = "inset -4px -4px 8px 0 var(--mm-orange), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
+                  color = "inset -4px -4px 8px 0 var(--mm-orange-accent), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
                   
                 return color;
               ]]]
@@ -110,18 +104,18 @@
         - value: "unavailable"
           styles:
             card:
-              - border-color: var(--mm-red)
+              - border-color: var(--mm-red-accent)
               - opacity: 100%
             icon:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
               - animation: blink 0.8s ease infinite
               - transition: 1s ease
             name:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
             label:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
             state:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
       name: |
           [[[
             return  (states['[[entity]]'].attributes.friendly_name)
@@ -173,7 +167,7 @@
                     - height: 27px
                     - padding: 02px
                     - line-height: 77%
-                    - background: var(--mm-null)
+                    - background: var(--mm-transparent)
                   icon:
                     - color: var(--mm-silver)
                 tap_action:
@@ -197,7 +191,7 @@
                     - height: 27px
                     - padding: 02px
                     - line-height: 77%
-                    - background: var(--mm-null)
+                    - background: var(--mm-transparent)
                   name:
                     - color: >
                         [[[
@@ -205,8 +199,8 @@
                           var color = "var(--mm-silver)";
                           if (temp <= "18")
                             color = "var(--mm-blue)"
-                          if (temp > "24")
-                            color = "var(--mm-orange)"
+                          if (temp > "23.3")
+                            color = "var(--mm-orange-accent)"
                           return color;
                         ]]]
                     - padding-bottom: 0px
@@ -220,7 +214,7 @@
                     - height: 27px
                     - padding: 02px
                     - line-height: 77%
-                    - background: var(--mm-null)
+                    - background: var(--mm-transparent)
                   icon:
                     - color: var(--mm-silver)
                 tap_action:
@@ -240,16 +234,10 @@
                   icon:
                     - color: >
                         [[[
-                          var color = "var(--mm-grey)";
+                          var color = "var(--mm-blue-grey)";
                           var preset = (states['[[entity]]'].attributes.preset_mode);
                           if (preset == "home")
-                            color = "var(--mm-green)"
-                          else if (preset == "sleep")
-                            color = "var(--mm-grey)"
-                          else if (preset == "comfort")
-                            color = "var(--mm-grey)"
-                          else if (preset == "away")
-                            color = "var(--mm-grey)"
+                            color = "var(--mm-green-accent)"
                             
                           return color;
                         ]]]
@@ -266,16 +254,10 @@
                   icon:
                     - color: >
                         [[[
-                          var color = "var(--mm-grey)";
+                          var color = "var(--mm-blue-grey)";
                           var preset = (states['[[entity]]'].attributes.preset_mode);
-                          if (preset == "home")
-                            color = "var(--mm-grey)"
-                          else if (preset == "sleep")
-                            color = "var(--mm-green)"
-                          else if (preset == "comfort")
-                            color = "var(--mm-grey)"
-                          else if (preset == "away")
-                            color = "var(--mm-grey)"
+                          if (preset == "sleep")
+                            color = "var(--mm-green-accent)"
                             
                           return color;
                         ]]]
@@ -292,16 +274,10 @@
                   icon:
                     - color: >
                         [[[
-                          var color = "var(--mm-grey)";
+                          var color = "var(--mm-blue-grey)";
                           var preset = (states['[[entity]]'].attributes.preset_mode);
-                          if (preset == "home")
-                            color = "var(--mm-grey)"
-                          else if (preset == "sleep")
-                            color = "var(--mm-grey)"
-                          else if (preset == "comfort")
-                            color = "var(--mm-green)"
-                          else if (preset == "away")
-                            color = "var(--mm-grey)"
+                          if (preset == "comfort")
+                            color = "var(--mm-green-accent)"
                             
                           return color;
                         ]]]
@@ -318,16 +294,10 @@
                   icon:
                     - color: >
                         [[[
-                          var color = "var(--mm-grey)";
+                          var color = "var(--mm-blue-grey)";
                           var preset = (states['[[entity]]'].attributes.preset_mode);
-                          if (preset == "home")
-                            color = "var(--mm-grey)"
-                          else if (preset == "sleep")
-                            color = "var(--mm-grey)"
-                          else if (preset == "comfort")
-                            color = "var(--mm-grey)"
-                          else if (preset == "away")
-                            color = "var(--mm-green)"
+                          if (preset == "away")
+                            color = "var(--mm-green-accent)"
                             
                           return color;
                         ]]]

@@ -37,7 +37,7 @@
           - grid-template-columns: min-content auto
           - grid-template-rows: min-content min-content min-content
         img_cell:
-          - background-color: var(--mm-darkblue)
+          - background-color: var(--mm-blue-grey-darken)
           - border-radius: 50%
           - place-self: start
           - text-align: start
@@ -45,7 +45,7 @@
           - height: 35px
         icon:
           - width: 55%
-          - color: var(--mm-grey)
+          - color: var(--mm-blue-grey)
         name:
           - color: var(--mm-silver)
           - align-self: end
@@ -56,7 +56,7 @@
           - margin-left: 9px
         state:
           - white-space: normal
-          - color: var(--mm-lightgrey)
+          - color: var(--mm-silver)
           - justify-self: start
           - align-self: end
           - font-weight: null
@@ -68,7 +68,7 @@
           - margin-top: 0px
         label:
           - white-space: normal
-          - color: var(--mm-lightgrey)
+          - color: var(--mm-silver)
           - justify-self: start
           - align-self: start
           - text-align: left
@@ -81,12 +81,12 @@
           - color: |
               [[[
                  if( states['[[state]]'].state =="unavailable")
-                  return "var(--mm-red)"
+                  return "var(--mm-red-accent)"
                  if( states['[[state]]'].state < 18)
                   return "var(--mm-blue)"
                  if( states['[[state]]'].state > 25)
-                  return "var(--mm-orange)"
-                return "var(--mm-grey)"
+                  return "var(--mm-orange-accent)"
+                return "var(--mm-silver)"
               ]]]
         card:
           - padding: 8px 5px 8px 5px
@@ -97,7 +97,7 @@
               [[[
                 if (entity.state == 'on')
                   return "inset -4px -4px 8px 0 var(--button-card-light-color), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
-                return "-2px -2px 4px 0 var(--mm-darkblue),4px 4px 8px 0 rgba(0,0,0,.03)"
+                return "-2px -2px 4px 0 var(--mm-blue-grey-darken),4px 4px 8px 0 rgba(0,0,0,.03)"
               ]]]
         custom_fields:
           notification:
@@ -110,12 +110,12 @@
             - font-size: 85%
             - line-height: 17px
             - font-weight: null
-            - background-color: var(--mm-null)
+            - background-color: var(--mm-transparent)
             - color: |
                 [[[
                   if (entity.state == "off")
-                    return 'var(--mm-null)';
-                 return 'var(--mm-lightgrey)';
+                    return 'var(--mm-transparent)';
+                 return 'var(--mm-teal-accent)';
                 ]]]
           lum:
             - position: absolute
@@ -124,8 +124,8 @@
             - width: calc(90% + 0px)
             - transform: translate(-50%, calc(-50% + 10px))
             - z-index: 8
-            - '--paper-card-background-color': var(--mm-null)
-            - '--ha-card-background': var(--mm-null)
+            - '--paper-card-background-color': var(--mm-transparent)
+            - '--ha-card-background': var(--mm-transparent)
             - '--ha-card-box-shadow': none
             - '--ha-card-border-width': 0px
           bouton:
@@ -165,12 +165,11 @@
                   ]]]
               - transition: 1s ease
         - value: 'off'
-          color: var(--mm-grey)
           styles:
             card:
               - animation: ball-scale2 0.2s
             icon:
-              - color: var(--icon_off)
+              - color: var(--mm-blue-grey)
               - transition: 1s ease
         - value: "unavailable"
           styles:
@@ -178,15 +177,15 @@
               - border-color: rgba(255, 0, 0, 0.8)
               - opacity: 100%
             icon:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
               - animation: blink 0.8s ease infinite
               - transition: 1s ease
             name:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
             label:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
             state:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
       name: '[[name]]'
       entity: '[[entity]]'
       icon: 'mdi:[[icon]]'
@@ -209,16 +208,15 @@
             card:
               type: custom:my-slider
               entity: '[[entity]]'
-              radius: 10px
+              radius: 6px
               height: 10px
-              width: 100%
-              mainSliderColor: var(--button-card-light-color-no-temperature)
-              secondarySliderColor: var(--mm-darkblue)
+              mainSliderColor: 'var(--button-card-light-color-no-temperature)'
+              secondarySliderColor: 'var(--mm-blue-grey-darken)'
               thumbHorizontalPadding: 0px
               thumbVerticalPadding: 0px
+              thumbWidth: 2px
+              thumbColor: 'black'
               minSet: 1
-              thumbWidth: 1px
-              thumbColor: var(--mm-black)
         bouton:
           card:
             type: horizontal-stack

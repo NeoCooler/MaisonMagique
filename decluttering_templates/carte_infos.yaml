@@ -19,7 +19,7 @@
         card:
           - background-color: >
               [[[
-                var color = "var(--custom-card-color-null)";
+                var color = "var(--mm-transparent)";
                 return color;
               ]]]
           - '-webkit-tap-highlight-color': rgba(0,0,0,0)
@@ -38,7 +38,7 @@
           - grid-template-areas: |
               "meteo"
               
-              "circle"
+              "temperature"
               
               "titre_maison"
               "reveil_android"
@@ -86,11 +86,8 @@
             - align-self: middle
             - width: 100%
             - '--ha-card-border-width': 0px
-          circle:
+          temperature:
             - padding: 03px 0px 5px 0px
-            # - align-self: middle
-            # - width: 100%
-            # - '--ha-card-border-width': 0px
           titre_maison:
             - font-style: italic
             - font-size: 12px
@@ -98,74 +95,49 @@
             - font-weight: bold
             - justifiy-self: start
             - text-align: left
-            - color: var(--text_on_sidebar)
+            - color: var(--mm-silver)
             - white-space: normal
           reveil_android:
-            - border-left: 2px var(--mm-purple) solid
+            - border-left: 2px var(--mm-teal-accent) solid
             - white-space: normal
             - text-align: left
             - padding: 0px 0px 0px 08px
             - justifiy-self: start
-            - color: |
-                [[[
-                  if (states['sensor.chris_reveil'].state == "unavailable" && states['sensor.jess_reveil'].state == "unavailable" && states['sensor.angel_reveil'].state == "unavailable")
-                    return 'red';
-                  return 'var(--text_on_info_sidebar)';
-                ]]]
+            - color: var(--mm-silver)
           reveil_gh:
-            - border-left: 2px var(--mm-purple) solid
+            - border-left: 2px var(--mm-teal-accent) solid
             - white-space: normal
             - text-align: left
             - padding: 0px 0px 0px 08px
             - justifiy-self: start
-            - color: |
-                [[[
-                  if (states['sensor.ch_parents_reveil'].state == "unavailable" && states['sensor.ch_angel_reveil'].state == "unavailable")
-                    return 'red';
-                  return 'var(--text_on_info_sidebar)';
-                ]]]
+            - color: var(--mm-silver)
           mouvement:
-            - border-left: 2px var(--mm-purple) solid
+            - border-left: 2px var(--mm-teal-accent) solid
             - padding: 0px 0px 0px 08px
             - justifiy-self: start
             - text-align: left
-            - color: |
-                [[[
-                  if (states['binary_sensor.mouvements'].state == 'off')
-                    return 'var(--text_off_sidebar)';
-                  return 'var(--text_on_info_sidebar)';
-                ]]]
+            - color: var(--mm-silver)
             - white-space: normal
           porte:
-            - border-left: 2px var(--mm-purple) solid
+            - border-left: 2px var(--mm-teal-accent) solid
             - padding: 0px 0px 0px 08px
             - justifiy-self: start
             - text-align: left
-            - color: |
-                [[[
-                  if (states['binary_sensor.portes'].state == 'off')
-                    return 'var(--text_off_sidebar)';
-                  return 'var(--text_on_info_sidebar)';
-                ]]]
+            - color: var(--mm-silver)
             - white-space: normal
           lumiere:
-            - border-left: 2px var(--mm-purple) solid
+            - border-left: 2px var(--mm-teal-accent) solid
             - padding: 0px 0px 0px 08px
             - justifiy-self: start
-            - color: |
-                [[[
-                  if (states['light.tout'].state == 'off')
-                    return 'var(--text_off_sidebar)';
-                  return 'var(--text_on_info_sidebar)';
-                ]]]
+            - color: var(--mm-silver)
             - white-space: normal
             - text-align: left
           app_connectes:
-            - border-left: 2px var(--mm-purple) solid
+            - border-left: 2px var(--mm-teal-accent) solid
             - padding: 0px 0px 0px 08px
             - justifiy-self: start
             - text-align: left
-            - color: var(--text_on_info_sidebar)
+            - color: var(--mm-silver)
             - white-space: normal
           titre_calendrier:
             - padding: |
@@ -179,7 +151,7 @@
             - font-size: 12px
             - justifiy-self: start
             - text-align: left
-            - color: var(--text_on_sidebar)
+            - color: var(--mm-silver)
             - white-space: normal
           anniv:
             - border-left: 2px var(--mm-green) solid
@@ -187,18 +159,13 @@
             - padding-left: 8px
             - justifiy-self: start
             - text-align: left
-            - color: var(--text_on_info_sidebar)
+            - color: var(--mm-silver)
             - white-space: normal
           calendrier_chris:
             - border-left: 2px var(--mm-green) solid
             - padding: 0px 0px 0px 0px
             - padding-left: 8px
-            - color: |
-                [[[
-                  if (states['sensor.calendar_chris'].state == 'Aucun évènement')
-                    return 'var(--text_off_sidebar)';
-                  return 'var(--text_on_info_sidebar)';
-                ]]]
+            - color: var(--mm-silver)
             - justifiy-self: start
             - text-align: left
             - white-space: normal
@@ -206,12 +173,7 @@
             - border-left: 2px var(--mm-green) solid
             - padding: 0px 0px 0px 0px
             - padding-left: 8px
-            - color: |
-                [[[
-                  if (states['sensor.calendar_jess'].state == 'Aucun évènement')
-                    return 'var(--text_off_sidebar)';
-                  return 'var(--text_on_info_sidebar)';
-                ]]]
+            - color: var(--mm-silver)
             - justifiy-self: start
             - text-align: left
             - white-space: normal
@@ -219,12 +181,7 @@
             - border-left: 2px var(--mm-green) solid
             - padding: 0px 0px 0px 0px
             - padding-left: 8px
-            - color: |
-                [[[
-                  if (states['sensor.calendar_angel'].state == 'Aucun évènement')
-                    return 'var(--text_off_sidebar)';
-                  return 'var(--text_on_info_sidebar)';
-                ]]]
+            - color: var(--mm-silver)
             - justifiy-self: start
             - text-align: left
             - white-space: normal
@@ -232,12 +189,7 @@
             - border-left: 2px var(--mm-green) solid
             - padding: 0px 0px 0px 0px
             - padding-left: 8px
-            - color: |
-                [[[
-                  if (states['sensor.calendar_travail_chris'].state == 'Aucun évènement')
-                    return 'var(--text_off_sidebar)';
-                  return 'var(--text_on_info_sidebar)';
-                ]]]
+            - color: var(--mm-silver)
             - justifiy-self: start
             - text-align: left
             - white-space: normal
@@ -245,12 +197,7 @@
             - border-left: 2px var(--mm-green) solid
             - padding: 0px 0px 0px 0px
             - padding-left: 8px
-            - color: |
-                [[[
-                  if (states['sensor.calendar_ecole'].state == 'Aucun évènement')
-                    return 'var(--text_off_sidebar)';
-                  return 'var(--text_on_info_sidebar)';
-                ]]]
+            - color: var(--mm-silver)
             - justifiy-self: start
             - text-align: left
             - white-space: normal
@@ -269,44 +216,29 @@
             - font-size: 12px
             - justifiy-self: start
             - text-align: left
-            - color: var(--text_on_sidebar)
+            - color: var(--mm-silver)
             - white-space: normal
           poubellescartons:
-            - border-left: 2px var(--mm-orange) solid
+            - border-left: 2px var(--mm-green-accent) solid
             - padding: 0px 0px 0px 0px
             - padding-left: 8px
-            - color: |
-                [[[
-                  if (states['sensor.poubelles_cartons'].attributes.days == "None")
-                    return 'var(--text_off_sidebar)';
-                  return 'var(--text_on_info_sidebar)';
-                ]]]
+            - color: var(--mm-silver)
             - justifiy-self: start
             - text-align: left
             - white-space: normal
           poubellespmc:
-            - border-left: 2px var(--mm-orange) solid
+            - border-left: 2px var(--mm-green-accent) solid
             - padding: 0px 0px 0px 0px
             - padding-left: 8px
-            - color: |
-                [[[
-                  if (states['sensor.poubelles_pmc'].attributes.days == "None")
-                    return 'var(--text_off_sidebar)';
-                  return 'var(--text_on_info_sidebar)';
-                ]]]
+            - color: var(--mm-silver)
             - justifiy-self: start
             - text-align: left
             - white-space: normal
           poubellesbioresi:
-            - border-left: 2px var(--mm-orange) solid
+            - border-left: 2px var(--mm-green-accent) solid
             - padding: 0px 0px 0px 0px
             - padding-left: 8px
-            - color: |
-                [[[
-                  if (states['sensor.poubelles_biodegradable'].attributes.days == "None")
-                    return 'var(--text_off_sidebar)';
-                  return 'var(--text_on_info_sidebar)';
-                ]]]
+            - color: var(--mm-silver)
             - justifiy-self: start
             - text-align: left
             - white-space: normal
@@ -321,14 +253,14 @@
             - font-weight: bold
             - justifiy-self: start
             - text-align: left
-            - color: var(--text_on_sidebar)
+            - color: var(--mm-silver)
             - white-space: normal
           savoir:
-            - border-left: 2px var(--mm-grey) solid
+            - border-left: 2px var(--mm-amber-accent) solid
             - padding: 0px 0px 0px 08px
             - justifiy-self: start
             - text-align: left
-            - color: var(--text_on_info_sidebar)
+            - color: var(--mm-silver)
             - white-space: normal
 
           titre_avertissement:
@@ -343,10 +275,10 @@
             - font-weight: bold
             - justifiy-self: start
             - text-align: left
-            - color: red
+            - color: var(--mm-red)
             - white-space: normal
           device_hs:
-            - border-left: 2px var(--mm-red) solid
+            - border-left: 2px var(--mm-red-accent) solid
             - padding: |
                 [[[
                   if (states['sensor.systeme_avertissement'].state == '')
@@ -354,7 +286,7 @@
                   return "0px 0px 0px 08px" ;
                 ]]]
             - justifiy-self: start
-            - color: red
+            - color: var(--mm-red)
             - white-space: normal
             - text-align: left
 
@@ -364,6 +296,7 @@
             - white-space: normal
             - width: calc(100% + 1px)
             - '--ha-card-border-width': 0px
+
           titre_maj:
             - font-size: 12px
             - padding: |
@@ -376,19 +309,14 @@
             - font-style: italic
             - justifiy-self: start
             - text-align: left
-            - color: var(--text_on_sidebar)
+            - color: var(--mm-silver)
             - white-space: normal
           maj:
-            - border-left: 2px var(--mm-blue) solid
+            - border-left: 2px var(--mm-blue-accent) solid
             - padding: 0px 0px 0px 08px
             - justifiy-self: start
             - text-align: left
-            - color: |
-                [[[
-                  if (states['sensor.maj'].state == 'Aucune')
-                    return "var(--text_off)" ;
-                  return "var(--text_on_info_sidebar)" 
-                ]]]
+            - color: var(--mm-silver)
             - white-space: normal
 
       entity: '[[entity]]'
@@ -400,7 +328,7 @@
             type: custom:decluttering-card
             template: carte_meteo
 
-        circle:
+        temperature:
           card:
             type: horizontal-stack
             cards:
@@ -613,8 +541,6 @@
             type: horizontal-stack
             cards:
               - type: custom:button-card
-                template:
-                  - state
                 show_name: true
                 show_state: false
                 show_label: true
@@ -628,18 +554,12 @@
                     - background-color: |
                         [[[
                           if (states['update.home_assistant_core_update'].state == "on")
-                            return 'var(--custom-img-cell-color-orange)'
-                          return 'rgba(43,53,66,0.6)'
+                            return 'var(--mm-orange-accent)'
+                          return 'var(--mm-blue-grey-darken)'
                         ]]]
-                  icon:
-                    - color: grey
-                    - width: 16px
-                    - padding-bottom: 0px
                   name:
                     - font-size: 9px
                   label:
-                    - font-size: 11px
-                  state:
                     - font-size: 11px
                 name: Core
                 entity: update.home_assistant_core_update
@@ -658,34 +578,25 @@
                   service_data:
                     entity_id: input_boolean.sidecar_show_maj
               - type: custom:button-card
-                template:
-                  - state
                 show_name: true
                 show_state: false
                 show_label: true
                 show_icon: false
                 styles:
                   card:
-                    - background-color: |
-                        [[[
-                          if (states['update.home_assistant_supervisor_update'].state == "on")
-                            return 'var(--custom-img-cell-color-orange)'
-                          return 'rgba(43,53,66,0.6)'
-                        ]]]
                     - border-radius: 8px
                     - height: 27px
                     - padding: 02px
                     - line-height: 77%
-                    - background: var(--background-button-in-card)
-                  icon:
-                    - color: grey
-                    - width: 16px
-                    - padding-bottom: 0px
+                    - background-color: |
+                        [[[
+                          if (states['update.home_assistant_supervisor_update'].state == "on")
+                            return 'var(--mm-orange-accent)'
+                          return 'var(--mm-blue-grey-darken)'
+                        ]]]
                   name:
                     - font-size: 9px
                   label:
-                    - font-size: 11px
-                  state:
                     - font-size: 11px
                 entity: update.home_assistant_supervisor_update
                 icon: mdi:update
@@ -704,34 +615,25 @@
                   service_data:
                     entity_id: input_boolean.sidecar_show_maj
               - type: custom:button-card
-                template:
-                  - state
                 show_name: true
                 show_state: false
                 show_label: true
                 show_icon: false
                 styles:
                   card:
-                    - background-color: |
-                        [[[
-                          if (states['update.home_assistant_operating_system_update'].state == "on")
-                            return 'var(--custom-img-cell-color-orange)'
-                          return 'rgba(43,53,66,0.6)'
-                        ]]]
                     - border-radius: 8px
                     - height: 27px
                     - padding: 02px
                     - line-height: 77%
-                    - background: var(--background-button-in-card)
-                  icon:
-                    - color: grey
-                    - width: 16px
-                    - padding-bottom: 0px
+                    - background-color: |
+                        [[[
+                          if (states['update.home_assistant_operating_system_update'].state == "on")
+                            return 'var(--mm-orange-accent)'
+                          return 'var(--mm-blue-grey-darken)'
+                        ]]]
                   name:
                     - font-size: 9px
                   label:
-                    - font-size: 11px
-                  state:
                     - font-size: 11px
                 entity: update.home_assistant_operating_system_update
                 icon: mdi:update
@@ -750,8 +652,6 @@
                   service_data:
                     entity_id: input_boolean.sidecar_show_maj
               - type: custom:button-card
-                template:
-                  - state
                 show_name: true
                 show_state: false
                 show_label: true
@@ -765,17 +665,11 @@
                     - background-color: |
                         [[[
                           if (states['sensor.hacs'].state > 1)
-                            return 'var(--custom-img-cell-color-orange)'
-                          return 'rgba(43,53,66,0.7)'
+                            return 'var(--mm-orange-accent)'
+                          return 'var(--mm-blue-grey-darken)'
                         ]]]
-                  icon:
-                    - color: grey
-                    - width: 16px
-                    - padding-bottom: 0px
                   name:
                     - font-size: 9px
-                  state:
-                    - font-size: 11px
                   label:
                     - font-size: 11px
                     - font-weight: |

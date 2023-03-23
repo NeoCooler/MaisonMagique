@@ -26,7 +26,7 @@
           - text-align: start
           - width: 35px
           - height: 35px
-          - background-color: var(--mm-darkblue)
+          - background-color: var(--mm-blue-grey-darken)
         icon:
           - width: 55%
           - animation: |
@@ -37,9 +37,9 @@
               ]]]
           - color: |
               [[[
-                if (entity.state < 50) return 'var(--mm-grey)';
-                if (entity.state >= 50 && entity.state < 60) return 'var(--mm-orange)';
-                else return 'var(--mm-red)';
+                if (entity.state < 50) return 'var(--mm-blue-grey)';
+                if (entity.state >= 50 && entity.state < 60) return 'var(--mm-orange-accent)';
+                else return 'var(--mm-red-accent)';
               ]]]
         name:
           - color: var(--mm-silver)
@@ -51,7 +51,7 @@
           - margin-left: 9px
         label:
           - white-space: normal
-          - color: var(--mm-lightgrey)
+          - color: var(--mm-silver)
           - justify-self: start
           - align-self: start
           - text-align: left
@@ -73,12 +73,12 @@
             - left: 50%
             - width: calc(100% + 15px)
             - transform: translate(-50%, calc(-50% + 10px))
-            - '--paper-card-background-color': var(--mm-null)
-            - '--ha-card-background': var(--mm-null)
+            - '--paper-card-background-color': var(--mm-transparent)
+            - '--ha-card-background': var(--mm-transparent)
             - '--ha-card-box-shadow': none
             - '--ha-card-border-width': 0px
           info2:
-            - color: var(--mm-grey)
+            - color: var(--mm-silver)
             - position: absolute
             - top: 50px
             - left: 10px
@@ -89,8 +89,8 @@
             - '--text-color-sensor': >-
                 [[[ if
                 (states["sensor.processor_use"].state >
-                50) return "var(--mm-red)";  else return
-                "var(--mm-lightgrey)"; ]]]
+                50) return "var(--mm-red-accent)";  else return
+                "var(--mm-silver)"; ]]]
           info3:
             - color: var(--mm-grey)
             - position: absolute
@@ -102,8 +102,8 @@
             - padding-bottom: 1%
             - '--text-color-sensor': >-
                 [[[ if (states["sensor.memory_use_percent"].state
-                > 60) return  "var(--mm-red)";  else return
-                "var(--mm-lightgrey)"; ]]]
+                > 60) return  "var(--mm-red-accent)";  else return
+                "var(--mm-silver)"; ]]]
           info4:
             - color: var(--mm-grey)
             - position: absolute
@@ -116,8 +116,8 @@
             - '--text-color-sensor': >-
                 [[[ if
                 (states["sensor.disk_use_percent_home"].state >
-                70) return "var(--mm-red)";  else return
-                "var(--mm-lightgrey)"; ]]]
+                70) return "var(--mm-red-accent)";  else return
+                "var(--mm-silver)"; ]]]
       custom_fields:
         graph:
           card:
@@ -142,21 +142,21 @@
           [[[
             return `<ha-icon
               icon="mdi:server"
-              style="width: 12px; height: 12px; color: var(--mm-grey);">
+              style="width: 12px; height: 12px; color: var(--mm-silver);">
               </ha-icon><span> CPU : <span style="color: var(--text-color-sensor);">${states['sensor.processor_use'].state}%</span></span>`
           ]]]
         info3: |
           [[[
             return `<ha-icon
               icon="mdi:memory"
-              style="width: 12px; height: 12px; color: var(--mm-grey);">
+              style="width: 12px; height: 12px; color: var(--mm-silver);">
               </ha-icon><span> RAM : <span style="color: var(--text-color-sensor);">${states['sensor.memory_use_percent'].state}%</span></span>`
           ]]]
         info4: |
           [[[
             return `<ha-icon
               icon="mdi:harddisk"
-              style="width: 12px; height: 12px; color: var(--mm-grey);">
+              style="width: 12px; height: 12px; color: var(--mm-silver);">
               </ha-icon><span> SSD : <span style="color: var(--text-color-sensor);">${states['sensor.disk_use_percent_home'].state}%</span></span>`
           ]]]
       tap_action:

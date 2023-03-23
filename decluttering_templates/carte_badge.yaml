@@ -1,10 +1,10 @@
     default:
-      - color_on: var(--mm-blue)
-      - back_on: var(--mm-blue)
-      - border_on: var(--mm-blue)
-      - color_off: var(--mm-grey)
-      - back_off: var(--mm-null)
-      - border_off: var(--mm-null)
+      - color_on: var(--mm-green-accent)
+      - back_on: var(--mm-green-accent)
+      - border_on: var(--mm-green-accent)
+      - color_off: var(--mm-blue-grey)
+      - back_off: var(--mm-transparent)
+      - border_off: var(--mm-transparent)
 
     card:
       type: custom:button-card
@@ -77,5 +77,3 @@
         navigation_path: /lovelace/[[nav_path]]
       double_tap_action:
         action: none
-        
-

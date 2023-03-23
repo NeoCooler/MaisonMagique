@@ -30,12 +30,12 @@
           - width: 20px
           - color: >
               [[[
-                var color = "var(--mm-grey)";
+                var color = "var(--mm-silver)";
                 var state = entity.state;
                 if( state <= "18" )
                   color = "var(--mm-blue)"
-                else if( state > "24" )
-                  color = "var(--mm-orange)"
+                else if( state > "23.3" )
+                  color = "var(--mm-orange-accent)"
                 return color;
               ]]]
         entity_picture:
@@ -46,12 +46,12 @@
           - font-size: 11px
           - color: >
               [[[
-                var color = "var(--mm-grey)";
+                var color = "var(--mm-silver)";
                 var state = entity.state;
                 if( state <= "18" )
                   color = "var(--mm-blue)"
-                else if( state > "24" )
-                  color = "var(--mm-orange)"
+                else if( state > "23.3" )
+                  color = "var(--mm-orange-accent)"
                 return color;
               ]]]
       name: '[[name]]'
@@ -61,7 +61,7 @@
           var state = entity.state;
           if( state <= "18" )
             icon = "mdi:thermometer-low"
-          else if( state > "24" )
+          else if( state > "23.3" )
             icon = "mdi:thermometer-high"
           return icon;
         ]]]

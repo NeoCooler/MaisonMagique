@@ -40,8 +40,8 @@
           - box-shadow: |
               [[[
                 if (entity.state == 'playing')
-                  return "inset -4px -4px 8px 0 var(--custom-badge-color-blue), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
-                return "-2px -2px 4px 0 var(--custom-badge-color-blue),4px 4px 8px 0 rgba(0,0,0,.03)"
+                  return "inset -4px -4px 8px 0 var(--mm-blue-grey-darken), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
+                return "-2px -2px 4px 0 var(--mm-blue-grey-darken),4px 4px 8px 0 rgba(0,0,0,.03)"
               ]]]
         img_cell:
           - grid-column: i / l
@@ -176,7 +176,7 @@
                 - grid-template-columns: min-content auto
                 - grid-template-rows: min-content min-content min-content
               img_cell:
-                - background-color: var(--pastille_off)
+                - background-color: var(--mm-blue-grey-darken)
                 - border-radius: 50%
                 - place-self: start
                 - text-align: start
@@ -184,9 +184,9 @@
                 - height: 35px
               icon:
                 - width: 55%
-                - color: var(--icon_off)
+                - color: var(--mm-blue-grey)
               name:
-                - color: rgba(232,233,242,1)
+                - color: var(--mm-silver)
                 - align-self: start
                 - justify-self: start
                 - text-align: left
@@ -194,7 +194,7 @@
                 - font-size: 15px
                 - margin-left: 9px
               state:
-                - color: rgba(232,233,242,0.8)
+                - color: var(--mm-silver)
                 - align-self: end
                 - justify-self: start
                 - text-align: left
@@ -205,7 +205,7 @@
                 - line-height: 110%
               label:
                 - white-space: normal
-                - color: rgba(232,233,242,0.6)
+                - color: var(--mm-silver)
                 - justify-self: start
                 - align-self: start
                 - text-align: left
@@ -220,12 +220,7 @@
                 - white-space: normal
                 - height: 145px
                 - width: 175px
-                - box-shadow: |
-                    [[[
-                      if (entity.state == 'playing')
-                        return "inset -4px -4px 8px 0 var(--custom-badge-color-blue), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
-                      return "-2px -2px 4px 0 var(--custom-badge-color-blue),4px 4px 8px 0 rgba(0,0,0,.03)"
-                    ]]]
+                - box-shadow: "-1px -1px 1px 0 var(--mm-blue-grey-darken),2px 2px 4px 0 rgba(0,0,0,.03)"
               custom_fields:
                 bouton:
                   - position: absolute
@@ -277,8 +272,7 @@
                       radius: 6px
                       height: 10px
                       rotate: 0
-                      mainSliderColor: var(--pastille_off)
-                      secondarySliderColor: darkslategrey
+                      mainSliderColor: var(--mm-blue-grey)
                       thumbHorizontalPadding: 0px
                       thumbVerticalPadding: 0px
                       thumbWidth: 1px
@@ -297,9 +291,9 @@
                           - height: 27px
                           - padding: 02px
                           - line-height: 77%
-                          - background: var(--background-button-in-card)
+                          - background: var(--mm-blue-grey-darken)
                         icon:
-                          - color: var(--pastille_off)
+                          - color: var(--mm-blue-grey)
                           - width: 20px
                           - padding-bottom: 0px
                       tap_action:
@@ -320,9 +314,9 @@
                           - height: 27px
                           - padding: 02px
                           - line-height: 77%
-                          - background: var(--background-button-in-card)
+                          - background: var(--mm-blue-grey-darken)
                         icon:
-                          - color: var(--pastille_off)
+                          - color: var(--mm-blue-grey)
                           - width: 20px
                           - padding-bottom: 0px
                       tap_action:
@@ -343,9 +337,9 @@
                           - height: 27px
                           - padding: 02px
                           - line-height: 77%
-                          - background: var(--background-button-in-card)
+                          - background: var(--mm-blue-grey-darken)
                         icon:
-                          - color: var(--pastille_off)
+                          - color: var(--mm-blue-grey)
                           - width: 20px
                           - padding-bottom: 0px
                       tap_action:

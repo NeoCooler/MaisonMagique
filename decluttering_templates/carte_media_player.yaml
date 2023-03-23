@@ -5,7 +5,7 @@
       # - sensor: sensor.compteur_cave
 
     card:
-      type: custom:mini-media-player     
+      type: custom:mini-media-player
       icon: mdi:google-home
       entity: '[[entity]]'
       name: '[[name]]'

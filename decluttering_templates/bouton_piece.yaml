@@ -24,28 +24,28 @@
           - height: 27px
           - padding: 02px
           - line-height: 77%
-          - background: var(--mm-null)
+          - background: var(--mm-transparent)
         icon:
-          - color: var(--mm-grey)
+          - color: var(--mm-blue-grey)
           - width: 16px
           - padding-bottom: 0px
       state:
         - value: 'on'
           styles:
             icon:
-              - color: var(--mm-lightgrey)
+              - color: var(--mm-green-accent)
         - value: home
           styles:
             icon:
-              - color: var(--mm-lightgrey)
+              - color: var(--mm-green-accent)
         - value: playing
           styles:
             icon:
-              - color: var(--mm-lightgrey)
+              - color: var(--mm-green-accent)
         - value: unavailable
           styles:
             icon:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
               - animation: blink 0.8s ease infinite
       tap_action:
         action: none

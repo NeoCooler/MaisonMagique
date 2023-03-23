@@ -41,7 +41,7 @@
             - padding: 0px 0px 0px 0px
             - font-weight: null
             - font-size: 15px
-            - color: var(--text_on_sidebar)
+            - color: var(--mm-silver)
             - text-align: left
             - white-space: normal
           alerte:
@@ -51,13 +51,13 @@
             - color: |
                 [[[
                   if (states['sensor.weather_alerte_lvl'].state == "1; Green; Minor")
-                      return 'var(--custom-icon-color-green)'
+                      return 'var(--mm-green-accent)'
                   if (states['sensor.weather_alerte_lvl'].state == "2; yellow; Moderate")
-                    return 'var(--custom-icon-color-yellow)'
+                    return 'var(--mm-yellow-accent)'
                   if (states['sensor.weather_alerte_lvl'].state == "3; orange; Severe")
-                    return 'var(--custom-icon-color-orange)'
+                    return 'var(--mm-orange-accent)'
                   if (states['sensor.weather_alerte_lvl'].state == "4; red; High")
-                    return 'var(--custom-icon-color-red)'
+                    return 'var(--mm-red-accent)'
                   return ''
                 ]]]
             - text-align: left
@@ -67,7 +67,7 @@
             - padding: 0px 0px 0px 0px
             - font-weight: null
             - font-size: 12px
-            - color: var(--text_on_sidebar)
+            - color: var(--mm-silver)
             - text-align: right
             - white-space: normal
             
@@ -75,7 +75,7 @@
             - padding: 0px 0px 0px 0px
             - font-weight: null
             - font-size: 12px
-            - color: var(--text_on_sidebar)
+            - color: var(--mm-silver)
             - text-align: right
             - white-space: normal
       custom_fields:
@@ -93,7 +93,6 @@
                 ha-card {
                   background: none;
                   box-shadow: none;
-                  font-family: Quicksand;
                   margin-bottom: -0.9em;
                 }
             styles:
@@ -198,7 +197,7 @@
               entity_picture:
                 - width: 90%
               name:
-                - color: rgba(232,233,242,1)
+                - color: var(--mm-silver)
                 - align-self: end
                 - justify-self: start
                 - text-align: left
@@ -255,7 +254,7 @@
               entity_picture:
                 - width: 90%
               name:
-                - color: rgba(232,233,242,1)
+                - color: var(--mm-silver)
                 - align-self: end
                 - justify-self: start
                 - text-align: left

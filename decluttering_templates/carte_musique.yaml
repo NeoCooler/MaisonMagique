@@ -29,8 +29,8 @@
           - box-shadow: |
               [[[
                 if (entity.state == 'playing')
-                  return "inset -4px -4px 8px 0 var(--mm-darkblue), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
-                return "-2px -2px 4px 0 var(--mm-darkblue),4px 4px 8px 0 rgba(0,0,0,.03)"
+                  return "inset -4px -4px 8px 0 var(--mm-blue-grey-darken), inset 4px 4px 8px 0 rgba(0,0,0,.03)"
+                return "-2px -2px 4px 0 var(--mm-blue-grey-darken),4px 4px 8px 0 rgba(0,0,0,.03)"
               ]]]
         img_cell:
           - grid-column: i / l
@@ -176,7 +176,7 @@
                 - grid-template-columns: min-content auto
                 - grid-template-rows: min-content min-content min-content
               img_cell:
-                - background-color: var(--mm-darkblue)
+                - background-color: var(--mm-blue-grey-darken)
                 - border-radius: 50%
                 - place-self: start
                 - text-align: start
@@ -184,7 +184,7 @@
                 - height: 35px
               icon:
                 - width: 55%
-                - color: var(--mm-grey)
+                - color: var(--mm-blue-grey)
               name:
                 - color: var(--mm-silver)
                 - align-self: start
@@ -194,7 +194,7 @@
                 - font-size: 15px
                 - margin-left: 9px
               state:
-                - color: var(--mm-lightgrey)
+                - color: var(--mm-silver)
                 - align-self: end
                 - justify-self: start
                 - text-align: left
@@ -205,7 +205,7 @@
                 - line-height: 110%
               label:
                 - white-space: normal
-                - color: var(--mm-lightgrey)
+                - color: var(--mm-silver)
                 - justify-self: start
                 - align-self: start
                 - text-align: left
@@ -220,7 +220,7 @@
                 - white-space: normal
                 - height: 145px
                 - width: 175px
-                - box-shadow: "-1px -1px 1px 0 var(--mm-darkblue),2px 2px 4px 0 rgba(0,0,0,.03)"
+                - box-shadow: "-1px -1px 1px 0 var(--mm-blue-grey-darken),2px 2px 4px 0 rgba(0,0,0,.03)"
               custom_fields:
                 bouton:
                   - position: absolute
@@ -266,8 +266,7 @@
                       radius: 6px
                       height: 10px
                       rotate: 0
-                      mainSliderColor: var(--mm-grey)
-                      secondarySliderColor: var(--mm-darkblue)
+                      mainSliderColor: var(--mm-blue-grey)
                       thumbHorizontalPadding: 0px
                       thumbVerticalPadding: 0px
                       thumbWidth: 1px
@@ -286,9 +285,9 @@
                           - height: 27px
                           - padding: 02px
                           - line-height: 77%
-                          - background: var(--mm-darkblue)
+                          - background: var(--mm-blue-grey-darken)
                         icon:
-                          - color: var(--mm-grey)
+                          - color: var(--mm-blue-grey)
                           - width: 20px
                           - padding-bottom: 0px
                       tap_action:
@@ -309,9 +308,9 @@
                           - height: 27px
                           - padding: 02px
                           - line-height: 77%
-                          - background: var(--mm-darkblue)
+                          - background: var(--mm-blue-grey-darken)
                         icon:
-                          - color: var(--mm-grey)
+                          - color: var(--mm-blue-grey)
                           - width: 20px
                           - padding-bottom: 0px
                       tap_action:
@@ -332,9 +331,9 @@
                           - height: 27px
                           - padding: 02px
                           - line-height: 77%
-                          - background: var(--mm-darkblue)
+                          - background: var(--mm-blue-grey-darken)
                         icon:
-                          - color: var(--mm-grey)
+                          - color: var(--mm-blue-grey)
                           - width: 20px
                           - padding-bottom: 0px
                       tap_action:

@@ -26,7 +26,7 @@
           - grid-template-columns: min-content auto
           - grid-template-rows: min-content min-content min-content
         img_cell:
-          - background-color: var(--pastille_off)
+          - background-color: var(--mm-blue-grey-darken)
           - border-radius: 50%
           - place-self: start
           - text-align: start
@@ -34,9 +34,9 @@
           - height: 35px
         icon:
           - width: 55%
-          - color: var(--icon_off)
+          - color: var(--mm-blue-grey)
         name:
-          - color: rgba(232,233,242,1)
+          - color: var(--mm-silver)
           - align-self: end
           - justify-self: start
           - text-align: left
@@ -45,7 +45,7 @@
           - margin-left: 9px
         label:
           - white-space: normal
-          - color: lightgrey
+          - color: var(--mm-silver)
           - justify-self: start
           - align-self: start
           - text-align: left
@@ -74,8 +74,8 @@
             - width: 15%
             - position: absolute
             - z-index: 2
-            - '--paper-card-background-color': rgba(0, 0, 0, 0.0)
-            - '--ha-card-background': rgba(0, 0, 0, 0.0)"
+            - '--paper-card-background-color': var(--mm-transparent)
+            - '--ha-card-background': var(--mm-transparent)
             - '--ha-card-box-shadow': none
             - '--ha-card-border-width': 0px
           bouton2:

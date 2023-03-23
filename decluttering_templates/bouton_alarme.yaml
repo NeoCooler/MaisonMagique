@@ -13,7 +13,7 @@
           - height: 27px
           - padding: 02px
           - line-height: 77%
-          - background: var(--background-button-in-card)
+          - background: var(--mm-blue-grey-darken)
         icon:
           - color: grey
           - width: 20px
@@ -21,18 +21,18 @@
           - color: |-
               [[[ 
                  if( states['[[alarm]]'].state == "disarmed" & '[[script]]' == "script.alarme_disarmed")
-                  return "var(--custom-card-color-green)"
+                  return "var(--mm-green-accent)"
                  if( states['[[alarm]]'].state == "armed_away" & '[[script]]' == "script.alarme_armed_away")
-                  return "var(--custom-card-color-green)"
+                  return "var(--mm-green-accent)"
                  if( states['[[alarm]]'].state == "armed_night" & '[[script]]' == "script.alarme_armed_night")
-                  return "var(--custom-card-color-green)"
+                  return "var(--mm-green-accent)"
                  if( states['[[alarm]]'].state == "armed_home" & '[[script]]' == "script.alarme_armed_home")
-                  return "var(--custom-card-color-green)"
+                  return "var(--mm-green-accent)"
                  if( states['[[alarm]]'].state == "arming")
-                  return "var(--custom-card-color-orange)"
+                  return "var(--mm-orange-accent)"
                  if( states['[[alarm]]'].state == "triggered")
-                  return "var(--custom-card-color-red)"
-                 return "var(--icon_off)"
+                  return "var(--mm-red-accent)"
+                 return "var(--mm-blue-grey)"
               ]]]
       tap_action:
         action: toggle

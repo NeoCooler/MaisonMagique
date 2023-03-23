@@ -28,10 +28,10 @@
           - margin-left: 9px
         icon:
           - width: 55%
-          - color: var(--mm-grey)
+          - color: var(--mm-blue-grey)
         label:
           - white-space: normal
-          - color: var(--mm-lightgrey)
+          - color: var(--mm-silver)
           - justify-self: start
           - align-self: start
           - text-align: left
@@ -46,7 +46,7 @@
           - grid-template-columns: min-content auto
           - grid-template-rows: min-content min-content min-content
         img_cell:
-          - background-color: var(--mm-darkblue)
+          - background-color: var(--mm-blue-grey-darken)
           - border-radius: 50%
           - place-self: start
           - text-align: start
@@ -151,84 +151,84 @@
         - value: "unavailable"
           styles:
             card:
-              - border-color: var(--mm-red)
+              - border-color: var(--mm-red-accent)
               - opacity: 100%
             icon:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
               - animation: blink 0.8s ease infinite
               - transition: 1s ease
             name:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
             label:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
             state:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
         - value: disarmed
-          color: var(--mm-grey)
+          color: var(--mm-blue-grey)
           styles:
             icon:
-              - color: var(--mm-grey)
+              - color: var(--mm-blue-grey)
               - transition: 1s ease
         - value: 'off'
-          color: var(--mm-grey)
+          color: var(--mm-blue-grey)
           styles:
             icon:
-              - color: var(--mm-grey)
+              - color: var(--mm-blue-grey)
               - transition: 1s ease
         - value: armed_away
-          color: var(--mm-green)
+          color: var(--mm-green-accent)
           styles:
             card:
               - animation: ball-scale 0.2s
-              - background-color: var(--mm-green)
+              - background-color: var(--mm-green-accent)
             icon:
-              - color: var(--custom-icon-color-green)
+              - color: var(--mm-green-accent)
               - transition: 1s ease
         - value: armed_night
-          color: var(--mm-green)
+          color: var(--mm-green-accent)
           styles:
             card:
               - animation: ball-scale 0.2s
-              - background-color: var(--mm-green)
+              - background-color: var(--mm-green-accent)
             icon:
-              - color: var(--custom-icon-color-green)
+              - color: var(--mm-green-accent)
               - transition: 1s ease
         - value: armed_home
-          color: var(--mm-green)
+          color: var(--mm-green-accent)
           styles:
             card:
               - animation: ball-scale 0.2s
-              - background-color: var(--mm-green)
+              - background-color: var(--mm-green-accent)
             icon:
-              - color: var(--custom-icon-color-green)
+              - color: var(--mm-green-accent)
               - transition: 1s ease
         - value: arming
-          color: var(--mm-orange)
+          color: var(--mm-orange-accent)
           styles:
             card:
               - animation: ball-scale 0.2s
               - background-color: var(--mm-orange)
             icon:
-              - color: var(--mm-orange)
+              - color: var(--mm-orange-accent)
               - transition: 1s ease
         - value: pending
-          color: var(--mm-orange)
+          color: var(--mm-orange-accent)
           styles:
             card:
               - animation: ball-scale 0.2s
               - background-color: var(--mm-orange)
             icon:
-              - color: var(--mm-orange)
+              - color: var(--mm-orange-accent)
               - animation: blink 1s ease infinite
               - transition: 1s ease
         - value: triggered
-          color: var(--mm-red)
+          color: var(--mm-red-accent)
           styles:
             card:
               - animation: ball-scale 0.2s
               - background-color: var(--mm-red)
             icon:
-              - color: var(--mm-red)
+              - color: var(--mm-red-accent)
               - animation: blink 1s ease infinite
               - transition: 1s ease
       tap_action:
