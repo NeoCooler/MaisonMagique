@@ -1,0 +1,23 @@
+    state:
+      - operator: template
+        value: >-
+          [[[ return entity.state == "on" || entity.state == "home" ||
+          entity.state == "heat" || entity.state == "Run" || entity.state ==
+          "armed_away" || entity.state == "playing" || entity.state ==
+          "veille"]]]
+        styles:
+          icon:
+            - color: var(--mm-red-accent)
+      - operator: template
+        value: >-
+          [[[ return entity.state == "off" || entity.state == "not_home" ||
+          entity.state == "disarmed" || entity.state == "standby" ||
+          entity.state == "idle" || entity.state == "paused" ]]]
+        styles:
+          icon:
+            - color: var(--mm-blue-grey)
+      - value: unavailable
+        styles:
+          icon:
+            - color: var(--mm-red)
+            - animation: blink 0.8s ease infinite

@@ -1,0 +1,7 @@
+    styles:
+      card:
+        - border-color: var(--mm-blue-grey-darken)
+        - border-style: outset
+        - border-width: 1px
+        - border-radius: 15px
+        - box-shadow: -2px -2px 4px 0 var(--mm-blue-grey-darken),4px 4px 8px 0 rgba(0,0,0,.03)
